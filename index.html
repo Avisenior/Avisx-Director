@@ -492,10 +492,7 @@
     <div class="vm-card"><video src="Viking warriors.mp4" muted autoplay loop playsinline preload="auto"></video></div>
     <div class="vm-card"><video src="FREDDY KRUGER.mp4" muted autoplay loop playsinline preload="auto"></video></div>
     <div class="vm-card"><video src="SAVE THE DATE.mp4" muted autoplay loop playsinline preload="auto"></video></div>
-    <div class="vm-card"><video src="Happy 80th, Hanna.mp4" muted autoplay loop playsinline preload="auto"></video></div>
-    <div class="vm-card"><video src="Boxing movie.mp4" muted autoplay loop playsinline preload="auto"></video></div>
-  </div>
-</div>
+    <div class="vm-card" style="position:relative;overflow:hidden;"><iframe src="https://www.youtube.com/embed/H_aXOt_27Rw?autoplay=1&mute=1&loop=1&playlist=H_aXOt_27Rw&controls=0&modestbranding=1&rel=0" style="position:absolute;top:-10%;left:0;width:100%;height:120%;border:0;pointer-events:none;" allow="autoplay; encrypted-media"></iframe></div>
 
 <!-- ABOUT -->
 <section id="about">
@@ -692,7 +689,11 @@
           <div class="reel-info"><div class="reel-title">SAVE THE DATE</div><div class="reel-cat" data-he="Walking Dead Edition" data-en="Walking Dead Edition">Walking Dead Edition</div></div>
         </div>
         <div class="reel-card">
-          <div class="reel-media"><video src="Happy 80th, Hanna.mp4" muted loop playsinline preload="none"></video><div class="reel-hover-over"><div class="reel-play">&#9654;</div></div></div>
+          <div class="reel-media" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/H_aXOt_27Rw?autoplay=0&mute=1&loop=1&playlist=H_aXOt_27Rw&controls=0&modestbranding=1&rel=0"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+              allowfullscreen allow="autoplay; encrypted-media"></iframe>
+          </div>
           <div class="reel-info"><div class="reel-title">Happy 80th, Hanna</div><div class="reel-cat" data-he="יום הולדת" data-en="Birthday">יום הולדת</div></div>
         </div>
         <div class="reel-card">
@@ -730,9 +731,9 @@
         <span class="ic">📞</span>
         <div class="info"><strong data-he="טלפון" data-en="Phone">טלפון</strong><span>050-689-0125</span></div>
       </a>
-      <a href="mailto:Avisenior1@gmail.com" class="c-card">
+      <a href="/cdn-cgi/l/email-protection#d190a7b8a2b4bfb8bea3e091b6bcb0b8bdffb2bebc" class="c-card">
         <span class="ic">✉️</span>
-        <div class="info"><strong data-he="אימייל" data-en="Email">אימייל</strong><span>Avisenior1@gmail.com</span></div>
+        <div class="info"><strong data-he="אימייל" data-en="Email">אימייל</strong><span><span class="__cf_email__" data-cfemail="b2f3c4dbc1d7dcdbddc083f2d5dfd3dbde9cd1dddf">[email&#160;protected]</span></span></div>
       </a>
     </div>
     <a href="https://wa.me/972506890125?text=היי אבי, אני מעוניין בהפקת סרטון"
@@ -763,7 +764,7 @@
 
 <a href="https://wa.me/972506890125?text=היי אבי, אני מעוניין בהפקת סרטון" class="wa-float" target="_blank">💬</a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // CURSOR
 const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
@@ -1093,10 +1094,4 @@ function toggleLang(){
   document.documentElement.setAttribute('lang',lang);
   document.documentElement.setAttribute('dir',isEn?'ltr':'rtl');
   document.getElementById('langBtn').textContent=isEn?'HE':'EN';
-  document.querySelectorAll('.c-card .info').forEach(el=>el.style.textAlign=isEn?'left':'right');
-  document.querySelectorAll('[data-'+lang+']').forEach(el=>{el.innerHTML=el.getAttribute('data-'+lang)});
-  buildHL(lang);
-}
-</script>
-</body>
-</html>
+  do
