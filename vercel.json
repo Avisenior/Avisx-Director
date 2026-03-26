@@ -4,11 +4,11 @@
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "X-XSS-Protection", "value": "1; mode=block" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.equalweb.com https://*.equalweb.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://player.vimeo.com; connect-src 'self' https://*.vimeo.com https://*.equalweb.com; worker-src blob:" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.equalweb.com https://*.equalweb.com https://player.vimeo.com https://f.vimeocdn.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.equalweb.com; font-src 'self' https://fonts.gstatic.com https://*.equalweb.com data:; img-src 'self' data: https: blob:; frame-src https://player.vimeo.com https://*.equalweb.com; connect-src 'self' https://*.vimeo.com https://vimeo.com https://*.equalweb.com wss://*.equalweb.com; worker-src blob: 'self'; media-src https://*.vimeo.com blob:" }
       ]
     }
   ]
