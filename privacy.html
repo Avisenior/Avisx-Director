@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מדיניות פרטיות - AvisX Director</title>
+  <meta name="description" content="מדיניות פרטיות של AvisX Director">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #04040a;
+      --bg2:      #080812;
+      --bg3:      #0e0e1a;
+      --silver:   #c8c8d8;
+      --silver-lt:#e8e8f5;
+      --teal:     #3af0d0;
+      --border:   rgba(255,255,255,0.06);
+      --text:     #f0f0f5;
+      --muted:    #70708a;
+      --radius:   14px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Heebo',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; min-height:100vh; }
+    ::-webkit-scrollbar{width:3px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(4,4,10,.92);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav a.logo img { height: 32px; opacity: .8; transition: opacity .2s; }
+    nav a.logo:hover img { opacity: 1; }
+    nav a.back {
+      color: var(--teal); font-size: 14px; font-weight: 500;
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: opacity .2s;
+    }
+    nav a.back:hover { opacity: .75; }
+
+    main {
+      max-width: 720px; margin: 0 auto;
+      padding: 64px 32px 100px;
+    }
+
+    .page-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 20px;
+    }
+    .page-label::before {
+      content: ''; display: block;
+      width: 24px; height: 1px; background: var(--teal);
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 900; line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--silver-lt);
+      margin-bottom: 10px;
+    }
+    .update-date {
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .intro {
+      font-size: 15px; line-height: 1.85; color: var(--silver);
+      margin-bottom: 48px;
+    }
+    .intro a { color: var(--teal); text-decoration: none; }
+
+    .section { margin-bottom: 36px; }
+    .section h2 {
+      font-size: 17px; font-weight: 700;
+      color: var(--silver-lt);
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section h2 .num {
+      font-size: 12px; font-weight: 700;
+      color: var(--teal); opacity: .55;
+      font-family: 'Courier New', monospace;
+    }
+    .section p { font-size: 15px; line-height: 1.85; color: var(--silver); }
+    .section ul {
+      padding-right: 18px;
+      display: flex; flex-direction: column; gap: 8px;
+      margin-top: 10px;
+    }
+    .section ul li { font-size: 15px; line-height: 1.8; color: var(--silver); }
+    .section ul li::marker { color: var(--teal); }
+
+    .notice-box {
+      background: rgba(58,240,208,0.05);
+      border: 1px solid rgba(58,240,208,0.15);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-top: 12px;
+      font-size: 14px; line-height: 1.75; color: var(--muted);
+    }
+
+    .contact-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+    .contact-box h2 {
+      font-size: 16px; font-weight: 700;
+      color: var(--silver-lt); margin-bottom: 14px;
+    }
+    .contact-box a { color: var(--teal); text-decoration: none; }
+    .contact-box a:hover { text-decoration: underline; }
+    .contact-box p { font-size: 15px; line-height: 2.1; color: var(--silver); }
+
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      text-align: center;
+      font-size: 12px; color: var(--muted);
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; }
+      main { padding: 40px 20px 80px; }
+      footer { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <img src="logo_transparent.png" alt="AvisX Director">
+  </a>
+  <a href="index.html" class="back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    חזרה לאתר
+  </a>
+</nav>
+
+<main>
+  <div class="page-label">מסמך משפטי</div>
+  <h1>מדיניות פרטיות</h1>
+  <p class="update-date">עדכון אחרון: מרץ 2026</p>
+
+  <p class="intro">
+    ברוך הבא לאתר AvisX Director בכתובת <a href="https://avisx-director.com/">avisx-director.com</a>.
+    אנו מכבדים את פרטיותך ומחויבים לשקיפות מלאה לגבי המידע באתר.
+  </p>
+
+  <div class="section">
+    <h2><span class="num">01</span> איסוף מידע</h2>
+    <p>האתר הינו אתר תדמיתי בלבד ואינו אוסף מידע על הגולשים באופן אוטומטי בעת הביקור בו.</p>
+    <div class="notice-box">
+      שירות הנגישות המופעל באתר (EqualWeb) עשוי לשמור מידע טכני מינימלי בהתאם
+      <a href="https://www.equalweb.com/privacy-policy/" target="_blank" rel="noopener">למדיניות הפרטיות שלו</a>.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">02</span> יצירת קשר</h2>
+    <p>המידע היחיד שנאסף הוא מידע שאתה בוחר למסור מרצונך החופשי בעת פנייה אלינו דרך הקישורים המופיעים באתר (וואטסאפ, טלפון או דוא"ל). מידע זה (כגון שמך ומספר הטלפון שלך) משמש אך ורק לצורך מתן מענה לפנייתך בנושא הפקת סרטונים ושירותי העסק.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">03</span> העברת מידע לצדדים שלישיים</h2>
+    <p>אנו מתחייבים שלא למסור, למכור או להעביר את פרטי הקשר שלך לשום גורם צד שלישי, למעט במקרים בהם נדרש לעשות כן על פי חוק או צו שיפוטי.</p>
+    <p style="margin-top:10px">יש לציין כי פנייה דרך צדדים שלישיים (כמו וואטסאפ או ספקי דואר אלקטרוני) כפופה למדיניות הפרטיות ולאבטחה של אותם גופים.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">04</span> אבטחת מידע</h2>
+    <p>אנו נוקטים באמצעים סבירים כדי להגן על המידע שנמסר לנו בעת הפנייה.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">05</span> שמירת מידע</h2>
+    <p>המידע שנמסר בעת פנייתך נשמר רק לפרק הזמן הנדרש למתן מענה לפנייה, ולא מעבר לכך.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">06</span> זכויותיך</h2>
+    <p>על פי חוק הגנת הפרטיות, התשמ"א-1981, הנך זכאי לעיין במידע המוחזק עליך ולבקש לתקנו או למחוק אותו.</p>
+  </div>
+
+  <div class="contact-box">
+    <h2>יצירת קשר בנושא פרטיות</h2>
+    <p>
+      אבי סניור<br>
+      דוא"ל: <a href="mailto:avi@avisx-director.com">avi@avisx-director.com</a><br>
+      טלפון / וואטסאפ: <a href="https://wa.me/972506890125">050-689-0125</a>
+    </p>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025-2026 AvisX Director. כל הזכויות שמורות. &nbsp;|&nbsp; <a href="index.html">חזרה לאתר</a></p>
+</footer>
+
+</body>
+</html>
