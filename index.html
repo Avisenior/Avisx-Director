@@ -338,6 +338,9 @@
     .c-card .info span{font-size:12px;color:var(--muted);display:block;margin-top:3px;direction:ltr}
     .wa-btn{display:inline-flex;align-items:center;gap:14px;background:#25D366;color:#fff;padding:17px 44px;border-radius:50px;font-weight:700;font-size:17px;text-decoration:none;transition:all .3s;box-shadow:0 0 40px rgba(37,211,102,.3)}
     .wa-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 0 70px rgba(37,211,102,.5)}
+    .privacy-note{margin-top:16px;font-size:12px;color:var(--muted)}
+    .privacy-note a{color:var(--teal);text-decoration:none}
+    .privacy-note a:hover{text-decoration:underline}
 
     /* FOOTER */
     footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px;display:flex;flex-direction:column;align-items:center;gap:24px}
@@ -940,6 +943,11 @@
       <span>💬</span>
       <span data-he="שליחת הודעה בוואצאפ" data-en="Message on WhatsApp">שליחת הודעה בוואצאפ</span>
     </a>
+    <p class="privacy-note rev d5"
+       data-he='בפנייה אלינו אתה מסכים ל<a href="privacy.html">מדיניות הפרטיות</a> שלנו'
+       data-en='By contacting us you agree to our <a href="privacy.html">Privacy Policy</a>'>
+      בפנייה אלינו אתה מסכים ל<a href="privacy.html">מדיניות הפרטיות</a> שלנו
+    </p>
   </div>
 </section>
 
@@ -956,12 +964,13 @@
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
     </a>
   </div>
-  <p data-he="© 2025 AvisX Director. כל הזכויות שמורות." data-en="© 2025 AvisX Director. All rights reserved.">
-    © 2025 AvisX Director. כל הזכויות שמורות.
+  <p data-he="© 2025-2026 AvisX Director. כל הזכויות שמורות." data-en="© 2025-2026 AvisX Director. All rights reserved.">
+    © 2025-2026 AvisX Director. כל הזכויות שמורות.
   </p>
   <div style="text-align:center;padding:12px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);">
     <a href="mailto:avi@avisx-director.com" style="color:var(--teal);text-decoration:none;">הצהרת נגישות</a>
     &nbsp;|&nbsp; האתר עומד בדרישות תקן נגישות WCAG 2.1 רמה AA
+    &nbsp;|&nbsp; <a href="privacy.html" style="color:var(--teal);text-decoration:none;">מדיניות פרטיות</a>
   </div>
 </footer>
 
