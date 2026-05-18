@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הצעת מחיר | יריב בכר הנדסה ניהול ופיקוח בע"מ | AvisX Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Heebo:wght@300;400;500;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:           #000000;
+  --bg2:          #0a0a0a;
+  --bg3:          #111111;
+  --bg4:          #161616;
+  --cream:        #EFF4FF;
+  --accent:       #e85d04;
+  --accent-hi:    #ff7a1f;
+  --muted:        rgba(239,244,255,0.5);
+  --muted-lo:     rgba(239,244,255,0.35);
+  --border:       rgba(239,244,255,0.07);
+  --border-md:    rgba(239,244,255,0.12);
+  --border-hi:    rgba(239,244,255,0.18);
+  --accent-dim:   rgba(232,93,4,0.12);
+  --accent-glow:  rgba(232,93,4,0.35);
+}
+
+html { background: var(--bg); scroll-behavior: smooth; }
+
+body {
+  font-family: 'Heebo', 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ======================================================
+   CUSTOM CURSOR
+====================================================== */
+body { cursor: none; }
+* { cursor: none !important; }
+@media (hover: none) { body { cursor: auto; } * { cursor: auto !important; } }
+
+.cursor {
+  position: fixed; left: 0; top: 0;
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+  transition: width .2s, height .2s;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.cursor-ring {
+  position: fixed; left: 0; top: 0;
+  width: 36px; height: 36px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  will-change: transform;
+  transition: width .4s ease, height .4s ease;
+  opacity: 0.7;
+}
+
+body:has(a:hover, button:hover) .cursor { width: 14px; height: 14px; }
+body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
+
+@media (max-width: 767px) {
+  .cursor, .cursor-ring { display: none !important; }
+  body { cursor: auto !important; }
+  * { cursor: auto !important; }
+}
+
+/* Film grain */
+.texture-overlay {
+  position: fixed; inset: 0; z-index: 50;
+  pointer-events: none;
+  mix-blend-mode: lighten;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
+}
+
+/* ======================================================
+   HERO
+====================================================== */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.hero-video-wrap {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden;
+}
+
+.hero-video-wrap iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 177.78vh; height: 56.25vw;
+  min-width: 100%; min-height: 100%;
+  transform: translate(-50%, -50%);
+  border: 0; pointer-events: none;
+  opacity: 0;
+  animation: fadeInV 1.8s ease 0.6s forwards;
+}
+
+@keyframes fadeInV { to { opacity: 1; } }
+
+.hero-video-wrap::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse at 55% 45%, transparent 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.9) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.65) 0%, transparent 35%, rgba(0,0,0,0.88) 100%);
+}
+
+.hero-topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 28px clamp(20px, 4vw, 56px);
+}
+
+.hero-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+
+.brand-dot {
+  width: 9px; height: 9px;
+  background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 14px var(--accent-glow); flex-shrink: 0;
+}
+
+.brand-name {
+  font-family: 'Anton', sans-serif; font-size: 16px;
+  letter-spacing: 0.07em; text-transform: uppercase; color: var(--cream);
+}
+.brand-name .sep { color: var(--accent); opacity: 0.55; margin: 0 1px; }
+
+.doc-meta-top { text-align: left; direction: ltr; }
+.doc-num { font: 700 11px ui-monospace, monospace; letter-spacing: 0.22em; color: var(--accent); display: block; }
+.doc-date { font: 400 10px ui-monospace, monospace; letter-spacing: 0.16em; color: var(--muted-lo); display: block; margin-top: 4px; }
+.doc-valid { font: 400 10px 'Heebo', sans-serif; color: var(--muted-lo); display: block; margin-top: 3px; }
+
+.hero-inner {
+  position: relative; z-index: 5;
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 clamp(20px, 4vw, 56px) 80px;
+}
+
+.hero-tag {
+  font: 700 10px ui-monospace, monospace; letter-spacing: 0.32em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 22px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+
+.hero-script {
+  font-family: 'Caveat', cursive; font-size: clamp(30px, 4vw, 52px);
+  color: var(--accent); transform: rotate(-3deg); display: inline-block;
+  margin-bottom: 10px; text-shadow: 0 0 30px rgba(232,93,4,0.45);
+}
+
+.hero-heading {
+  font-family: 'Anton', sans-serif; text-transform: uppercase; color: var(--cream);
+  font-size: clamp(54px, 11vw, 110px); line-height: 0.9; margin-bottom: 28px;
+}
+.hero-heading .accent { color: var(--accent); }
+
+.hero-client-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
+.hero-for-label { font: 700 10px ui-monospace, monospace; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+.hero-client-name { font-family: 'Anton', sans-serif; font-size: clamp(24px, 4vw, 36px); color: var(--cream); letter-spacing: 0.03em; }
+
+.hero-sub {
+  font: 400 15px/1.7 'Heebo', sans-serif; color: var(--muted);
+  max-width: 500px; border-right: 2px solid var(--accent);
+  padding-right: 14px; margin-bottom: 36px;
+}
+
+.scroll-cue { display: flex; align-items: center; gap: 10px; font: 700 10px ui-monospace, monospace; letter-spacing: 0.25em; color: var(--muted-lo); text-transform: uppercase; }
+.scroll-line { width: 40px; height: 1px; background: linear-gradient(to left, rgba(239,244,255,0.5), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{transform:scaleX(1);opacity:0.5;} 50%{transform:scaleX(0.5);opacity:1;} }
+
+/* ======================================================
+   PAGE LAYOUT
+====================================================== */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 48px 100px;
+}
+
+@media (max-width: 640px) {
+  .page { padding: 56px 20px 72px; }
+}
+
+/* ======================================================
+   SECTION META
+====================================================== */
+.sec-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 700 10px 'Heebo', sans-serif; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+}
+.sec-label::before {
+  content: ''; width: 7px; height: 7px;
+  background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.sec-title {
+  font-family: 'Anton', sans-serif; font-size: clamp(28px, 4.5vw, 44px);
+  text-transform: uppercase; color: var(--cream);
+  margin-bottom: 28px; line-height: 1;
+}
+
+.page-accent-line {
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), rgba(232,93,4,0.1), transparent);
+  margin-bottom: 60px;
+}
+
+/* ======================================================
+   DELIVERABLES
+====================================================== */
+.deliverables { margin-bottom: 0; }
+.pricing { margin-top: 80px; }
+.terms   { margin-top: 80px; }
+
+.del-rows {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--border-md);
+  border-radius: 18px; overflow: hidden;
+}
+
+.del-row {
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg3); transition: background 0.2s;
+}
+.del-row:last-child { border-bottom: none; }
+.del-row:hover { background: var(--bg4); }
+
+.del-num {
+  font-family: 'Anton', sans-serif; font-size: 13px;
+  letter-spacing: 0.1em; color: var(--accent); opacity: 0.65;
+  min-width: 26px; flex-shrink: 0; direction: ltr;
+}
+
+.del-icon {
+  width: 40px; height: 40px; background: var(--accent-dim);
+  border-radius: 11px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--accent);
+}
+.del-icon svg { width: 18px; height: 18px; }
+
+.del-content { flex: 1; }
+.del-title { font: 700 15px 'Heebo', sans-serif; color: var(--cream); display: block; margin-bottom: 3px; }
+.del-desc  { font: 400 12px 'Heebo', sans-serif; color: var(--muted); line-height: 1.55; }
+
+.del-badge {
+  background: var(--accent-dim); border: 1px solid rgba(232,93,4,0.25);
+  border-radius: 20px; padding: 5px 14px;
+  font: 700 11px 'Heebo', sans-serif; color: var(--accent);
+  white-space: nowrap; flex-shrink: 0;
+}
+
+/* ======================================================
+   PRICING
+====================================================== */
+.pricing { margin-bottom: 0; }
+
+.pricing-note {
+  font: 400 13px/1.7 'Heebo', sans-serif; color: var(--muted);
+  margin-bottom: 28px;
+  padding: 14px 18px;
+  background: var(--bg3);
+  border: 1px solid var(--border-md);
+  border-radius: 12px;
+  border-right: 3px solid var(--accent);
+}
+
+.pricing-block-title {
+  font: 700 12px 'Heebo', sans-serif; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted);
+  margin: 36px 0 14px; display: flex; align-items: center; gap: 10px;
+}
+.pricing-block-title::before { content: ''; width: 22px; height: 1px; background: var(--accent); opacity: 0.55; }
+
+.price-table {
+  border: 1px solid var(--border-md); border-radius: 18px;
+  overflow: hidden; margin-bottom: 16px;
+}
+
+.price-header {
+  background: rgba(232,93,4,0.1); border-bottom: 1px solid rgba(232,93,4,0.2);
+  padding: 13px 24px; display: flex; justify-content: space-between;
+}
+.price-header-label { font: 700 10px ui-monospace, monospace; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+
+.price-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 24px; border-bottom: 1px solid var(--border);
+  background: var(--bg3); transition: background 0.2s; gap: 20px;
+}
+.price-row:last-child { border-bottom: none; }
+.price-row:hover { background: var(--bg4); }
+.price-row.featured { background: rgba(232,93,4,0.07); border-color: rgba(232,93,4,0.18); }
+
+.price-desc { flex: 1; }
+.price-name { font: 700 15px 'Heebo', sans-serif; color: var(--cream); display: block; }
+.price-note-sm { font: 400 12px 'Heebo', sans-serif; color: var(--muted); display: block; margin-top: 3px; }
+
+.price-tag { font-family: 'Anton', sans-serif; font-size: 22px; letter-spacing: 0.02em; color: var(--cream); direction: ltr; white-space: nowrap; }
+.price-row.featured .price-tag { color: var(--accent); }
+
+.price-footer-note {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 13px 24px; background: var(--bg2); border-top: 1px solid var(--border);
+  font: 400 12px 'Heebo', sans-serif; color: var(--muted);
+}
+.price-footer-note::before { content: '✦'; color: var(--accent); font-size: 9px; flex-shrink: 0; margin-top: 3px; }
+
+.total-estimate {
+  background: linear-gradient(135deg, rgba(232,93,4,0.14) 0%, rgba(232,93,4,0.04) 100%);
+  border: 1px solid rgba(232,93,4,0.3); border-radius: 16px;
+  padding: 26px 30px; display: flex; justify-content: space-between;
+  align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.total-label-text { font: 700 10px ui-monospace, monospace; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.total-range { font-family: 'Anton', sans-serif; font-size: clamp(28px, 5vw, 40px); color: var(--cream); direction: ltr; line-height: 1; }
+.total-sub { font: 400 12px 'Heebo', sans-serif; color: var(--muted); margin-top: 6px; }
+
+/* ======================================================
+   TERMS
+====================================================== */
+.terms { margin-bottom: 0; }
+
+.terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 580px) { .terms-grid { grid-template-columns: 1fr; } }
+
+.term-card {
+  background: var(--bg3); border: 1px solid var(--border-md);
+  border-radius: 16px; padding: 22px 22px 20px;
+  transition: background 0.2s;
+}
+
+.term-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+
+.term-icon {
+  width: 32px; height: 32px; background: var(--accent-dim);
+  border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--accent);
+}
+.term-icon svg { width: 15px; height: 15px; }
+
+.term-head-title { font: 700 13px 'Heebo', sans-serif; color: var(--cream); text-transform: uppercase; letter-spacing: 0.04em; }
+
+.term-items { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.term-items li {
+  font: 400 13px/1.65 'Heebo', sans-serif; color: var(--muted);
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.term-items li::before { content: ''; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+.term-items li strong { color: var(--cream); font-weight: 700; }
+
+/* ======================================================
+   SHADER CLOSING SECTION
+====================================================== */
+.shader-closing {
+  position: relative;
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  overflow: hidden;
+}
+
+#shaderCanvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0; display: block;
+}
+
+.shader-dim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.28) 40%,
+    rgba(0,0,0,0.75) 100%);
+  z-index: 1;
+}
+
+.shader-closing .closing-inner {
+  position: relative; z-index: 2;
+  text-align: center;
+  max-width: 900px; margin: 0 auto;
+  padding: 100px 48px 80px;
+}
+
+@media (max-width: 640px) {
+  .shader-closing .closing-inner { padding: 72px 20px 64px; }
+}
+
+.closing-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  font: 700 10px ui-monospace, monospace; letter-spacing: 0.38em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 32px;
+}
+.closing-eyebrow::before,
+.closing-eyebrow::after { content: ''; width: 36px; height: 1px; background: var(--accent); opacity: 0.6; }
+
+.closing-title {
+  font-family: 'Anton', sans-serif; text-transform: uppercase;
+  font-size: clamp(52px, 10vw, 108px); line-height: 0.9;
+  color: var(--cream); margin-bottom: 12px;
+  text-shadow: 0 0 80px rgba(232,93,4,0.18);
+}
+.closing-title .accent {
+  color: var(--accent);
+  text-shadow: 0 0 60px rgba(232,93,4,0.55), 0 0 120px rgba(232,93,4,0.2);
+}
+
+.closing-script {
+  font-family: 'Caveat', cursive; font-size: clamp(22px, 3.5vw, 32px);
+  color: rgba(239,244,255,0.45); margin-bottom: 40px;
+  display: block;
+}
+
+.closing-sub {
+  font: 400 16px/1.8 'Heebo', sans-serif;
+  color: var(--muted); max-width: 460px; margin: 0 auto 52px;
+}
+
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(232,93,4,0.45), 0 0 0 0 rgba(232,93,4,0.3); }
+  50%       { box-shadow: 0 8px 48px rgba(232,93,4,0.65), 0 0 0 10px rgba(232,93,4,0); }
+}
+
+.wa-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--accent); color: #fff;
+  padding: 20px 56px; border-radius: 60px;
+  font: 700 17px 'Heebo', sans-serif; text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: background 0.3s, transform 0.3s;
+  animation: ctaPulse 2.4s ease-in-out infinite;
+}
+.wa-cta:hover { background: var(--accent-hi); transform: translateY(-4px); }
+
+.closing-divider {
+  height: 1px; background: var(--border-md);
+  margin: 60px auto; max-width: 500px;
+}
+
+.quote-footer {
+  display: flex; justify-content: center;
+  align-items: flex-start; gap: 32px; flex-wrap: wrap;
+}
+
+.footer-contact strong { display: block; font: 700 16px 'Heebo', sans-serif; color: var(--cream); margin-bottom: 12px; }
+.footer-contact p { font: 400 13px/2.1 'Heebo', sans-serif; color: var(--muted); }
+.footer-contact a { color: var(--accent); text-decoration: none; }
+
+.footer-colophon {
+  width: 100%; text-align: center; margin-top: 44px;
+  padding-top: 28px; border-top: 1px solid var(--border);
+  font: 500 10px ui-monospace, monospace; letter-spacing: 0.25em;
+  text-transform: uppercase; color: rgba(239,244,255,0.2);
+}
+.footer-colophon span { color: var(--accent); }
+
+/* ======================================================
+   MOBILE
+====================================================== */
+@media (max-width: 600px) {
+  .hero-heading { font-size: clamp(44px, 13vw, 72px); }
+  .hero-sub { display: none; }
+  .del-row { flex-wrap: wrap; }
+  .del-badge { margin-top: 6px; }
+  .closing-title { font-size: clamp(38px, 12vw, 56px); }
+}
+
+/* ======================================================
+   PRINT
+====================================================== */
+@media print {
+  #loader, .texture-overlay, .scroll-cue { display: none !important; }
+  .hero-video-wrap, #shaderCanvas, .shader-dim { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- PIXEL ANIMATION LOADER -->
+<div id="loader" style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;opacity:1;transition:opacity 1.2s ease;">
+  <canvas id="pixelCanvas" width="700" height="200"></canvas>
+  <div id="loaderSub" style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:0.4em;color:rgba(255,255,255,0);margin-top:32px;transition:color 0.8s ease;text-transform:uppercase;">AI DIRECTOR</div>
+</div>
+
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+<div class="texture-overlay"></div>
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+<section class="hero-section">
+  <div class="hero-video-wrap">
+    <iframe src="https://streamable.com/e/qiu4rd?autoplay=1&loop=1&muted=1&controls=false&nocontrols=1"
+      allow="autoplay; fullscreen; playsinline" title="hero background"
+      style="position:absolute;top:50%;left:50%;width:177.78vh;height:56.25vw;min-width:100%;min-height:100%;transform:translate(-50%,-50%);border:0;pointer-events:none;"></iframe>
+  </div>
+
+  <div class="hero-topbar">
+    <div class="hero-brand">
+      <div class="brand-dot"></div>
+      <div class="brand-name">AvisX<span class="sep">/</span>Director</div>
+    </div>
+    <div class="doc-meta-top">
+      <span class="doc-num">#QT-2026-518</span>
+      <span class="doc-date">18 MAY 2026</span>
+      <span class="doc-valid">תוקף: עד 01/06/2026</span>
+    </div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">הצעת מחיר רשמית</div>
+    <span class="hero-script">סרטונים ויראליים</span>
+    <h1 class="hero-heading">הצעת<br><span class="accent">מחיר</span></h1>
+    <div class="hero-client-row">
+      <span class="hero-for-label">הוכן עבור</span>
+      <span class="hero-client-name">יריב בכר הנדסה ניהול ופיקוח בע"מ</span>
+    </div>
+    <p class="hero-sub">סרטוני AI קצרים עם הומור מהמציאות — תוכן ויראלי לרשתות החברתיות</p>
+    <div class="scroll-cue">
+      <div class="scroll-line"></div>
+      <span>גלול לפרטים</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     PAGE CONTENT
+====================================================== -->
+<main class="page">
+
+  <div class="page-accent-line"></div>
+
+  <!-- DELIVERABLES -->
+  <section class="deliverables">
+    <div class="sec-label">מה כולל הפרויקט</div>
+    <h2 class="sec-title">סרטוני AI ויראליים לרשתות</h2>
+    <div class="del-rows">
+
+      <div class="del-row">
+        <span class="del-num">01</span>
+        <div class="del-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </div>
+        <div class="del-content">
+          <span class="del-title">כתיבת תסריט ייעודי</span>
+          <span class="del-desc">הלקוח מביא את הרעיון או התסריט מהשטח — ניתן לבנות תסריט משותף. התסריט הסופי מאושר על ידי הלקוח לפני תחילת הפקה</span>
+        </div>
+        <span class="del-badge">לכל סרטון</span>
+      </div>
+
+      <div class="del-row">
+        <span class="del-num">02</span>
+        <div class="del-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>
+          </svg>
+        </div>
+        <div class="del-content">
+          <span class="del-title">הפקת סרטון AI מלאה</span>
+          <span class="del-desc">ויזואל, דמויות, הנפשות ואפקטים — הכל מיוצר בבינה מלאכותית ללא צוות צילום</span>
+        </div>
+        <span class="del-badge">עד 40 שניות</span>
+      </div>
+
+      <div class="del-row">
+        <span class="del-num">03</span>
+        <div class="del-icon" style="background:transparent;">
+          <img src="https://raw.githubusercontent.com/Avisenior/Avisx-Director/main/DaVinci_Resolve_17_logo.svg.png" alt="DaVinci Resolve" style="width:28px;height:28px;object-fit:contain;">
+        </div>
+        <div class="del-content">
+          <span class="del-title">עריכה, מוזיקה ומיקס מקצועיים</span>
+          <span class="del-desc">פסקול, גרפיקה ואפקטים קוליים — הפקה סופית ברמה קולנועית מוכנה לפרסום</span>
+        </div>
+        <span class="del-badge">קובץ סופי</span>
+      </div>
+
+      <div class="del-row">
+        <span class="del-num">04</span>
+        <div class="del-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div class="del-content">
+          <span class="del-title">כיתוביות ופורמט לפלטפורמה אחת</span>
+          <span class="del-desc">כל סרטון מסופק בפורמט אחד לפי בחירת הלקוח (Reels / TikTok / Shorts) — כיתוביות מובנות ויחס תמונה נכון. פורמט נוסף יתומחר בנפרד</span>
+        </div>
+        <span class="del-badge">פורמט אחד לסרטון</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="sec-label">מחיר הפרויקט</div>
+    <h2 class="sec-title">תמחור בהנחת כמות</h2>
+
+    <div class="pricing-note">
+      המחיר מחושב לפי <strong>₪800 לכל 20 שניות</strong> — כלומר סרטון של עד 40 שניות עולה ₪1,600. בחבילה חודשית של 4 סרטונים תקבלו הנחה מדורגת על הסרטון השלישי והרביעי.
+    </div>
+
+    <!-- אפשרות א -->
+    <div class="pricing-block-title">אפשרות א — סרטון יחיד</div>
+    <div class="price-table">
+      <div class="price-header">
+        <span class="price-header-label">פירוט</span>
+        <span class="price-header-label">מחיר</span>
+      </div>
+      <div class="price-row featured">
+        <div class="price-desc">
+          <span class="price-name">סרטון יחיד — עד 40 שניות</span>
+          <span class="price-note-sm">תסריט · הפקת AI · עריכה · מוזיקה · כיתוביות · אדפטציה לפלטפורמות</span>
+        </div>
+        <span class="price-tag">₪ 1,600</span>
+      </div>
+      <div class="price-footer-note">
+        ₪800 לכל 20 שניות · סבב תיקונים אחד כלול
+      </div>
+    </div>
+
+    <!-- אפשרות ב -->
+    <div class="pricing-block-title">אפשרות ב — חבילה חודשית (4 סרטונים)</div>
+    <div class="price-table">
+      <div class="price-header">
+        <span class="price-header-label">מס' סרטון בחודש</span>
+        <span class="price-header-label">מחיר לסרטון</span>
+      </div>
+      <div class="price-row featured">
+        <div class="price-desc">
+          <span class="price-name">סרטון ראשון</span>
+          <span class="price-note-sm">עד 40 שניות · הפקה מלאה</span>
+        </div>
+        <span class="price-tag">₪ 1,600</span>
+      </div>
+      <div class="price-row featured">
+        <div class="price-desc">
+          <span class="price-name">סרטון שני</span>
+          <span class="price-note-sm">עד 40 שניות · הפקה מלאה</span>
+        </div>
+        <span class="price-tag">₪ 1,600</span>
+      </div>
+      <div class="price-row">
+        <div class="price-desc">
+          <span class="price-name">סרטון שלישי</span>
+          <span class="price-note-sm">הנחת כמות — חיסכון של ₪150</span>
+        </div>
+        <span class="price-tag">₪ 1,450</span>
+      </div>
+      <div class="price-row">
+        <div class="price-desc">
+          <span class="price-name">סרטון רביעי</span>
+          <span class="price-note-sm">הנחת כמות — חיסכון של ₪200</span>
+        </div>
+        <span class="price-tag">₪ 1,400</span>
+      </div>
+    </div>
+
+    <div class="total-estimate">
+      <div>
+        <div class="total-label-text">סה"כ חבילה חודשית</div>
+        <div class="total-range">₪ 6,050 / חודש</div>
+        <div class="total-sub" style="margin-top:8px;color:var(--accent);font-weight:700;">העסקה מתחדשת רק באישור הלקוח</div>
+      </div>
+      <div style="text-align:left;direction:ltr;">
+        <div class="total-label-text">סרטון יחיד</div>
+        <div class="total-range" style="font-size:clamp(20px,3vw,28px);">₪ 1,600</div>
+        <div class="total-sub">ללא התחייבות חודשית</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMS -->
+  <section class="terms">
+    <div class="sec-label">הסכמות ומדיניות</div>
+    <h2 class="sec-title">תנאי ההצעה</h2>
+
+    <div class="terms-grid">
+
+      <div class="term-card">
+        <div class="term-card-head">
+          <div class="term-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+          </div>
+          <span class="term-head-title">תנאי תשלום</span>
+        </div>
+        <ul class="term-items">
+          <li><strong>סרטון יחיד:</strong> 50% מקדמה + 50% בסיום</li>
+          <li><strong>חבילת 4 סרטונים:</strong> 50% מקדמה עם אישור</li>
+          <li><strong>25%</strong> לאחר קבלת הסרטון השלישי</li>
+          <li><strong>25% הנותרים</strong> עם קבלת הסרטון הרביעי</li>
+        </ul>
+      </div>
+
+      <div class="term-card">
+        <div class="term-card-head">
+          <div class="term-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <span class="term-head-title">זמני אספקה</span>
+        </div>
+        <ul class="term-items">
+          <li><strong>עד 6 ימי עסקים</strong> לסרטון — מגמר הסרטון הקודם</li>
+          <li><strong>לסרטון ראשון:</strong> מרגע אישור התסריט וקבלת המקדמה</li>
+          <li><strong>נדרש מהלקוח:</strong> אישורי תסריט בזמן</li>
+        </ul>
+      </div>
+
+      <div class="term-card">
+        <div class="term-card-head">
+          <div class="term-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/>
+            </svg>
+          </div>
+          <span class="term-head-title">סבבי תיקונים</span>
+        </div>
+        <ul class="term-items">
+          <li><strong>סבב תיקונים אחד</strong> כלול בכל סרטון</li>
+          <li><strong>שינויים בתוך</strong> הקונספט המאושר בלבד</li>
+          <li><strong>שינוי קונספט</strong> או החלפת כיוון — יתומחרו בנפרד</li>
+        </ul>
+      </div>
+
+      <div class="term-card">
+        <div class="term-card-head">
+          <div class="term-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <span class="term-head-title">חומרי גלם ושמירה</span>
+        </div>
+        <ul class="term-items">
+          <li><strong>תוצר סופי בלבד</strong> — ללא קבצי מקור</li>
+          <li><strong>30 יום ארכיון</strong> מסיום כל סרטון</li>
+          <li><strong>הלקוח מספק</strong> — צילומים אמיתיים לשימוש בסרטון במידה וירצה</li>
+          <li><strong>צילומים אמיתיים</strong> — רק אם הלקוח מספק, הם ישולבו בסרטון</li>
+          <li><strong>לא כולל:</strong> פרסום, ניהול רשתות, מיקוד ממומן</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================================================
+     CLOSING — SHADER SECTION
+====================================================== -->
+<section class="shader-closing">
+  <canvas id="shaderCanvas"></canvas>
+  <div class="shader-dim"></div>
+
+  <div class="closing-inner">
+
+    <div class="closing-eyebrow">מוכן להתחיל?</div>
+    <span class="closing-script">— יריב בכר הנדסה ניהול ופיקוח בע"מ</span>
+    <h2 class="closing-title">
+      תודה שבחרתם<br>
+      <span class="accent">AvisX Director</span>
+    </h2>
+    <p class="closing-sub">
+      תודה שבחרתם לקבל הצעת מחיר מ-AvisX Studio
+    </p>
+    <a href="https://wa.me/972506890125?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%90%D7%A9%D7%A8%20%D7%90%D7%AA%20%D7%94%D7%A2%D7%91%D7%95%D7%93%D7%94" class="wa-cta">לחץ לאישור ✓</a>
+
+    <div class="closing-divider"></div>
+
+    <footer class="quote-footer">
+      <div class="footer-contact">
+        <strong>Avi Senior — AvisX Director</strong>
+        <p>
+          <a href="tel:+972506890125">050-689-0125</a><br>
+          <a href="mailto:avi@avisx-director.com">avi@avisx-director.com</a><br>
+          <a href="https://wa.me/972506890125">WhatsApp (מועדף)</a>&nbsp;·&nbsp;<a href="https://instagram.com/senior.avi">@senior.avi</a>
+        </p>
+      </div>
+    </footer>
+
+    <div class="footer-colophon">
+      <span>AvisX</span> Director &nbsp;·&nbsp; AI Cinematic Production &nbsp;·&nbsp; Tel Aviv, Israel &nbsp;·&nbsp; 2026
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================================================
+     SCRIPTS
+====================================================== -->
+<script>
+// ===== PIXEL ANIMATION LOADER =====
+(function(){
+  const canvas = document.getElementById('pixelCanvas');
+  const ctx = canvas.getContext('2d');
+  const isMobile = window.innerWidth < 600;
+  const BLOCK = isMobile ? 10 : 16;
+  const GAP   = isMobile ? 2  : 3;
+  const STEP  = BLOCK + GAP;
+  const canvasW = isMobile ? 400 : 700;
+  const canvasH = isMobile ? 120 : 200;
+  canvas.width  = canvasW;
+  canvas.height = canvasH;
+
+  const FONT = {
+    'A':[[0,1,1,1,0],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1],[1,0,0,0,1]],
+    'V':[[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0]],
+    'I':[[1,1,1],[0,1,0],[0,1,0],[0,1,0],[1,1,1]],
+    'S':[[0,1,1,1],[1,0,0,0],[0,1,1,0],[0,0,0,1],[1,1,1,0]],
+    'X':[[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,1,0,1,0],[1,0,0,0,1]]
+  };
+
+  const word = ['A','V','I','S','X'];
+  let allBlocks = [];
+  let totalW = 0;
+  word.forEach(l => { totalW += (FONT[l][0].length * STEP) + 20; });
+  let startX = (canvasW - totalW) / 2;
+  let startY = (canvasH - 5 * STEP) / 2;
+  let letterOffsets = [];
+  let ox = 0;
+  word.forEach((letter) => { letterOffsets.push(ox); ox += FONT[letter][0].length * STEP + 20; });
+  word.forEach((letter, li) => {
+    const grid = FONT[letter];
+    grid.forEach((row, ri) => {
+      row.forEach((cell, ci) => {
+        if (cell) allBlocks.push({ lx: startX + letterOffsets[li] + ci * STEP, ly: startY + ri * STEP, letter: li, lit: false });
+      });
+    });
+  });
+
+  let cursors = word.map((l, i) => ({ x: -100 + i * 30, y: -100, color: ['#ffffff','#cccccc','#aaaaaa','#888888','#ffffff'][i] }));
+  let startTime = null;
+  const PHASE_SCATTER=400, PHASE_LINEUP=900, PHASE_BUILD=1600, PHASE_SUBTITLE=4500, PHASE_END=6000;
+  function ease(t){return t<0.5?2*t*t:-1+(4-2*t)*t;}
+  function lerp(a,b,t){return a+(b-a)*t;}
+
+  function draw(ts) {
+    if (!startTime) startTime = ts;
+    const elapsed = ts - startTime;
+    ctx.clearRect(0,0,canvasW,canvasH);
+    if (elapsed < PHASE_SCATTER) {
+      const t=ease(elapsed/PHASE_SCATTER);
+      cursors.forEach((c,i)=>{c.x=lerp(-60+i*20,80+i*120,t);c.y=lerp(-60,80,t);drawCursor(c.x,c.y,c.color);});
+    } else if (elapsed < PHASE_LINEUP) {
+      const t=ease((elapsed-PHASE_SCATTER)/(PHASE_LINEUP-PHASE_SCATTER));
+      const targets=[[80,40],[580,40],[80,140],[580,140],[330,90]];
+      cursors.forEach((c,i)=>{c.x=lerp(c.x,targets[i][0],t*0.1);c.y=lerp(c.y,targets[i][1],t*0.1);drawCursor(c.x,c.y,c.color);});
+    } else if (elapsed < PHASE_BUILD) {
+      const t=ease((elapsed-PHASE_LINEUP)/(PHASE_BUILD-PHASE_LINEUP));
+      cursors.forEach((c,i)=>{c.x=lerp(c.x,30,t*0.08);c.y=lerp(c.y,30+i*32,t*0.08);drawCursor(c.x,c.y,c.color);});
+    } else if (elapsed < PHASE_SUBTITLE) {
+      const buildElapsed=elapsed-PHASE_BUILD;
+      cursors.forEach((c,i)=>{
+        const lb=allBlocks.filter(b=>b.letter===i);
+        const bi=Math.floor(Math.max(0,buildElapsed-i*200)/55);
+        lb.forEach((b,j)=>{if(j<=bi)b.lit=true;});
+        if(bi<lb.length){const tb=lb[Math.min(bi,lb.length-1)];c.x=lerp(c.x,tb.lx-8,0.15);c.y=lerp(c.y,tb.ly-8,0.15);}
+        drawCursor(c.x,c.y,c.color);
+      });
+      drawBlocks();
+    } else if (elapsed < PHASE_END) {
+      drawBlocks();
+      if(elapsed>PHASE_SUBTITLE){document.getElementById('loaderSub').style.color='rgba(255,255,255,0.4)';}
+      cursors.forEach((c,i)=>{c.y-=0.5+Math.sin(elapsed*0.003+i)*0.3;drawCursor(c.x,c.y,c.color);});
+    } else {
+      const loader=document.getElementById('loader');
+      loader.style.opacity='0'; loader.style.pointerEvents='none';
+      setTimeout(()=>{loader.style.display='none';},1200);
+      return;
+    }
+    requestAnimationFrame(draw);
+  }
+
+  function drawBlocks(){allBlocks.forEach(b=>{if(b.lit){ctx.fillStyle='#ffffff';ctx.fillRect(b.lx,b.ly,BLOCK,BLOCK);ctx.fillStyle='rgba(255,255,255,0.15)';ctx.fillRect(b.lx,b.ly,BLOCK,2);ctx.fillRect(b.lx,b.ly,2,BLOCK);ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fillRect(b.lx+BLOCK-2,b.ly,2,BLOCK);ctx.fillRect(b.lx,b.ly+BLOCK-2,BLOCK,2);}});}
+
+  function drawCursor(x,y,color){ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+14);ctx.lineTo(x+4,y+10);ctx.lineTo(x+7,y+14);ctx.lineTo(x+9,y+12);ctx.lineTo(x+6,y+8);ctx.lineTo(x+10,y+8);ctx.closePath();ctx.stroke();ctx.fillStyle='rgba(255,255,255,0.8)';ctx.fill();}
+
+  setTimeout(()=>{const l=document.getElementById('loader');if(l&&l.style.display!=='none'){l.style.opacity='0';setTimeout(()=>{l.style.display='none';},1000);}},7000);
+  requestAnimationFrame(draw);
+})();
+
+// ===== CUSTOM CURSOR =====
+(function(){
+  const cursor=document.querySelector('.cursor');
+  const ring=document.querySelector('.cursor-ring');
+  if(!cursor||!ring)return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.transform=`translate(${mx-3}px,${my-3}px)`;});
+  function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(animRing);}
+  animRing();
+})();
+
+// ===== WEBGL SHADER — CLOSING SECTION =====
+(function(){
+  const canvas = document.getElementById('shaderCanvas');
+  if (!canvas) return;
+  const gl = canvas.getContext('webgl2');
+  if (!gl) { canvas.style.display = 'none'; return; }
+
+  const vertSrc = `#version 300 es
+precision highp float;
+in vec4 position;
+void main(){gl_Position=position;}`;
+
+  const fragSrc = `#version 300 es
+precision highp float;
+out vec4 O;
+uniform vec2 resolution;
+uniform float time;
+uniform vec2 move;
+uniform vec2 touch;
+#define FC gl_FragCoord.xy
+#define T time
+#define R resolution
+#define MN min(R.x,R.y)
+float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}
+float noise(in vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);float a=rnd(i),b=rnd(i+vec2(1,0)),c=rnd(i+vec2(0,1)),d=rnd(i+1.);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}
+float fbm(vec2 p){float t=.0,a=1.;mat2 m=mat2(1.,-.5,.2,1.2);for(int i=0;i<5;i++){t+=a*noise(p);p*=2.*m;a*=.5;}return t;}
+float clouds(vec2 p){float d=1.,t=.0;for(float i=.0;i<3.;i++){float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);t=mix(t,d,a);d=a;p*=2./(i+1.);}return t;}
+void main(void){
+  vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
+  vec3 col=vec3(0);
+  float bg=clouds(vec2(st.x+T*.5,-st.y));
+  uv*=1.-.3*(sin(T*.2)*.5+.5);
+  for(float i=1.;i<12.;i++){
+    uv+=.1*cos(i*vec2(.1+.01*i,.8)+i*i+T*.5+.1*uv.x);
+    vec2 p=uv;
+    float d=length(p);
+    col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.);
+    float b=noise(i+p+bg*1.731);
+    col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
+    col=mix(col,vec3(bg*.25,bg*.137,bg*.05),d);
+  }
+  O=vec4(col,1);
+}`;
+
+  let program, animFrame;
+  let uRes, uTime, uMove, uTouch;
+  let mouseCoords=[0,0], mouseMove=[0,0];
+
+  function compile(type, src) {
+    const sh = gl.createShader(type);
+    gl.shaderSource(sh, src); gl.compileShader(sh); return sh;
+  }
+
+  function setup() {
+    const vs=compile(gl.VERTEX_SHADER, vertSrc);
+    const fs=compile(gl.FRAGMENT_SHADER, fragSrc);
+    program=gl.createProgram();
+    gl.attachShader(program,vs); gl.attachShader(program,fs); gl.linkProgram(program);
+    const buf=gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,1,-1,-1,1,1,1,-1]),gl.STATIC_DRAW);
+    const pos=gl.getAttribLocation(program,'position');
+    gl.enableVertexAttribArray(pos);
+    gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+    uRes=gl.getUniformLocation(program,'resolution');
+    uTime=gl.getUniformLocation(program,'time');
+    uMove=gl.getUniformLocation(program,'move');
+    uTouch=gl.getUniformLocation(program,'touch');
+  }
+
+  function resize() {
+    const dpr=Math.max(1,0.5*window.devicePixelRatio);
+    canvas.width=canvas.offsetWidth*dpr;
+    canvas.height=canvas.offsetHeight*dpr;
+    gl.viewport(0,0,canvas.width,canvas.height);
+  }
+
+  function render(now) {
+    gl.clearColor(0,0,0,1); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.useProgram(program);
+    gl.uniform2f(uRes,canvas.width,canvas.height);
+    gl.uniform1f(uTime,now*1e-3);
+    gl.uniform2f(uMove,mouseMove[0],mouseMove[1]);
+    gl.uniform2f(uTouch,mouseCoords[0],mouseCoords[1]);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    animFrame=requestAnimationFrame(render);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (!program) { setup(); resize(); }
+        if (!animFrame) render(0);
+      } else {
+        if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+      }
+    });
+  }, { threshold: 0.1 });
+
+  observer.observe(canvas.parentElement);
+
+  window.addEventListener('resize', () => { if (program) resize(); });
+  canvas.addEventListener('pointermove', e => {
+    mouseCoords=[e.clientX, canvas.height-e.clientY];
+    mouseMove=[e.movementX, e.movementY];
+  });
+})();
+</script>
+
+</body>
+</html>
