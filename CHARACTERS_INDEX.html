@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STREETS OF CRIME — Character Index</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000;--card:#0a0a0a;--card2:#111;
+  --orange:#e85d04;--orange-dim:rgba(232,93,4,0.12);
+  --cream:#EFF4FF;--muted:rgba(239,244,255,0.45);
+  --border:rgba(239,244,255,0.07);--border-md:rgba(239,244,255,0.12);
+}
+body{background:var(--bg);color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;line-height:1.6}
+
+/* HEADER */
+header{padding:56px 48px 40px;border-bottom:1px solid #111;position:relative}
+header::after{content:'';position:absolute;bottom:0;left:48px;right:48px;height:1px;background:linear-gradient(90deg,var(--orange),transparent)}
+.header-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:6px;color:var(--orange);text-transform:uppercase;margin-bottom:16px}
+.header-title{font-family:'Anton',sans-serif;font-size:clamp(52px,8vw,96px);letter-spacing:2px;color:var(--cream);line-height:.9;margin-bottom:6px}
+.header-title span{color:var(--orange)}
+.header-sub{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-top:20px}
+
+/* MAIN */
+main{padding:56px 48px;max-width:1400px;margin:0 auto}
+
+/* CHARACTER BLOCK */
+.char-block{margin-bottom:72px}
+
+.char-header{display:flex;align-items:baseline;gap:20px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid #111;position:relative}
+.char-header::before{content:'';position:absolute;bottom:-1px;left:0;width:60px;height:1px;background:var(--orange)}
+.char-num{font-family:'Anton',sans-serif;font-size:56px;color:var(--orange);line-height:1;min-width:60px}
+.char-name{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:5px;color:var(--cream);text-transform:uppercase}
+.char-role-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-left:auto;white-space:nowrap}
+
+/* CARD BODY */
+.char-body{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:900px){.char-body{grid-template-columns:1fr}}
+
+/* IMAGE PANEL */
+.char-image-wrap{background:#060606;border:1px solid var(--border-md);overflow:hidden}
+.char-image-wrap img{width:100%;height:auto;display:block}
+.char-image-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:10px 14px;border-top:1px solid #111}
+
+/* INFO PANEL */
+.char-info{display:flex;flex-direction:column;gap:20px}
+
+.info-section{}
+.info-label{font-size:9px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;display:block;margin-bottom:10px}
+.info-text{font-size:13px;color:#ccc;line-height:1.85}
+.info-text em{color:var(--cream);font-style:normal;font-weight:600}
+.info-text i{color:var(--orange);font-style:italic}
+
+/* QUOTE */
+.char-quote{border-left:2px solid var(--orange);padding:12px 16px;background:rgba(232,93,4,0.05);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);font-style:italic;line-height:1.7}
+
+/* PROMPT BLOCK */
+.prompt-wrap{position:relative;background:#050505;border:1px solid #111;border-left:2px solid rgba(232,93,4,0.4)}
+.prompt-label{font-size:9px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;padding:10px 14px;border-bottom:1px solid #111;display:block}
+.prompt-wrap pre{font-family:'JetBrains Mono',monospace;font-size:10px;color:#777;white-space:pre-wrap;word-break:break-word;line-height:1.8;padding:14px}
+.copy-btn{position:absolute;top:8px;right:10px;background:transparent;border:1px solid #222;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;padding:3px 10px;cursor:pointer;text-transform:uppercase;transition:all .15s}
+.copy-btn:hover{border-color:var(--orange);color:var(--orange)}
+
+/* RIGHT COL */
+.char-right{display:flex;flex-direction:column;gap:20px}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,var(--orange),transparent);margin:0 0 16px}
+
+/* FOOTER */
+footer{padding:32px 48px;border-top:1px solid #111;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-brand{font-family:'Anton',sans-serif;letter-spacing:6px;color:var(--orange);font-size:16px}
+.footer-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">AvisX Director — Production Document</div>
+  <div class="header-title">STREETS<br>OF <span>CRIME</span></div>
+  <div class="header-sub">Character Index · 21 Characters · LA 1989–1992</div>
+</header>
+
+<main>
+
+<!-- ══ 1. MARCUS COLE ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num">1</div>
+    <div class="char-name">Marcus "Kane" Cole</div>
+    <div class="char-role-tag">Protagonist</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="marcus_cole.png" alt="Marcus Cole Reference Sheet">
+        <div class="char-image-label">Character Reference Sheet · 16:9 · 6 Views</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Background</span>
+          <div class="info-text">
+            15-year-old from the <em>South Bronx</em>, relocated to South Central LA. His mother worked for Victor Cross — barely home. Marcus grew up alone, watching a criminal empire from inside his own apartment.<br><br>
+            At age 10, Cross looked down at him and said: <i>"One day you gonna work for me."</i> That was the moment <em>Kane was born</em> — not in the street. In his own living room.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Role in the Story</span>
+          <div class="info-text">
+            The protagonist. Rises from a corner kid to controlling the streets — then to leading inside prison. <em>Cold, calculated, zero warmth</em> on the surface. One red line he never crosses: elderly people. They remind him of his grandfather Elijah — the only person who ever tried to protect him.
+          </div>
+        </div>
+        <div class="char-quote">"He had a good heart once. I saw it. I'm the only one who still sees it." — Elijah Cole</div>
+      </div>
+      <div class="prompt-wrap">
+        <span class="prompt-label">Image Generation Prompt</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+        <pre>HIGHEST QUALITY. Maximum resolution. Photorealistic character
+reference sheet. LANDSCAPE 16:9. White studio background.
+
+Black male, age 15, looks 22. South Central LA 1989. NOT a model.
+A street kid who grew up alone inside a criminal empire.
+Hard face. Lived-in. Zero softness.
+
+LAYOUT - 6 panels in one 16:9 image, ALL panels show complete subject,
+no cropping of body or face:
+
+- Panel 1 - FAR LEFT, LARGE: extreme close-up face only, forehead to chin,
+  shot straight on. Fill the panel. Eyes forward. Cold.
+- Panel 2 - LEFT CENTER SMALL: tight 3/4 face close-up, left side angle,
+  jaw visible, neck scar visible, teardrop tattoo visible.
+- Panel 3 - CENTER SMALL: tight 3/4 face close-up, right side angle,
+  gold earring visible, neck tattoo visible.
+- Panel 4 - CENTER: FULL BODY front view, head to toe, complete figure.
+- Panel 5 - CENTER RIGHT: FULL BODY 3/4 angle, head to toe, complete figure.
+- Panel 6 - FAR RIGHT: FULL BODY back view, head to toe, complete figure.
+
+CRITICAL: every full body panel must show the complete figure from top of
+head to bottom of shoes. No cropping. No cutting at waist or knees.
+
+FACE: very dark skin. Sharp angular jaw. Hollow cheeks. Deep-set
+dark brown eyes - heavy lidded, flat, no warmth whatsoever.
+The look of someone who has seen things at 10 years old that
+most adults never see. Short tight skin fade - 1989 Bronx.
+Gold stud earring, left ear.
+
+FACE TATTOOS:
+- Small teardrop tattoo under right eye, faded black ink
+- Small three dots tattoo on left cheekbone, near temple
+- Tiny cross tattoo on forehead, between eyebrows, barely visible
+
+SCAR: thin horizontal healed scar on left side of neck, 2 inches.
+Old. Slightly raised. Not fresh.
+
+BODY TATTOOS - all faded black ink, hand-done, street/prison style:
+- Both sides of neck: Old English script creeping up from chest
+- Full chest: large block script, tops visible above neckline
+- Right bicep: five-pointed star, bold black outline
+- Left bicep: praying hands, rough line work
+- Right forearm: dense Old English lettering, full length
+- Left forearm: barbed wire wrapped entire forearm
+- Right hand knuckles: single letter each knuckle
+- Left hand knuckles: single ink dot each knuckle
+- Left hand: small cross between thumb and index finger
+- Left wrist: thin cross, black ink
+
+CLOTHING - authentic South Central LA 1989, athletic/street:
+White ribbed tank top (beater), slightly oversized.
+Black Nike basketball shorts hitting just above the knee -
+elastic waistband, 1989 era, worn low.
+White tall socks pulled up, visible.
+White Nike Air Force 1 low or Adidas shell-toe Superstar.
+Thin gold rope chain, medium weight.
+Optional: open short-sleeve button shirt worn loose over tank,
+not tucked, color navy or black plaid.
+
+POSTURE: weight on one leg, slightly forward. Not aggressive -
+just present. The kind of still that makes people nervous.
+Hands relaxed at sides. Not posing. Existing.
+
+SKIN: real texture. Pores. Not retouched. Not smooth.
+Natural imperfections. This is not a fashion shoot.
+
+16:9 landscape. No watermark. No AI artifacts.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 2. MARCUS COLE (OLDER) ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num">2</div>
+    <div class="char-name">Marcus "Kane" Cole — Older</div>
+    <div class="char-role-tag">Narrator — 30 Years Later</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="marcus_cole_older.png" alt="Marcus Cole Older Reference Sheet">
+        <div class="char-image-label">Character Reference Sheet · 16:9 · 6 Views</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Background</span>
+          <div class="info-text">
+            Marcus Cole at 45-50. The same man. 30 years of streets, prison, and survival written on his face and body.<br><br>
+            He chose to tell the story himself. Not to justify it. Not to condemn it. Because he is the only one who knows what it actually felt like to be that 15-year-old kid — and he is the only one still alive who remembers who that kid was <em>before</em> the streets finished their work.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Role in the Story</span>
+          <div class="info-text">
+            <em>The narrator of the entire film.</em> Speaks in retrospect — he knows the full story because he lived it. The weight in his voice is not performance. The distance in his eyes is not coldness. It is a man looking back at a version of himself he can no longer reach. <em>Kane is still in there. Marcus is trying to explain him.</em>
+          </div>
+        </div>
+        <div class="char-quote">"I was fifteen. I thought I knew everything. I knew nothing. And I knew everything." — Marcus Cole</div>
+      </div>
+      <div class="prompt-wrap">
+        <span class="prompt-label">Image Generation Prompt</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+        <pre>HIGHEST QUALITY. Maximum resolution. Photorealistic character
+reference sheet. LANDSCAPE 16:9. White studio background.
+
+Black male, age 45-50. This is Marcus Cole - the same man from
+the streets of South Central LA, 30 years later. NOT a new character.
+The same face, aged. The same tattoos, faded and blurred with time.
+The same eyes - but now they have seen how the story ends.
+
+LAYOUT - 6 panels in one 16:9 image, ALL panels show complete subject,
+no cropping of body or face:
+- Panel 1 - FAR LEFT, LARGE: extreme close-up face only, forehead to chin,
+  straight on. Fill the panel. The weight of 30 years visible.
+  Same flat dark eyes as the young Marcus - but heavier now. Knowing.
+- Panel 2 - LEFT CENTER SMALL: tight 3/4 face close-up, left side.
+  Neck scar visible - same scar, 30 years older. Neck tattoos visible.
+- Panel 3 - CENTER SMALL: tight 3/4 face close-up, right side.
+  Face tattoos visible, faded with age.
+- Panel 4 - CENTER: FULL BODY front view, head to toe, complete figure.
+- Panel 5 - CENTER RIGHT: FULL BODY 3/4 angle, head to toe, complete figure.
+- Panel 6 - FAR RIGHT: FULL BODY back view, head to toe, complete figure.
+
+CRITICAL: every full body panel must show the complete figure from top of
+head to bottom of shoes. No cropping. No cutting at waist or knees.
+
+FACE: same angular jaw as young Marcus, now heavier with age. Same high
+cheekbones, now with deep lines carved into them. Same deep-set dark
+brown eyes - flat, calculating - but now carrying 30 years of weight.
+Short greying fade - same cut, now salt-and-pepper. Clean shaven or
+very short stubble. The thin neck scar still visible, now older.
+Heavier build than at 15 - not fat, dense. Prison and age.
+
+FACE TATTOOS - same as young Marcus but significantly faded, blurred,
+30 years old on aging skin:
+- Teardrop under right eye - faded, almost grey now
+- Three dots on left cheekbone - barely visible, deep in the skin
+- Tiny cross on forehead - very faded, you have to look for it
+
+NECK AND BODY TATTOOS - same placement as young Marcus, heavily aged:
+- Both sides of neck: Old English script, blurred and faded with age
+- Chest: large block script, tops visible above collar, greyed ink
+- Arms: same tattoos as young Marcus, 30 years faded - lines thick
+  and blurred the way old street tattoos go
+
+CLOTHING - a man who came from the streets but is no longer in them:
+Dark Dickies 874 straight leg, clean and pressed.
+Plain dark colored button-up shirt, short sleeve, collar open.
+Or: plain dark crewneck, simple and clean.
+Clean white Nike Cortez or plain leather sneakers.
+Thin gold rope chain - same chain, worn for 30 years.
+
+POSTURE: still. Completely still. The stillness of a man who has
+nothing left to prove and nowhere left to run. Heavier than at 15.
+The same presence - but now it comes from survival, not threat.
+
+SKIN: real texture. Deep skin with age lines. Every year visible.
+Not retouched. Not smooth. This is not a fashion shoot.
+
+16:9 landscape. No watermark. No AI artifacts.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 3. DARIUS WEBB ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num">3</div>
+    <div class="char-name">Darius Webb</div>
+    <div class="char-role-tag">Ride or Die</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="darius_webb.png" alt="Darius Webb Reference Sheet">
+        <div class="char-image-label">Character Reference Sheet · 16:9 · 6 Views</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Background</span>
+          <div class="info-text">
+            15 years old. Grew up in the <em>same building as Marcus</em> — same hallways, same hunger, same pain. A gang beat them both when they were kids. They got off the ground together. No words.<br><br>
+            Marcus decided that night: <em>never again.</em> Darius decided: <em>wherever he goes, I go.</em> That was the contract. It was never spoken.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Role in the Story</span>
+          <div class="info-text">
+            The soul of the crew. <em>More expressive than Marcus</em> — emotions readable on his face. Not cold like Marcus, warm but hardened. He is not the boss — he is the one who makes the boss human. His blind loyalty is both the most beautiful and most dangerous thing about him.
+          </div>
+        </div>
+        <div class="char-quote">"From that night on — those two boys were one thing." — Elijah Cole</div>
+      </div>
+      <div class="prompt-wrap">
+        <span class="prompt-label">Image Generation Prompt</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+        <pre>HIGHEST QUALITY. Maximum resolution. Photorealistic character
+reference sheet. LANDSCAPE 16:9. White studio background.
+
+Black male, age 15, looks 19. South Central LA 1989. NOT a model.
+Grew up in the same building as Marcus Cole. Best friend. Ride or die.
+Different energy than Marcus - warm, expressive, emotions readable
+on his face. Hardened by the streets but not cold. The loyalty is
+written all over him.
+
+LAYOUT - 6 panels in one 16:9 image, ALL panels show complete subject,
+no cropping of body or face:
+- Panel 1 - FAR LEFT, LARGE: extreme close-up face only, forehead to chin,
+  straight on. Fill the panel. Warm eyes - not soft, warm. Hardened warm.
+- Panel 2 - LEFT CENTER SMALL: tight 3/4 face close-up, left side angle,
+  neck visible, jaw visible, any face tattoos visible.
+- Panel 3 - CENTER SMALL: tight 3/4 face close-up, right side angle,
+  ear visible, neck tattoo visible.
+- Panel 4 - CENTER: FULL BODY front view, head to toe, complete figure.
+- Panel 5 - CENTER RIGHT: FULL BODY 3/4 angle, head to toe, complete figure.
+- Panel 6 - FAR RIGHT: FULL BODY back view, head to toe, complete figure.
+
+CRITICAL: every full body panel must show the complete figure from top of
+head to bottom of shoes. No cropping. No cutting at waist or knees.
+
+FACE: rounder than Marcus, slightly softer jaw but still hard. Dark brown
+eyes that actually show emotion - not flat like Marcus, alive. Short skin
+fade, 1989 era. Small gold hoop earring, left ear.
+
+FACE TATTOOS:
+- Three small dots under left eye, faded black ink
+- Small cross tattoo on right temple, near hairline
+
+SCAR: diagonal scar on right eyebrow, thin, old, healed.
+
+BODY TATTOOS - faded black ink, hand-done street style:
+- Left neck: script lettering creeping up from chest
+- Full chest: large script, tops visible above neckline
+- Right forearm: Old English lettering, full length
+- Left forearm: rough cross with rays, hand-done
+- Right bicep: crown outline, simple black ink
+- Left bicep: script name or word, bold letters
+- Right knuckles: single letter each knuckle
+- Left hand: small star between thumb and index
+
+CLOTHING - authentic South Central LA 1989, athletic/street:
+White ribbed tank top (beater), slightly oversized.
+Black Nike basketball shorts hitting just above the knee.
+White tall socks pulled up.
+White Nike Air Force 1 low.
+Thin gold rope chain, slightly thicker than Marcus's.
+Optional: open flannel short-sleeve shirt worn loose over tank,
+red or grey plaid, not tucked.
+
+POSTURE: slightly more open than Marcus. Weight centered.
+Not aggressive but not closed either. The posture of someone
+who trusts his instincts - and trusts Marcus with his life.
+
+SKIN: real texture. Pores. Not retouched. Not smooth.
+Natural imperfections. This is not a fashion shoot.
+
+16:9 landscape. No watermark. No AI artifacts.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 4. VICTOR CROSS ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num">4</div>
+    <div class="char-name">Victor Cross</div>
+    <div class="char-role-tag">Main Antagonist</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="victor_cross.png" alt="Victor Cross Reference Sheet">
+        <div class="char-image-label">Character Reference Sheet · 16:9 · 6 Views</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Background</span>
+          <div class="info-text">
+            Late 40s to early 50s. <em>Established LA street boss.</em> Survived the streets for 25 years through intelligence, ruthlessness, and knowing when to move and when to wait.<br><br>
+            Employed Marcus's mother. Looked down at 10-year-old Marcus and said: <i>"One day you gonna work for me."</i> He thought he was recruiting a soldier. He triggered the man who would destroy him.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Role in the Story</span>
+          <div class="info-text">
+            The man who started everything — without knowing it. <em>Arrogant, not stupid.</em> Commands genuine fear and respect. His fatal flaw: he still sees Marcus as the little boy from apartment 4B. That blindness destroys him. When they finally face each other — Victor knows. Marcus knows he knows. No pretense.
+          </div>
+        </div>
+        <div class="char-quote">"I remember when you were this tall." — Victor Cross</div>
+      </div>
+      <div class="prompt-wrap">
+        <span class="prompt-label">Image Generation Prompt</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+        <pre>HIGHEST QUALITY. Maximum resolution. Photorealistic character
+reference sheet. LANDSCAPE 16:9. White studio background.
+
+Black male, late 40s to early 50s. LA street boss. 25 years
+in the game. Built his empire from nothing.
+NOT a businessman. A survivor who became a boss.
+
+LAYOUT - 6 panels in one 16:9 image, ALL panels show complete subject,
+no cropping of body or face:
+- Panel 1 - FAR LEFT, LARGE: extreme close-up face only, forehead to chin,
+  straight on. Fill the panel. Heavy brow. Deep-set dark eyes that
+  calculate everything. The face of a man who has buried people
+  and slept fine afterward.
+- Panel 2 - LEFT CENTER SMALL: tight 3/4 face close-up, left side.
+  Neck visible. Gold chain visible. Jaw set.
+- Panel 3 - CENTER SMALL: tight 3/4 face close-up, right side.
+  Any neck tattoo visible. Eyes reading the room.
+- Panel 4 - CENTER: FULL BODY front view, head to toe, complete figure.
+- Panel 5 - CENTER RIGHT: FULL BODY 3/4 angle, head to toe, complete figure.
+- Panel 6 - FAR RIGHT: FULL BODY back view, head to toe, complete figure.
+
+CRITICAL: every full body panel must show the complete figure from top of
+head to bottom of shoes. No cropping. No cutting at waist or knees.
+
+FACE: heavy, commanding. Deep-set dark brown eyes - calculating, give
+nothing away. Heavy brow. Strong jaw, slightly jowled with age but
+still powerful. Lines of authority not weakness. Close cut hair,
+greying at temples and crown. Clean shaven.
+Body: large, broad-shouldered, solid. Not fat - dense. The physical
+presence of a man rooms go quiet for.
+
+FACE/NECK TATTOOS - old, faded, from his early years:
+- Small cross below left ear, faded black ink
+- Right side of neck: faded script, partially visible above collar
+
+BODY TATTOOS - visible when collar is open:
+- Upper chest: old large script piece, tops visible above open collar
+- Left wrist: thick black band tattoo, faded and blurred with age
+- Right hand: small cross between thumb and index, barely visible
+
+CLOTHING - LA street boss 1989, powerful but not corporate:
+Dark navy or black Dickies 874 straight leg, no crease, worn in.
+Crisp white button-up dress shirt, collar open two buttons,
+sleeves rolled to mid-forearm. Not a suit - above a suit.
+Black leather belt, simple. White Nike Cortez - classic 1989 LA.
+
+JEWELRY - heavy, earned, not decorative:
+- Thick Cuban link gold chain, heavy gauge, worn outside the shirt
+- Large gold ring on right ring finger, simple and solid
+- Gold watch on left wrist, heavy, Rolex style but not flashy
+
+POSTURE: completely still. Hands clasped in front or at sides.
+Does not lean. Does not fidget. The posture of a man who has
+not had to prove himself in a very long time.
+Rooms go quiet when he enters. He is why.
+
+SKIN: real texture. Deep skin. Every line of age visible.
+Not retouched. This is not a fashion shoot.
+
+16:9 landscape. No watermark. No AI artifacts.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 5. ALEX RAMOS ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num">5</div>
+    <div class="char-name">Alex Ramos</div>
+    <div class="char-role-tag">LAPD Undercover — Law Antagonist</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="alex_ramos.png" alt="Alex Ramos Reference Sheet">
+        <div class="char-image-label">Character Reference Sheet · 16:9 · 6 Views</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Background</span>
+          <div class="info-text">
+            26 years old. Hispanic - light-skinned, passes for white in most rooms. <em>Grew up on the wrong side.</em> Did things before the badge he doesn't talk about. The department recruited him because he could walk into South Central and disappear. He was good at undercover because he already knew how to be someone else.<br><br>
+            Not corrupt for money. <em>Corrupt because the line was always blurry for him.</em> He crossed it so many times undercover he stopped knowing where it was. Genuinely believes he is the good guy. That is the most dangerous thing about him.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Role in the Story</span>
+          <div class="info-text">
+            The mirror of Marcus. Both grew up in the same world. Both chose a side. The difference: <em>Marcus is honest about what he is.</em> Alex chose the badge but never left the street behind - the tattoos on his neck prove it. He goes undercover so easily because part of him never left. That part scares him more than Marcus ever could.
+          </div>
+        </div>
+        <div class="char-quote">"The audience isn't sure who to root for. That's exactly right." — Character Notes</div>
+      </div>
+      <div class="prompt-wrap">
+        <span class="prompt-label">Image Generation Prompt</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+        <pre>HIGHEST QUALITY. Maximum resolution. Photorealistic character
+reference sheet. LANDSCAPE 16:9. White studio background.
+
+Hispanic male, age 26. Light-skinned - olive complexion, passes
+for white in most rooms. LAPD undercover officer, LA 1989.
+NOT a model. A man who grew up in the streets, crossed over,
+and never fully left either side.
+
+LAYOUT - 6 panels in one 16:9 image, ALL panels show complete subject,
+no cropping of body or face:
+- Panel 1 - FAR LEFT, LARGE: extreme close-up face only, forehead to chin,
+  straight on. Fill the panel. Chin scar visible. Eyes sharp, calculating.
+- Panel 2 - LEFT CENTER SMALL: tight 3/4 face close-up, left side angle.
+- Panel 3 - CENTER SMALL: tight 3/4 face close-up, right side angle.
+- Panel 4 - CENTER: FULL BODY front view, head to toe.
+- Panel 5 - CENTER RIGHT: FULL BODY 3/4 angle, head to toe.
+- Panel 6 - FAR RIGHT: FULL BODY back view, head to toe.
+
+FACE: angular, lean. Olive skin. Dark eyes, sharp and fast. Thick dark
+eyebrows. Short dark hair, slightly grown out, not styled. 3-4 days
+stubble, uneven. Chin scar: thin diagonal scar on the chin, old, healed.
+
+FACE TATTOOS:
+- Two small dots on left cheekbone near the ear, faded grey ink
+- Tiny cross below right ear, flush with jawline
+- Small teardrop under left eye, very faded
+
+NECK TATTOOS:
+- Right side: large Old English script word, black faded ink,
+  runs from below ear down toward collarbone
+- Left side: thick gothic cross with small rays, 2 inches tall
+- Center lower neck: tops of chest piece creeping up, script letters
+- Back of neck: small three dots in triangle formation, faded black
+
+JEWELRY:
+- Gold rope chain, medium-heavy weight
+- LAPD detective badge tag hanging as a necklace - metal, worn,
+  not displayed proudly, just there.
+
+CLOTHING:
+Dark black Dickies work pants, straight leg, worn in.
+Plain white ribbed tank top visible underneath.
+Open short-sleeve Dickies work shirt - black or dark charcoal.
+Clean white Nike sneakers.
+
+POSTURE: contained. Economic. Never fully relaxed. Always reading exits.
+
+SKIN: real texture. Olive skin. Pores visible. Stubble texture rough.
+
+16:9 landscape. No watermark. No AI artifacts.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 6. MARCUS'S MOTHER ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num">6</div>
+    <div class="char-name">Marcus's Mother</div>
+    <div class="char-role-tag">The First Broken Thing He Ever Loved</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="marcus_mother.png" alt="Marcus's Mother Reference Sheet">
+        <div class="char-image-label">Character Reference Sheet · 16:9 · 6 Views</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Background</span>
+          <div class="info-text">
+            Late 20s to early 30s. <em>Worked for Victor Cross</em> — not by choice, by desperation. Rarely home. Marcus was largely alone because of this. She loved Marcus. She just didn't know how to show it in a way that helped him.<br><br>
+            The irony: she took the job to give Marcus a better life. She handed him <em>the blueprint for the life she was trying to escape.</em>
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Role in the Story</span>
+          <div class="info-text">
+            The unconscious lesson. By working for Cross she showed Marcus that this world is real and accessible. She showed him that someone has to be at the bottom. She showed him — without words — that <em>he never wanted to be her.</em> Bad role model not by choice — by desperation.
+          </div>
+        </div>
+        <div class="char-quote">"A woman asleep on a couch. The apartment is quiet. Marcus is alone." — Scene Notes</div>
+      </div>
+      <div class="prompt-wrap">
+        <span class="prompt-label">Image Generation Prompt</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+        <pre>HIGHEST QUALITY. Maximum resolution. Photorealistic character
+reference sheet. LANDSCAPE 16:9. White studio background.
+
+Black woman, age late 20s to early 30s. South Central LA 1989.
+Marcus Cole's mother. NOT a model. A real woman from the neighborhood.
+Was beautiful once - still is, underneath everything. The streets
+and the exhaustion have layered over the beauty but not erased it.
+
+LAYOUT - 6 panels in one 16:9 image, ALL panels show complete subject,
+no cropping of body or face:
+- Panel 1 - FAR LEFT, LARGE: extreme close-up face only, forehead to chin,
+  straight on. Fill the panel. Tired eyes. Still beautiful. The guilt
+  lives in the eyes - not dramatic, just there.
+- Panel 2 - LEFT CENTER SMALL: tight 3/4 face close-up, left side.
+  Small gold earring visible. Neck visible.
+- Panel 3 - CENTER SMALL: tight 3/4 face close-up, right side.
+  Hair falling slightly. Natural.
+- Panel 4 - CENTER: FULL BODY front view, head to toe, complete figure.
+- Panel 5 - CENTER RIGHT: FULL BODY 3/4 angle, head to toe, complete figure.
+- Panel 6 - FAR RIGHT: FULL BODY back view, head to toe, complete figure.
+
+CRITICAL: every full body panel must show the complete figure from top of
+head to bottom of shoes. No cropping. No cutting at waist or knees.
+
+FACE: high cheekbones, full lips, fine bone structure. Dark brown eyes
+that used to be bright - still warm underneath but covered by exhaustion.
+No heavy makeup - maybe lipstick, worn off. Natural.
+Not dramatic sadness - just the face of someone who is very tired
+and has been tired for a long time.
+
+HAIR: natural black hair, big and curly, loosely pulled half-up or
+worn down with volume - authentic 1989 South Central. Not salon fresh.
+Real texture. Some curl falling loose around the face.
+
+CLOTHING - real South Central LA 1989, working woman, not fashion:
+High-waisted denim mini skirt or above-knee denim skirt, worn and faded,
+not new - soft from washing. OR high-waisted jeans, slightly tapered leg.
+Graphic tee or striped top, slightly oversized, tucked loosely in front -
+a faded floral print, or simple color block, something that once had
+personality. The kind of top you bought because you liked it, not because
+it was practical.
+Flat simple shoes - worn canvas sneakers or plain leather flats.
+No heels. Nothing that takes effort.
+
+JEWELRY - minimal, inexpensive:
+Small gold or pearl stud earrings.
+Thin gold chain necklace, simple.
+Maybe a small bracelet - the kind you never take off.
+
+POSTURE: shoulders carry weight but she hasn't given up.
+Slightly inward but not collapsed. A woman still standing.
+The posture of someone who loves her son but doesn't know
+how to show it in a way that reaches him.
+
+SKIN: real texture. Natural skin. Pores visible. Tired around
+the eyes. Not retouched. This is not a fashion shoot.
+
+16:9 landscape. No watermark. No AI artifacts.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="divider"></div>
+
+<!-- ══ 7. SIMONE HAYES ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num">7</div>
+    <div class="char-name">Simone Hayes</div>
+    <div class="char-role-tag">The One Who Waited</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="SIMONE_sheet.png" alt="Simone Hayes Reference Sheet">
+        <div class="char-image-label">Character Reference Sheet · 16:9</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Background</span>
+          <div class="info-text">
+            Same neighborhood, different path. <em>Smart, grounded, her own life</em> — she did not stumble into Marcus Cole's world by accident. She chose to stay in it with full information.<br><br>
+            When Marcus went to Corcoran, she did not disappear. When he walked out the front gate 18 months later, she was there — separate from the crew, on her own terms. She did not rush with them. That is the difference.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Role in the Story</span>
+          <div class="info-text">
+            The only person who sees both Marcus and Kane in the same moment — and chooses to stay. Her presence is the show's <em>only warmth</em>. The question the series never answers: <i>was it love, or did she believe a man like that could be saved?</i>
+          </div>
+        </div>
+        <div class="char-quote">"She was the only person who ever made him feel like being Marcus was enough. He never let himself believe her." — Production Notes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ SUPPORTING CAST — MARCUS'S CREW ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:18px;padding-top:8px;min-width:80px">CREW</div>
+    <div class="char-name">Marcus's Street Crew</div>
+    <div class="char-role-tag">South Central · 1989–1992</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:20px">
+
+    <!-- RAY -->
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="../דמויות משנה/RAY_sheet.png" alt="RAY" style="width:100%;height:auto;display:block">
+      <div style="padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#e85d04;text-transform:uppercase;margin-bottom:6px">RAY</div>
+        <div style="font-size:12px;color:#888;line-height:1.7">Corner man. The first one Marcus calls. Steady, reliable, never asks questions he doesn't want answers to. First appears at the curb in Shot 3 with Ghost and Deon.</div>
+      </div>
+    </div>
+
+    <!-- GHOST -->
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="../דמויות משנה/GHOST_sheet.png" alt="GHOST" style="width:100%;height:auto;display:block">
+      <div style="padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#e85d04;text-transform:uppercase;margin-bottom:6px">GHOST</div>
+        <div style="font-size:12px;color:#888;line-height:1.7">The warning the show was building toward. He decided loyalty had limits. His Beretta ends up on the ground beside his open hand in Shot 26 — the closing frame. He never got to use it.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#444;margin-top:8px;letter-spacing:1px">CLOSING SHOT — Shot 26</div>
+      </div>
+    </div>
+
+    <!-- DEON -->
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="../דמויות משנה/DEON_sheet.png" alt="DEON" style="width:100%;height:auto;display:block">
+      <div style="padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#e85d04;text-transform:uppercase;margin-bottom:6px">DEON</div>
+        <div style="font-size:12px;color:#888;line-height:1.7">Third at the curb. South Central lifer. Runs the block when Marcus is unavailable. Not ambitious — loyal. Appears Shot 3 with Ray and Ghost.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ ANTAGONIST CREW — VARGAS ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:18px;padding-top:8px;min-width:80px">VARGAS</div>
+    <div class="char-name">Hector Vargas & His Crew</div>
+    <div class="char-role-tag">Hispanic Gang — South Central · 1989</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:20px">
+
+    <!-- VARGAS -->
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="../דמויות משנה/VARGAS_sheet.png" alt="Hector Vargas" style="width:100%;height:auto;display:block">
+      <div style="padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#e85d04;text-transform:uppercase;margin-bottom:6px">HECTOR VARGAS</div>
+        <div style="font-size:12px;color:#888;line-height:1.7">South Central Hispanic gang boss. Rival territorial power to Victor Cross. Commands the Vargas crew inside Corcoran — Mando as his shot-caller, Joker as enforcer. Old-school Chicano authority.</div>
+      </div>
+    </div>
+
+    <!-- TORO -->
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="../דמויות משנה/TORO_sheet.png" alt="TORO" style="width:100%;height:auto;display:block">
+      <div style="padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#e85d04;text-transform:uppercase;margin-bottom:6px">TORO</div>
+        <div style="font-size:12px;color:#888;line-height:1.7">Vargas's top soldier. Big, tattooed, imposing. Controlled a block with presence alone. Shot 10: Darius takes him from behind — he never saw it coming. That is why Darius is dangerous.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#444;margin-top:8px;letter-spacing:1px">Shot 10 — Darius Takedown</div>
+      </div>
+    </div>
+
+    <!-- RAMOS -->
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="../דמויות משנה/RAMOS_sheet.png" alt="RAMOS" style="width:100%;height:auto;display:block">
+      <div style="padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#e85d04;text-transform:uppercase;margin-bottom:6px">RAMOS <span style="color:#444;font-size:8px">· VARGAS CREW</span></div>
+        <div style="font-size:12px;color:#888;line-height:1.7">Street-level enforcer in the Vargas organization. Not related to Alex Ramos (LAPD). Runs collection, debt enforcement, keeps the block in line when Toro is unavailable.</div>
+      </div>
+    </div>
+
+    <!-- DIABLO -->
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="../דמויות משנה/diablo_sheet.png" alt="DIABLO" style="width:100%;height:auto;display:block">
+      <div style="padding:14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#e85d04;text-transform:uppercase;margin-bottom:6px">DIABLO</div>
+        <div style="font-size:12px;color:#888;line-height:1.7">Age 31. Vargas crew cleanup man — the one who makes problems disappear after the fact. White wife beater, khaki Dickies, Nike Cortez, silver crucifix. Quiet. Economical. Does not speak until there is nothing left to say.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#e85d04;margin-top:8px;letter-spacing:1px">NEW — Added Session 3</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ CORCORAN STATE PRISON — BLACK CREW ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:14px;padding-top:10px;min-width:80px;letter-spacing:2px">PRISON</div>
+    <div class="char-name">Corcoran — Black Crew</div>
+    <div class="char-role-tag">C-Block · 1989–1991 · CDC Blues</div>
+  </div>
+
+  <div class="note-card" style="margin-bottom:20px">
+    <span class="note-label">Context</span>
+    <div class="note-text">Marcus Cole's crew inside Corcoran State Prison. Eight men who formed a unit around Marcus during his 18-month sentence. He did not choose to lead them — they recognized him. All wearing CDC blue chambray shirts and blue denim. All carry Corcoran's weight in their eyes.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:20px">
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/marcus_prison.png" alt="Marcus Prison" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">MARCUS "KANE" COLE</div>
+        <div style="font-size:11px;color:#666">Age 19 · 18 months · C-Block · Shot-caller</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/smoke_prison.png" alt="SMOKE" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">SMOKE</div>
+        <div style="font-size:11px;color:#666">C-Block · Marcus's crew · Quiet, watchful</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/deuce_prison.png" alt="DEUCE" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">DEUCE</div>
+        <div style="font-size:11px;color:#666">C-Block · Marcus's crew · Enforcer</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/bear_prison.png" alt="BEAR" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">BEAR</div>
+        <div style="font-size:11px;color:#666">C-Block · Physical presence · Silent muscle</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/prophet_prison.png" alt="PROPHET" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">PROPHET</div>
+        <div style="font-size:11px;color:#666">C-Block · Information · Reads the block</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/razor_prison.png" alt="RAZOR" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">RAZOR</div>
+        <div style="font-size:11px;color:#666">C-Block · Fast. Too fast. Known for it.</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/church_prison.png" alt="CHURCH" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">CHURCH</div>
+        <div style="font-size:11px;color:#666">C-Block · Carries a Bible. Uses it.</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/marcus_COLA_prison.png" alt="MARCUS COLA" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">MARCUS "COLA"</div>
+        <div style="font-size:11px;color:#666">C-Block · No relation to Kane · Connected</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ CORCORAN STATE PRISON — HISPANIC CREW ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:14px;padding-top:10px;min-width:80px;letter-spacing:2px">PRISON</div>
+    <div class="char-name">Corcoran — Hispanic Crew</div>
+    <div class="char-role-tag">B-Block · Vargas Organization Inside · CDC Blues</div>
+  </div>
+
+  <div class="note-card" style="margin-bottom:20px">
+    <span class="note-label">Context</span>
+    <div class="note-text">Hector Vargas's prison unit inside Corcoran. Seven men — Chicano and Mexican-American, heavy tattoos, CDC blues, face marked by both the street and the institution. MANDO runs B-Block as Vargas's inside shot-caller. SPIDER is the one who bets wrong against Marcus in the yard. All carry "LA COUNTY JAIL" fabric labels — original intake processing tag, never removed.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:20px">
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="HISPANIC_CREW/mando_prison.png" alt="MANDO" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">MANDO</div>
+        <div style="font-size:11px;color:#666">B-Block shot-caller · "VARGAS" tattooed forehead · Chicano sleeve · Corcoran 1989</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="HISPANIC_CREW/joker_prison.png" alt="JOKER" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">JOKER</div>
+        <div style="font-size:11px;color:#666">Wiry. Clown smile tattooed at mouth corners. Unsettling energy. B-Block.</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="HISPANIC_CREW/spider_prison.png" alt="SPIDER" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">SPIDER</div>
+        <div style="font-size:11px;color:#666">The yard confrontation — Shot 21. Cold, calculating. He underestimated Marcus. He was wrong. Concrete, three hits, done.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#555;margin-top:6px">Shot 21 — The Corner</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="HISPANIC_CREW/santos_prison.png" alt="SANTOS" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">SANTOS</div>
+        <div style="font-size:11px;color:#666">B-Block · Vargas crew · Street soldier inside</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="HISPANIC_CREW/flaco_prison.png" alt="FLACO" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">FLACO</div>
+        <div style="font-size:11px;color:#666">B-Block · Thin, fast, reliable. Longer sentence.</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="HISPANIC_CREW/lobo_prison.png" alt="LOBO" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">LOBO</div>
+        <div style="font-size:11px;color:#666">B-Block · Old Chicano tattoos. Has been here before.</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="HISPANIC_CREW/raul_prison.png" alt="RAUL" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">RAUL</div>
+        <div style="font-size:11px;color:#666">Age 29 · 8 years · B-Block · Debt enforcer for Vargas. Collects what is owed. Does not ask twice.</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#e85d04;margin-top:6px">NEW — Added Session 3</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ PROP REFERENCE ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:14px;padding-top:10px;min-width:80px;letter-spacing:2px">PROP</div>
+    <div class="char-name">Beretta 92F — Production Reference</div>
+    <div class="char-role-tag">9mm Semi-Automatic · 1989 · Appears in Shots 14, 15, 26</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="../דמויות משנה/BERETTA92F_sheet.png" alt="Beretta 92F Prop Sheet">
+        <div class="char-image-label">Prop Reference Sheet · 16:9 · Studio 3-View + Detail Grid</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Specifications</span>
+          <div class="info-text">
+            <em>BERETTA 92F</em> · 9×19mm · 15+1 capacity · 4.9" barrel · 2.1 lbs<br>
+            US Army M9 standard issue since 1985. The defining sidearm of 1989.<br><br>
+            Matte black. Heavy. Authoritative. The weapon in Ghost's open hand in Shot 26 — the one he never got to use.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Appears In</span>
+          <div class="info-text">
+            <em>Shot 14 / Shot 15</em> — Gun drawn. The moment before everything changes.<br>
+            <em>Shot 26</em> — Marcus's right hand, low. Ghost's open hand on the ground, beside him. Two Berettas. One outcome.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MARCUS VARIANTS ══ -->
+<div class="divider"></div>
+
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:14px;padding-top:10px;min-width:80px;letter-spacing:2px">VARIANTS</div>
+    <div class="char-name">Marcus Cole — All Looks</div>
+    <div class="char-role-tag">5 Character Sheet Versions · Protagonist</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="marcus_cole.png" alt="Marcus Cole — Street (Young)" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Young — Street (Core Reference)</div>
+        <div style="font-size:11px;color:#666">Age 15 · Beater, basketball shorts, Air Force 1s · Base identity reference</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="marcus_cole_street.png" alt="Marcus Cole — Street Gangster" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Street Gangster Look</div>
+        <div style="font-size:11px;color:#666">Oversized white tee · Black Dickies shorts · Jordan 1s · Cuban chain · AP-style watch</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="marcus_cole_white.png" alt="Marcus Cole — Home Casual" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Home Casual</div>
+        <div style="font-size:11px;color:#666">Plain white crew-neck tee · Washed blue jeans · White socks · Relaxed expression</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="BLACK_CREW/marcus_prison.png" alt="Marcus Cole — Prison" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Prison — Corcoran 1989</div>
+        <div style="font-size:11px;color:#666">Age 19 · CDC blues · C-Block · 18 months · Shot-caller identity</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="marcus_cole_older.png" alt="Marcus Cole — Older" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Older — Narrator (Age 45)</div>
+        <div style="font-size:11px;color:#666">30 years later · Same tattoos, faded · Salt-and-pepper fade · The man telling the story</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="marcus_cole_v2.png" alt="Marcus Cole — Character Sheet Classic" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Full Character Sheet — Classic</div>
+        <div style="font-size:11px;color:#666">Stats + 3 poses + expressions grid · Full details reference</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="marcus_crew.png" alt="Marcus Cole — Boss Look" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Boss Look</div>
+        <div style="font-size:11px;color:#666">Black open button-up · White beater · Black Dickies · Black Cortez</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ DARIUS WEBB VARIANTS ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:14px;padding-top:10px;min-width:80px;letter-spacing:2px">VARIANTS</div>
+    <div class="char-name">Darius Webb — All Looks</div>
+    <div class="char-role-tag">2 Character Sheet Versions · Ride or Die</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="darius_webb.png" alt="Darius Webb — Street (Young)" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Young — Street (Core Reference)</div>
+        <div style="font-size:11px;color:#666">Age 15 · Beater, basketball shorts, Air Force 1s · Base identity reference</div>
+      </div>
+    </div>
+
+    <div style="background:#060606;border:1px solid rgba(239,244,255,0.07);overflow:hidden">
+      <img src="darius_webb_gang.png" alt="Darius Webb — Gang Look" style="width:100%;height:auto;display:block">
+      <div style="padding:10px 14px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#e85d04;text-transform:uppercase;margin-bottom:4px">Gang Look</div>
+        <div style="font-size:11px;color:#666">Black durag · White beater · Khaki Dickies · White Nike Cortez · Gold rope chain</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ PROP — VEHICLE ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:14px;padding-top:10px;min-width:80px;letter-spacing:2px">PROP</div>
+    <div class="char-name">Chevy Caprice Classic — Production Reference</div>
+    <div class="char-role-tag">1987 · Matte Black · Plate: KING80</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="hf_20260519_140437_d9160ff3-cee6-4221-831a-a4e7253c7e2c.png" alt="Chevy Caprice Prop Sheet">
+        <div class="char-image-label">Prop Reference Sheet · 16:9 · Multi-View</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Specifications</span>
+          <div class="info-text">
+            <em>1987 Chevrolet Caprice Classic</em> · 4-door sedan · Matte black<br>
+            California plate: <em>KING80</em><br><br>
+            The defining street vehicle of South Central LA 1989. Power and authority without words. The car that idles outside a building and doesn't need to honk.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Context</span>
+          <div class="info-text">
+            Victor Cross's primary vehicle. Establishing shots — the car tells you who is here before the man steps out. "KING80" is the plate. The number is not an accident.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ PROP — SHOVEL ══ -->
+<div class="char-block">
+  <div class="char-header">
+    <div class="char-num" style="font-size:14px;padding-top:10px;min-width:80px;letter-spacing:2px">PROP</div>
+    <div class="char-name">Entrenching Shovel — Production Reference</div>
+    <div class="char-role-tag">Military Surplus · Steel · Used Once</div>
+  </div>
+  <div class="char-body">
+    <div>
+      <div class="char-image-wrap">
+        <img src="../דמויות משנה/ChatGPT Image May 22, 2026, 08_31_58 AM.png" alt="Shovel Prop Sheet">
+        <div class="char-image-label">Prop Reference Sheet · Studio White</div>
+      </div>
+    </div>
+    <div class="char-right">
+      <div class="char-info">
+        <div class="info-section">
+          <span class="info-label">Specifications</span>
+          <div class="info-text">
+            <em>Military entrenching tool</em> · Folding D-handle · Matte OD green steel<br>
+            Surplus market. Bought without a question. No one remembers the sale.
+          </div>
+        </div>
+        <div class="info-section">
+          <span class="info-label">Context</span>
+          <div class="info-text">
+            South Central LA, 1989. Problems that don't go to the police get handled with what's available. <em>What gets buried stays buried — until it doesn't.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="footer-brand">AVISX DIRECTOR</div>
+  <div class="footer-meta">Streets of Crime · Character Index · 21 Characters · 7 Marcus Variants · 2 Darius Variants · 3 Props · LA 1989–1992</div>
+</footer>
+
+<script>
+function copyPrompt(btn) {
+  const pre = btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = 'Copied';
+    setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+</script>
+
+</body>
+</html>
