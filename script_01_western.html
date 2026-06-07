@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סקריפט 01 — המערב הפרוע</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  /* ─── DJANGO UNCHAINED PALETTE ───────────────────────────────────────
+     Source: Shotdeck — Django Unchained (2012)
+     Dir: Tarantino · DP: Robert Richardson · Colorist: Yvan Lucas
+     Color: Warm, Desaturated · Lighting: Soft, Low Contrast · Firelight
+     Format: 35mm Film · Lens: Anamorphic Panavision
+  ──────────────────────────────────────────────────────────────────── */
+  :root {
+    --bg-deep:      #0E0B06;   /* deep warm black — grassland night */
+    --bg-dark:      #161008;   /* warm dark base */
+    --bg-card:      #1C140A;   /* card background */
+    --bg-raised:    #221A0E;   /* raised surface */
+    --border-dim:   #2E2010;   /* subtle border */
+    --border-mid:   #4A3318;   /* mid border */
+    --border-hot:   #7A5520;   /* active border */
+
+    /* Warm Desaturated Gold — Richardson's firelight & sun */
+    --gold-dim:     #7A5A28;
+    --gold-mid:     #A07835;
+    --gold-hot:     #C49040;   /* main accent — desaturated amber */
+    --gold-bright:  #DEB860;   /* highlight */
+
+    /* Warm off-white — 35mm film base, slightly yellow */
+    --text-primary: #EDD9A8;
+    --text-mid:     #BBA070;
+    --text-dim:     #7A6040;
+
+    /* Muted Western Red — Django's blood, not vivid */
+    --red-muted:    #7A2A18;
+    --red-hot:      #A03820;
+
+    /* Grassland green — desaturated, dusty */
+    --green-muted:  #4A6028;
+
+    /* Film grain overlay alpha */
+    --grain: rgba(180,150,80,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Heebo', sans-serif;
+    min-height: 100vh;
+    /* Soft film-grain noise texture */
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(180,130,40,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(160,100,30,0.03) 0%, transparent 50%);
+  }
+
+  /* ─── SHOTDECK REFERENCE BAR ─────────────────────────────────────── */
+  .shotdeck-bar {
+    background: #0A0804;
+    border-bottom: 1px solid var(--border-dim);
+    padding: 8px 60px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    overflow-x: auto;
+  }
+  .sd-label {
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .sd-divider { width: 1px; height: 14px; background: var(--border-dim); }
+  .sd-item {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    white-space: nowrap;
+  }
+  .sd-key { font-size: 9px; color: var(--text-dim); }
+  .sd-val { font-size: 9px; font-weight: 700; color: var(--gold-mid); }
+  .sd-swatch {
+    width: 10px; height: 10px; border-radius: 2px;
+    display: inline-block; vertical-align: middle;
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────────────────── */
+  .header {
+    background: linear-gradient(180deg, #1A1208 0%, #120E06 100%);
+    border-bottom: 1px solid var(--border-mid);
+    padding: 44px 60px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Anamorphic horizontal lens flare line */
+  .header::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(220,180,80,0.15) 30%, rgba(220,180,80,0.3) 50%, rgba(220,180,80,0.15) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .bg-number {
+    position: absolute;
+    left: 40px; top: 20px;
+    font-size: 160px;
+    font-weight: 900;
+    color: var(--border-dim);
+    line-height: 1;
+    pointer-events: none;
+    font-family: 'Playfair Display', serif;
+    opacity: 0.6;
+  }
+  .header-inner {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .project-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .script-title {
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+  }
+  .script-subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gold-mid);
+    letter-spacing: 3px;
+  }
+  .header-right {
+    text-align: left;
+    padding-left: 20px;
+  }
+  .color-swatches {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+    justify-content: flex-end;
+  }
+  .swatch {
+    width: 28px; height: 28px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .swatch-label {
+    font-size: 8px;
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 3px;
+    letter-spacing: 1px;
+  }
+  .swatch-group { text-align: center; }
+  .meta-pills {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: rgba(122,85,32,0.12);
+    border: 1px solid var(--border-mid);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-mid);
+    letter-spacing: 1px;
+  }
+  .pill.star {
+    background: rgba(192,130,40,0.2);
+    border-color: var(--gold-hot);
+    color: var(--gold-bright);
+  }
+
+  /* ─── LAYOUT ─────────────────────────────────────────────────────── */
+  .main {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 240px);
+  }
+
+  /* ─── SIDEBAR ────────────────────────────────────────────────────── */
+  .sidebar {
+    background: #0D0905;
+    border-left: 1px solid var(--border-dim);
+    padding: 28px 20px;
+  }
+  .poster-wrap {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .poster-thumb {
+    width: 100%;
+    border-radius: 3px;
+    border: 2px solid var(--border-mid);
+    display: block;
+    /* Django Unchained — Robert Richardson look:
+       Warm desaturated, soft low contrast, 35mm film warmth */
+    filter: saturate(0.65) contrast(0.88) brightness(0.97) sepia(0.18) hue-rotate(-8deg);
+  }
+  .poster-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--red-muted);
+    color: #E8CCA0;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .sb-section { margin-bottom: 22px; }
+  .sb-label {
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-dim);
+  }
+  .sb-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .sb-key { font-size: 13px; color: var(--text-dim); }
+  .sb-val { font-size: 13px; color: var(--text-primary); font-weight: 700; }
+  .sb-val.ready { color: #6A9A40; }
+  .sb-val.wip   { color: var(--gold-hot); }
+
+  .tone-row {
+    display: flex;
+    gap: 3px;
+    margin-top: 8px;
+    height: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .tone-comedy  { background: var(--gold-hot);  flex: 3; }
+  .tone-emotion { background: var(--red-muted); flex: 2; }
+  .tone-action  { background: var(--green-muted); flex: 1; }
+
+  .dp-ref {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-mid);
+  }
+  .dp-ref strong { color: var(--gold-hot); }
+
+  /* ─── CONTENT ────────────────────────────────────────────────────── */
+  .content { padding: 36px 48px; background: var(--bg-deep); }
+
+  /* Section title */
+  .sec {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  /* Logline */
+  .logline {
+    background: var(--bg-card);
+    border: 1px solid var(--border-mid);
+    border-right: 3px solid var(--gold-hot);
+    border-radius: 3px;
+    padding: 18px 22px;
+    margin-bottom: 30px;
+  }
+  .logline-tag { font-size: 9px; letter-spacing: 3px; color: var(--gold-dim); font-weight: 900; margin-bottom: 6px; }
+  .logline-text {
+    font-size: 19px;
+    font-weight: 300;
+    color: var(--text-primary);
+    line-height: 1.8;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* STORY ARC */
+  .arc-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  .arc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; left: 0;
+    height: 2px;
+  }
+  .arc-card.act1::before { background: var(--gold-dim); }
+  .arc-card.act2::before { background: var(--gold-hot); }
+  .arc-card.act3::before { background: var(--red-muted); }
+  .arc-num { font-size: 28px; font-weight: 900; color: var(--border-mid); font-family: 'Playfair Display', serif; margin-bottom: 4px; }
+  .arc-title { font-size: 13px; font-weight: 900; color: var(--gold-mid); margin-bottom: 6px; }
+  .arc-body { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+
+  /* SCENES */
+  .scenes { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+
+  .scene {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .scene:hover { border-color: var(--border-mid); }
+  .scene.emotional { border-color: rgba(122,42,24,0.5); }
+
+  .scene-left {
+    background: var(--bg-raised);
+    border-left: 1px solid var(--border-dim);
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+  .scene-tc {
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--text-dim);
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.4;
+  }
+  .scene-badge {
+    font-size: 9px;
+    font-weight: 900;
+    padding: 2px 6px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  .badge-crime  { background: rgba(122,85,32,0.2); color: var(--gold-dim); border: 1px solid var(--border-mid); }
+  .badge-emo    { background: rgba(122,42,24,0.2); color: #A05040;        border: 1px solid rgba(122,42,24,0.4); }
+  .badge-asset  { background: rgba(74,96,40,0.2);  color: #6A9A40;        border: 1px solid rgba(74,96,40,0.4); }
+
+  .scene-right { padding: 14px 18px; }
+  .scene-title { font-size: 16px; font-weight: 900; color: var(--gold-mid); margin-bottom: 5px; }
+  .crime-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .scene-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .scene-block-label { font-size: 11px; font-weight: 900; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 5px; }
+  .scene-visual-text { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+  .scene-vo-text {
+    font-size: 14px;
+    color: var(--gold-bright);
+    line-height: 1.8;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    padding-right: 12px;
+    border-right: 2px solid var(--border-mid);
+  }
+
+  /* VO KEY QUOTES */
+  .quotes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 30px; }
+  .quote-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 14px 16px;
+  }
+  .quote-label { font-size: 11px; font-weight: 900; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 10px; }
+  .quote-text {
+    font-size: 17px;
+    color: var(--gold-bright);
+    font-style: italic;
+    line-height: 1.8;
+    font-family: 'Playfair Display', serif;
+  }
+  .quote-text em { color: var(--text-primary); font-style: normal; font-weight: 700; }
+
+  /* PRODUCTION */
+  .prod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 10px; }
+  .prod-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .prod-icon { font-size: 20px; margin-bottom: 6px; }
+  .prod-role { font-size: 9px; letter-spacing: 2px; color: var(--text-dim); font-weight: 900; margin-bottom: 5px; }
+  .prod-tool { font-size: 12px; color: var(--gold-mid); font-weight: 700; line-height: 1.5; }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────────── */
+  .footer {
+    background: #0A0804;
+    border-top: 1px solid var(--border-dim);
+    padding: 14px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-l { font-size: 10px; color: var(--text-dim); letter-spacing: 2px; }
+  .footer-r { font-size: 10px; color: var(--text-dim); display: flex; align-items: center; gap: 8px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold-hot); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+</style>
+</head>
+<body>
+
+
+<!-- HEADER -->
+<div class="header">
+  <div class="bg-number">01</div>
+  <div class="header-inner">
+    <div>
+      <div class="project-label">יום הולדת לנדב · סקריפט 01 מתוך 02</div>
+      <div class="script-title">המערב הפרוע</div>
+      <div class="script-subtitle">WANTED — WESTERN COMEDY · 3:00 MIN</div>
+      <div class="meta-pills">
+        <span class="pill star">⭐ קונספט ראשי</span>
+        <span class="pill">3:00 דקות</span>
+        <span class="pill">8 סצנות</span>
+        <span class="pill">קומדי + מרגש</span>
+        <span class="pill">9:16 אנכי</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="color-swatches">
+        <div class="swatch-group">
+          <div class="swatch" style="background:#C49040;"></div>
+          <div class="swatch-label">Firelight</div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch" style="background:#E2CFA0;"></div>
+          <div class="swatch-label">Film Base</div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch" style="background:#7A2A18;"></div>
+          <div class="swatch-label">Western Red</div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch" style="background:#1C140A;"></div>
+          <div class="swatch-label">Shadow</div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch" style="background:#4A6028;"></div>
+          <div class="swatch-label">Grassland</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="poster-wrap">
+      <img class="poster-thumb" src="https://raw.githubusercontent.com/Avisenior/Avisx-Director/main/wanted_nadav_FINAL.png" alt="WANTED Poster">
+      <div class="poster-badge">WANTED</div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">פרטי פרויקט</div>
+      <div class="sb-row"><span class="sb-key">גיבור</span><span class="sb-val">נדב — גיל 40</span></div>
+      <div class="sb-row"><span class="sb-key">אורך</span><span class="sb-val">3:00 דק׳</span></div>
+      <div class="sb-row"><span class="sb-key">פורמט</span><span class="sb-val">9:16 אנכי</span></div>
+      <div class="sb-row"><span class="sb-key">סצנות</span><span class="sb-val">8 סצנות</span></div>
+      <div class="sb-row"><span class="sb-key">שפה</span><span class="sb-val">עברית</span></div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">טון</div>
+      <div class="tone-row">
+        <div class="tone-comedy"></div>
+        <div class="tone-emotion"></div>
+        <div class="tone-action"></div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:5px;">
+        <span style="flex:3;font-size:9px;color:var(--text-dim);text-align:center;">קומדי</span>
+        <span style="flex:2;font-size:9px;color:var(--text-dim);text-align:center;">מרגש</span>
+        <span style="flex:1;font-size:9px;color:var(--text-dim);text-align:center;">אקשן</span>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">נכסים</div>
+      <div class="sb-row"><span class="sb-key">פוסטר base</span><span class="sb-val ready">✓ מוכן</span></div>
+      <div class="sb-row"><span class="sb-key">פוסטר FINAL</span><span class="sb-val ready">✓ מוכן</span></div>
+      <div class="sb-row"><span class="sb-key">סקריפט VO</span><span class="sb-val ready">✓ מוכן</span></div>
+      <div class="sb-row"><span class="sb-key">שוטי וידאו</span><span class="sb-val wip">⬤ הבא</span></div>
+      <div class="sb-row"><span class="sb-key">קריין</span><span class="sb-val wip">⬤ הבא</span></div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">רפרנס DP</div>
+      <div class="dp-ref">
+        Warm Desaturated · Firelight<br>
+        Soft Light · Low Contrast<br>
+        35mm · Anamorphic 2.39:1<br>
+        <br>
+        <strong>במאים:</strong> אבי ומירית
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- CONCEPT NOTE -->
+    <div class="logline">
+      <div class="logline-tag">קונספט מעודכן — השריף</div>
+      <div class="logline-text">בת הזוג לבושה שריף — מגישה תיק עבירות על נדב. כל עבירה שהיא מתארת נחתכת לויז׳ואל שלו בפועל. הסיום — היא מורידה את הכובע ומודה שהוא שלה.</div>
+    </div>
+
+    <!-- CHARACTER CARDS -->
+    <div class="sec">דמויות</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:30px;">
+      <div class="quote-card" style="border-right:3px solid var(--red-muted);">
+        <div class="quote-label">🤠 השריף — בת הזוג</div>
+        <div class="scene-visual-text" style="margin-top:8px;line-height:1.8;">כובע שריף. תג. מעיל ארוך. ביטחון מלא.<br>היא מגישה את ״התיק״ — כל עבירה שלו. הטון: רציני לחלוטין. ההומור: מהפער.<br><br><strong style="color:var(--gold-mid);">בסיום:</strong> מורידה את הכובע. ״אבל מה לעשות — הוא שלי.״</div>
+      </div>
+      <div class="quote-card" style="border-right:3px solid var(--gold-hot);">
+        <div class="quote-label">🔫 החשוד — נדב</div>
+        <div class="scene-visual-text" style="margin-top:8px;line-height:1.8;">ז׳קט עור. ידיים שלובות. מבט ישיר.<br>מופיע רק בויז׳ואלים — כל עבירה כרטיסיה.<br><br><strong style="color:var(--gold-mid);">גיל:</strong> 40 — Limited Edition<br><strong style="color:var(--gold-mid);">סטטוס:</strong> מבוקש. תמיד.</div>
+      </div>
+    </div>
+
+    <!-- 3-ACT STORY ARC -->
+    <div class="sec">קשת הסיפור — 3 מערכות</div>
+    <div class="arc-row">
+      <div class="arc-card act1">
+        <div class="arc-num">I</div>
+        <div class="arc-title">השריף נכנסת</div>
+        <div class="arc-body">משרד שריף. היא שמה את הכובע, מניחה את התיק על השולחן. ״יש לי עבירות.״ עבירות 1–2: מכירות, גריל. Django Unchained opening energy.</div>
+      </div>
+      <div class="arc-card act2">
+        <div class="arc-num">II</div>
+        <div class="arc-title">הראיות</div>
+        <div class="arc-body">עבירות 3–5: האופנוע, דרום אמריקה, קרוספיט. כל עבירה — השריף מתארת → Cut לויז׳ואל של נדב. ריתמוס מהיר. Low contrast warm light.</div>
+      </div>
+      <div class="arc-card act3">
+        <div class="arc-num">III</div>
+        <div class="arc-title">הכניעה</div>
+        <div class="arc-body">השריף מסתכלת על הפוסטר. עוצרת. מורידה את הכובע. ״40 שנה של עבירות... אבל מה לעשות.״ Cut: הוא עם הילדים. שקיעה. Django finale.</div>
+      </div>
+    </div>
+
+    <!-- SCENES -->
+    <div class="sec">פירוט סצנות</div>
+    <div class="scenes">
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">00:00<br>—<br>00:20</div>
+          <div class="scene-badge badge-asset">OPEN</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">פתיח — משרד השריף</div>
+          <div class="crime-tag">ACT I · Django Opening · Morricone</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">Wide — עיר מערבית. אבק. רוח. <br>Cut to: משרד שריף. אור ענבר חם. בת הזוג נכנסת — כובע שריף, מעיל, תג. מניחה תיק עבה על השולחן.<br>Slow zoom in על פניה — רציניות מוחלטת.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">שריף — VO</div>
+              <div class="scene-vo-text">״יש לי תיק.<br>החשוד: נדב.<br>גיל: ארבעים שנה של עבירות.<br>המקרה: מורכב.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">00:20<br>—<br>00:45</div>
+          <div class="scene-badge badge-crime">עבירה<br>#1</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">מכירה ללא יכולת לעצור</div>
+          <div class="crime-tag">ACT I · קומדי · Low Contrast Daylight</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">שריף מתארת</div>
+              <div class="scene-visual-text">היא פותחת את התיק, שולפת תצלום.<br>מסתכלת עליו. מנידה ראש לאט.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">שריף — VO + Cut לנדב</div>
+              <div class="scene-vo-text">״הוא ניגש לאנשים ברחוב. מתחיל בשיחה תמימה.״<br><br>— Cut: נדב בסלון, ידיים שלובות, מחייך לאדם מולו —<br><br>״חמש דקות אחר כך — הם לקוחות. אחד ביקש כיוון לחניה. יצא עם קורס דיגיטלי.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">00:45<br>—<br>01:10</div>
+          <div class="scene-badge badge-crime">עבירה<br>#2</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">הצתת אש בשעות הלילה — שוב ושוב</div>
+          <div class="crime-tag">ACT I · קומדי · Firelight Night</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">שריף מתארת</div>
+              <div class="scene-visual-text">שולפת דו״ח. קוראת בקול. אצבע עוברת על השורות. עיניים עולות מהנייר — מבט ישיר למצלמה.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">שריף — VO + Cut לנדב</div>
+              <div class="scene-vo-text">״גריל. בכל מזג אוויר.״<br><br>— Cut: נדב ליד הגריל, להבות, גשם, 03:00 לפנות בוקר —<br><br>״חורף. קיץ. גשם. ברד. לילה. בוקר. הוא לא עוצר. השכנים כבר מכירים את הריח.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">01:10<br>—<br>01:30</div>
+          <div class="scene-badge badge-crime">עבירה<br>#3</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">בריחה על אופנוע — ללא עדות</div>
+          <div class="crime-tag">ACT II · Django Wide Shot · Anamorphic</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">שריף מתארת</div>
+              <div class="scene-visual-text">קמה. הולכת לחלון. מסתכלת החוצה. אור שקיעה על פניה. נאנחת בשקט.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">שריף — VO + Cut לנדב</div>
+              <div class="scene-vo-text">״כשמחפשים אותו — הוא על האופנוע.״<br><br>— Wide: כביש פתוח. אופנוע ברחוק. Anamorphic flare. Golden Hour —<br><br>״לא ברור לאן. לא ברור מתי. ברור רק דבר אחד — הוא חוזר.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">01:30<br>—<br>01:55</div>
+          <div class="scene-badge badge-crime">עבירה<br>#4</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">עזיבת השטח — דרום אמריקה</div>
+          <div class="crime-tag">ACT II · הרפתקה · Soft Daylight</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">שריף מתארת</div>
+              <div class="scene-visual-text">פורשת מפה ישנה על השולחן. מצביעה עם האצבע על דרום אמריקה. מעגל אדום סביב. X.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">שריף — VO + Cut לנדב</div>
+              <div class="scene-vo-text">״פעם ניסה לברוח לגמרי.״<br><br>— Cut: ג׳ונגל. גבס על יד. נחיתה בנתב״ג עם חיוך וסומבררו —<br><br>״דרום אמריקה. הגוף אמר לא. חזר — שבור, חכם, ועם כובע שאי אפשר להסביר.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">01:55<br>—<br>02:15</div>
+          <div class="scene-badge badge-crime">עבירה<br>#5</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">הפרת הבטחה עצמית — קרוספיט</div>
+          <div class="crime-tag">ACT II · קומדי · Single Lamp Interior</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">שריף מתארת</div>
+              <div class="scene-visual-text">שולפת תצלום של ציוד קרוספיט. מחזיקה אותו מול המצלמה. עיניים מביטות מעל התמונה — שתיקה רועמת.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">שריף — VO + Cut לציוד</div>
+              <div class="scene-vo-text">״הוא אמר שיחזור לקרוספיט.״<br><br>— Cut: ברבל מאובק. עכביש. אור יחיד. כיתוב מופיע: ״אני עוד חוזר — 2022, 2023, 2024, 2025...״ —<br><br>״הציוד מחכה בסבלנות. הוא — פחות.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">02:15<br>—<br>02:35</div>
+          <div class="scene-badge badge-asset">ASSET<br>✓</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">הפוסטר — גזר הדין</div>
+          <div class="crime-tag">ACT III · Django Climax</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">השריף הולכת לקיר. תולה את הפוסטר המלא. מסתכלת עליו. רגע ארוך. ידה נוגעת בתמונה. עוצרת.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">שריף — VO</div>
+              <div class="scene-vo-text">״ארבעים שנה של עבירות.<br>ארבעים שנה של חיים.<br>החשוד: מסוכן.<br>החשוד: כריזמטי.<br>החשוד: שלי.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene emotional">
+        <div class="scene-left">
+          <div class="scene-tc">02:35<br>—<br>03:00</div>
+          <div class="scene-badge badge-emo">💛<br>סיום</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">הכניעה — השריף מורידה את הכובע</div>
+          <div class="crime-tag">ACT III · Django Finale · Warm Desaturated · Slow Motion</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">השריף מורידה את הכובע לאט. חיוך קטן. Hard cut — אור זהוב. שקיעה. נדב עם הבן והבת. Slow motion. Warm desaturated. Freeze frame.<br>כיתוב: ״יום הולדת שמח נדב ❤️ — גיל 40״</div>
+            </div>
+            <div>
+              <div class="scene-block-label">שריף — VO אחרון</div>
+              <div class="scene-vo-text">״40 שנה של עבירות.<br>ואני עדיין לא עוצרת אותו.<br><br>כי יש שני אנשים שהוא לא נוטש אותם אף פעם.<br>בן. ובת.<br><br>ושם — אין עבירות.<br>רק אבא.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- KEY VO QUOTES -->
+    <div class="sec">ציטוטי שריף מפתח</div>
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <div class="quote-label">פתיח — השריף</div>
+        <div class="quote-text">״יש לי תיק. החשוד: נדב. <em>גיל: ארבעים שנה של עבירות.</em>״</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-label">אמצע</div>
+        <div class="quote-text">״הוא לא בורח מהחיים — <em>החיים רצים אחריו.</em>״</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-label">לפני סיום</div>
+        <div class="quote-text">״ארבעים שנה של עבירות. <em>ארבעים שנה של חיים.</em>״</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-label">סיום — הכניעה</div>
+        <div class="quote-text">״ואני עדיין לא עוצרת אותו. <em>כי הוא שלי.</em>״</div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-l">במאים: אבי ומירית · יום הולדת לנדב · 2026</div>
+  <div class="footer-r">
+    <div class="dot"></div>
+    סקריפט 01/02
+  </div>
+</div>
+
+</body>
+</html>
