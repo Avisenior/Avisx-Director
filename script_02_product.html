@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סקריפט 02 — המוצר של השנה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  /* ─── AMERICAN PSYCHO PALETTE ─────────────────────────────────────────
+     American Psycho (2000) — Dir: Mary Harron · DP: Andrzej Sekula
+     Color: Cold, Sterile, Corporate · Lighting: Hard fluorescent, Overexposed
+     Format: 35mm · Standard Lens — Patrick Bateman Business Card aesthetic
+  ─────────────────────────────────────────────────────────────────────── */
+  :root {
+    --bg-deep:      #090A0D;   /* cold corporate black */
+    --bg-dark:      #0D0E12;
+    --bg-card:      #12141A;   /* sterile dark card */
+    --bg-raised:    #171920;   /* raised surface */
+    --border-dim:   #1C1E26;   /* surgical seam */
+    --border-mid:   #2A2D38;   /* mid chrome */
+    --border-hot:   #424858;   /* active chrome */
+
+    /* Business Card Cream — Bateman's card on black */
+    --gold-dim:     #555058;
+    --gold-mid:     #908A80;
+    --gold-hot:     #B8B0A4;   /* cream highlight */
+    --gold-bright:  #E0D8CC;   /* bone white — card paper */
+
+    /* Text — cold off-white */
+    --text-primary: #D4D0C8;   /* bone white */
+    --text-mid:     #848078;   /* steel grey */
+    --text-dim:     #484440;   /* dim cold grey */
+
+    /* Corporate Blood Red */
+    --red-muted:    #601818;
+    --red-hot:      #882020;
+
+    /* Sterile Teal — antiseptic room */
+    --green-muted:  #183A38;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Heebo', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 25% 40%, rgba(80,100,150,0.025) 0%, transparent 55%),
+      radial-gradient(ellipse at 75% 15%, rgba(60,80,130,0.018) 0%, transparent 45%);
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────────────────── */
+  .header {
+    background: linear-gradient(180deg, #151820 0%, #0F1018 100%);
+    border-bottom: 1px solid var(--border-mid);
+    padding: 44px 60px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(200,210,230,0.1) 30%, rgba(200,210,230,0.2) 50%, rgba(200,210,230,0.1) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .bg-number {
+    position: absolute;
+    left: 40px; top: 20px;
+    font-size: 160px;
+    font-weight: 900;
+    color: var(--border-dim);
+    line-height: 1;
+    pointer-events: none;
+    font-family: 'Playfair Display', serif;
+    opacity: 0.5;
+  }
+  .header-inner {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .project-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .script-title {
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+  }
+  .script-subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gold-mid);
+    letter-spacing: 3px;
+  }
+  .header-right {
+    text-align: left;
+    padding-left: 20px;
+  }
+  .color-swatches {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+    justify-content: flex-end;
+  }
+  .swatch { width: 28px; height: 28px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+  .swatch-label { font-size: 8px; color: var(--text-dim); text-align: center; margin-top: 3px; letter-spacing: 1px; }
+  .swatch-group { text-align: center; }
+  .meta-pills {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: rgba(70,80,100,0.15);
+    border: 1px solid var(--border-mid);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-mid);
+    letter-spacing: 1px;
+  }
+  .pill.star {
+    background: rgba(184,176,164,0.15);
+    border-color: var(--gold-hot);
+    color: var(--gold-bright);
+  }
+
+  /* ─── LAYOUT ─────────────────────────────────────────────────────── */
+  .main {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 240px);
+  }
+
+  /* ─── SIDEBAR ────────────────────────────────────────────────────── */
+  .sidebar {
+    background: #0B0C10;
+    border-left: 1px solid var(--border-dim);
+    padding: 28px 20px;
+  }
+  .poster-wrap { position: relative; margin-bottom: 24px; }
+  .poster-thumb {
+    width: 100%;
+    border-radius: 3px;
+    border: 2px solid var(--border-mid);
+    display: block;
+    filter: saturate(0.18) contrast(1.1) brightness(0.85) sepia(0.04) hue-rotate(185deg);
+  }
+  .poster-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--red-muted);
+    color: #E0D0C0;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .sb-section { margin-bottom: 22px; }
+  .sb-label {
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-dim);
+  }
+  .sb-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.025);
+  }
+  .sb-key { font-size: 13px; color: var(--text-dim); }
+  .sb-val { font-size: 13px; color: var(--text-primary); font-weight: 700; }
+  .sb-val.ready { color: #5A9850; }
+  .sb-val.wip   { color: var(--gold-hot); }
+
+  .tone-row {
+    display: flex;
+    gap: 3px;
+    margin-top: 8px;
+    height: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .tone-comedy  { background: var(--gold-hot);  flex: 4; }
+  .tone-emotion { background: var(--red-muted); flex: 2; }
+  .tone-action  { background: var(--green-muted); flex: 1; }
+
+  .dp-ref {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-mid);
+  }
+  .dp-ref strong { color: var(--gold-hot); }
+
+  /* ─── CONTENT ────────────────────────────────────────────────────── */
+  .content { padding: 36px 48px; background: var(--bg-deep); }
+  .sec {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-mid);
+  }
+
+  /* Logline */
+  .logline {
+    background: var(--bg-card);
+    border: 1px solid var(--border-mid);
+    border-right: 3px solid var(--gold-hot);
+    border-radius: 3px;
+    padding: 18px 22px;
+    margin-bottom: 30px;
+  }
+  .logline-tag { font-size: 9px; letter-spacing: 3px; color: var(--gold-dim); font-weight: 900; margin-bottom: 6px; }
+  .logline-text {
+    font-size: 19px;
+    font-weight: 300;
+    color: var(--text-primary);
+    line-height: 1.8;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* STORY ARC */
+  .arc-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  .arc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arc-card::before { content: ''; position: absolute; top: 0; right: 0; left: 0; height: 2px; }
+  .arc-card.act1::before { background: var(--gold-dim); }
+  .arc-card.act2::before { background: var(--gold-hot); }
+  .arc-card.act3::before { background: var(--red-muted); }
+  .arc-num { font-size: 28px; font-weight: 900; color: var(--border-mid); font-family: 'Playfair Display', serif; margin-bottom: 4px; }
+  .arc-title { font-size: 13px; font-weight: 900; color: var(--gold-mid); margin-bottom: 6px; }
+  .arc-body { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+
+  /* SPEC SHEET */
+  .spec-sheet {
+    background: var(--bg-card);
+    border: 1px solid var(--border-mid);
+    border-radius: 3px;
+    padding: 20px 24px;
+    margin-bottom: 30px;
+  }
+  .spec-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-dim);
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-icon { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
+  .spec-key { font-size: 12px; font-weight: 900; letter-spacing: 1px; color: var(--text-dim); width: 100px; flex-shrink: 0; }
+  .spec-val { font-size: 14px; color: var(--text-primary); line-height: 1.5; }
+  .spec-val .status { font-size: 11px; color: var(--gold-mid); }
+
+  /* SCENES */
+  .scenes { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+  .scene {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .scene:hover { border-color: var(--border-mid); }
+  .scene.emotional { border-color: rgba(96,24,24,0.5); }
+
+  .scene-left {
+    background: var(--bg-raised);
+    border-left: 1px solid var(--border-dim);
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+  .scene-tc { font-size: 10px; font-weight: 900; color: var(--text-dim); text-align: center; letter-spacing: 1px; line-height: 1.4; }
+  .scene-badge { font-size: 9px; font-weight: 900; padding: 2px 6px; border-radius: 2px; letter-spacing: 1px; text-align: center; }
+  .badge-spec     { background: rgba(70,80,100,0.2); color: var(--gold-mid); border: 1px solid var(--border-mid); }
+  .badge-testimony{ background: rgba(24,58,56,0.3);  color: #5A9878; border: 1px solid rgba(30,70,68,0.5); }
+  .badge-emo      { background: rgba(96,24,24,0.2);  color: #A05040; border: 1px solid rgba(96,24,24,0.4); }
+
+  .scene-right { padding: 14px 18px; }
+  .scene-title { font-size: 16px; font-weight: 900; color: var(--gold-hot); margin-bottom: 5px; }
+  .crime-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .scene-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .scene-block-label { font-size: 11px; font-weight: 900; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 5px; }
+  .scene-visual-text { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+  .scene-vo-text {
+    font-size: 14px;
+    color: var(--gold-bright);
+    line-height: 1.8;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    padding-right: 12px;
+    border-right: 2px solid var(--border-mid);
+  }
+
+  /* QUOTES */
+  .quotes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 30px; }
+  .quote-card { background: var(--bg-card); border: 1px solid var(--border-dim); border-radius: 3px; padding: 14px 16px; }
+  .quote-label { font-size: 11px; font-weight: 900; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 10px; }
+  .quote-text { font-size: 17px; color: var(--gold-bright); font-style: italic; line-height: 1.8; font-family: 'Playfair Display', serif; }
+  .quote-text em { color: var(--text-primary); font-style: normal; font-weight: 700; }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────────── */
+  .footer {
+    background: #070809;
+    border-top: 1px solid var(--border-dim);
+    padding: 14px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-l { font-size: 10px; color: var(--text-dim); letter-spacing: 2px; }
+  .footer-r { font-size: 10px; color: var(--text-dim); display: flex; align-items: center; gap: 8px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold-hot); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .header { padding: 28px 24px 22px; }
+    .bg-number { font-size: 90px; left: 16px; top: 10px; }
+    .script-title { font-size: 34px; }
+    .script-subtitle { font-size: 12px; }
+    .header-right { display: none; }
+    .meta-pills { gap: 6px; }
+    .pill { font-size: 10px; padding: 3px 10px; }
+    .main { grid-template-columns: 1fr; }
+    .sidebar { order: 2; border-left: none; border-top: 1px solid var(--border-dim); padding: 24px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .poster-wrap { grid-column: 1 / -1; max-width: 260px; margin: 0 auto; }
+    .content { padding: 24px 20px; order: 1; }
+    .arc-row { grid-template-columns: 1fr; }
+    .scene { grid-template-columns: 60px 1fr; }
+    .scene-grid { grid-template-columns: 1fr; gap: 12px; }
+    .scene-vo-text { border-right: none; border-top: 2px solid var(--border-mid); padding-right: 0; padding-top: 10px; }
+    .quotes-grid { grid-template-columns: 1fr; }
+    .main > .content > div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    .footer { padding: 14px 20px; flex-direction: column; gap: 6px; text-align: center; }
+    .footer-l { font-size: 9px; }
+    .logline-text { font-size: 16px; }
+    .spec-key { width: 80px; }
+  }
+  @media (max-width: 600px) {
+    .script-title { font-size: 28px; }
+    .bg-number { display: none; }
+    .sidebar { grid-template-columns: 1fr; }
+    .scene { grid-template-columns: 50px 1fr; }
+    .scene-tc { font-size: 9px; }
+    .scene-title { font-size: 14px; }
+    .scene-visual-text, .scene-vo-text { font-size: 13px; }
+    .quote-text { font-size: 15px; }
+    .arc-title { font-size: 12px; }
+    .arc-body { font-size: 13px; }
+    .header { padding: 20px 16px 18px; }
+    .content { padding: 20px 16px; }
+    .logline { padding: 14px 16px; }
+    .logline-text { font-size: 15px; }
+    .scene-right { padding: 12px 14px; }
+    .scene-left { padding: 12px 8px; }
+    .spec-key { width: 70px; font-size: 11px; }
+    .spec-val { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="bg-number">02</div>
+  <div class="header-inner">
+    <div>
+      <div class="project-label">יום הולדת לנדב · סקריפט 02 מתוך 02</div>
+      <div class="script-title">המוצר של השנה</div>
+      <div class="script-subtitle">PRODUCT COMMERCIAL · COMEDIC CORPORATE · 3:00 MIN</div>
+      <div class="meta-pills">
+        <span class="pill star">⭐ קונספט שני</span>
+        <span class="pill">3:00 דקות</span>
+        <span class="pill">8 סצנות</span>
+        <span class="pill">קומדי קורפורטיבי</span>
+        <span class="pill">9:16 אנכי</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="color-swatches">
+        <div class="swatch-group">
+          <div class="swatch" style="background:#B8B0A4;"></div>
+          <div class="swatch-label">Business Card</div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch" style="background:#E0D8CC;"></div>
+          <div class="swatch-label">Bone White</div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch" style="background:#601818;"></div>
+          <div class="swatch-label">Corp. Red</div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch" style="background:#12141A;"></div>
+          <div class="swatch-label">Steel Dark</div>
+        </div>
+        <div class="swatch-group">
+          <div class="swatch" style="background:#183A38;"></div>
+          <div class="swatch-label">Sterile Teal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="poster-wrap">
+      <img class="poster-thumb" src="https://raw.githubusercontent.com/Avisenior/Avisx-Director/main/product_nadav_base.png" alt="Product Poster">
+      <div class="poster-badge">LIMITED EDITION</div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">פרטי פרויקט</div>
+      <div class="sb-row"><span class="sb-key">מוצר</span><span class="sb-val">נדב — גיל 40</span></div>
+      <div class="sb-row"><span class="sb-key">אורך</span><span class="sb-val">3:00 דק׳</span></div>
+      <div class="sb-row"><span class="sb-key">פורמט</span><span class="sb-val">9:16 אנכי</span></div>
+      <div class="sb-row"><span class="sb-key">סצנות</span><span class="sb-val">8 סצנות</span></div>
+      <div class="sb-row"><span class="sb-key">שפה</span><span class="sb-val">עברית</span></div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">טון</div>
+      <div class="tone-row">
+        <div class="tone-comedy"></div>
+        <div class="tone-emotion"></div>
+        <div class="tone-action"></div>
+      </div>
+      <div style="display:flex;gap:3px;margin-top:5px;">
+        <span style="flex:4;font-size:9px;color:var(--text-dim);text-align:center;">קומדי</span>
+        <span style="flex:2;font-size:9px;color:var(--text-dim);text-align:center;">מרגש</span>
+        <span style="flex:1;font-size:9px;color:var(--text-dim);text-align:center;">נוצץ</span>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">נכסים</div>
+      <div class="sb-row"><span class="sb-key">פוסטר מוצר</span><span class="sb-val wip">⬤ הבא</span></div>
+      <div class="sb-row"><span class="sb-key">סקריפט VO</span><span class="sb-val ready">✓ מוכן</span></div>
+      <div class="sb-row"><span class="sb-key">קריין</span><span class="sb-val wip">⬤ הבא</span></div>
+      <div class="sb-row"><span class="sb-key">עדויות</span><span class="sb-val wip">⬤ הבא</span></div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">רפרנס DP</div>
+      <div class="dp-ref">
+        Cold · Sterile · Corporate<br>
+        Hard Light · Overexposed<br>
+        35mm · Standard Lens<br>
+        <br>
+        <strong>במאים:</strong> אבי ומירית
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- LOGLINE -->
+    <div class="logline">
+      <div class="logline-tag">קונספט — Commercial Parody</div>
+      <div class="logline-text">קריין אמריקאי רציני מציג את נדב כמוצר פרימיום. Spec Sheet. עדויות לקוחות. Slow Motion גריל ואופנוע. הסיום — שני אנשים שהמוצר לא נוטש אותם אף פעם.</div>
+    </div>
+
+    <!-- CHARACTER CARDS -->
+    <div class="sec">דמויות</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:30px;">
+      <div class="quote-card" style="border-right:3px solid var(--gold-dim);">
+        <div class="quote-label">🎙️ הקריין — VO</div>
+        <div class="scene-visual-text" style="margin-top:8px;line-height:1.8;">קול אמריקאי עמוק. רציני לחלוטין. אינו יודע שזה מצחיק. כל מילה — כאילו מציג את ה-iPhone הבא.<br><br><strong style="color:var(--gold-mid);">סגנון:</strong> Apple Keynote meets Billy Mays.<br><strong style="color:var(--gold-mid);">טון:</strong> Corporate. אף פעם לא מחייך.</div>
+      </div>
+      <div class="quote-card" style="border-right:3px solid var(--gold-hot);">
+        <div class="quote-label">📦 המוצר — נדב</div>
+        <div class="scene-visual-text" style="margin-top:8px;line-height:1.8;">עומד. ביטחון. ידיים שלובות.<br>אינו יודע שהוא ״מוצר״. חושב שהוא בסרטון רגיל.<br><br><strong style="color:var(--gold-mid);">גיל:</strong> 40 — Edition אחד בלבד<br><strong style="color:var(--gold-mid);">סטטוס:</strong> Sold Out. עדיין פעיל.</div>
+      </div>
+    </div>
+
+    <!-- 3-ACT STORY ARC -->
+    <div class="sec">קשת הסיפור — 3 מערכות</div>
+    <div class="arc-row">
+      <div class="arc-card act1">
+        <div class="arc-num">I</div>
+        <div class="arc-title">Product Launch</div>
+        <div class="arc-body">לוגו. ג׳ינגל. קריין מציג. הצגת המוצר עם חץ ותווית. Spec Sheet — מפרט טכני של נדב. Apple Keynote energy.</div>
+      </div>
+      <div class="arc-card act2">
+        <div class="arc-num">II</div>
+        <div class="arc-title">Social Proof</div>
+        <div class="arc-body">שלושה עדים מדברים למצלמה. הגריל — Slow Motion, להבות, עשן. האופנוע — כביש פתוח, כיתוב קורפורטיבי.</div>
+      </div>
+      <div class="arc-card act3">
+        <div class="arc-num">III</div>
+        <div class="arc-title">The Reveal</div>
+        <div class="arc-body">מוזיקה מתרככת. אור זהוב. הבן והבת. הקריין שובר את הטון. ״המוצר הכי טוב שייצר — לא למכירה.״ Out.</div>
+      </div>
+    </div>
+
+    <!-- SPEC SHEET -->
+    <div class="sec">מפרט המוצר — Spec Sheet</div>
+    <div class="spec-sheet">
+      <div class="spec-row">
+        <span class="spec-icon">⚡</span>
+        <span class="spec-key">מנוע</span>
+        <span class="spec-val">שחקן כדור יד — רמת אנרגיה: גבוהה <span class="status">· עדיין פעיל</span></span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">🌎</span>
+        <span class="spec-key">גרסה</span>
+        <span class="spec-val">דרום אמריקה Edition <span class="status">· הוחזר לאחר תיקון</span></span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">🏪</span>
+        <span class="spec-key">פרויקטים</span>
+        <span class="spec-val">5 סניפי רי/בר <span class="status">· Discontinued</span></span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">💻</span>
+        <span class="spec-key">עדכון</span>
+        <span class="spec-val">קורס דיגיטלי <span class="status">· פעיל, בענן</span></span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">🔥</span>
+        <span class="spec-key">תכונות</span>
+        <span class="spec-val">גריל · אופנוע · מכירות <span class="status">· כל מזג אוויר</span></span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">⚠️</span>
+        <span class="spec-key">תחזוקה</span>
+        <span class="spec-val">קרוספיט <span class="status">· בתחזוקה זמנית — שנה 4 ברצף</span></span>
+      </div>
+    </div>
+
+    <!-- SCENES -->
+    <div class="sec">פירוט סצנות</div>
+    <div class="scenes">
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">00:00<br>—<br>00:12</div>
+          <div class="scene-badge badge-spec">OPEN</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">פתיח — לוגו וג׳ינגל</div>
+          <div class="crime-tag">ACT I · Corporate Opening · Cold Fluorescent</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">רקע שחור נקי. לוגו מופיע — ״חברת החיים™״. ג׳ינגל קורפורטיבי קצר. Fade in על קריין בחליפה — עומד מול מצלמה. רציני מוחלט.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">קריין — VO</div>
+              <div class="scene-vo-text">״חברת החיים גאה להציג — המוצר שיצא לשוק לפני בדיוק 40 שנה.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">00:12<br>—<br>00:35</div>
+          <div class="scene-badge badge-spec">SPEC<br>#1</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">הצגת המוצר</div>
+          <div class="crime-tag">ACT I · Product Reveal · Hard Studio Light</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">נדב עומד במרכז. רקע לבן נקי. חץ מצביע עליו. תווית מופיעה:<br>״SOLD OUT — אבל עדיין פעיל״<br>360° slow rotation. כמו car reveal.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">קריין — VO</div>
+              <div class="scene-vo-text">״מה שאתם רואים — לא סתם אדם. ייצור ידני. Edition אחד בלבד. לא ייוצר שוב.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">00:35<br>—<br>01:05</div>
+          <div class="scene-badge badge-spec">SPEC<br>#2</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">Spec Sheet — מפרט טכני</div>
+          <div class="crime-tag">ACT I · Keynote Animation · Apple Aesthetic</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">מפרט טכני מונפש על מסך — כמו Apple Keynote. כל שורה מופיעה בנפרד עם sound effect. נדב עומד מאחור, ידיים שלובות, מחייך קצת.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">קריין — VO</div>
+              <div class="scene-vo-text">״תופעות לוואי: לא יפסיק לדבר איתך.<br>ובסוף — תקנה משהו.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">01:05<br>—<br>01:30</div>
+          <div class="scene-badge badge-testimony">EXP<br>#1</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">Testimonials — עדויות</div>
+          <div class="crime-tag">ACT II · Talking Head · Soft Key Light</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">שלושה אנשים מדברים ישירות למצלמה — כל אחד על רקע ניטרלי. שם מופיע בתחתית כמו ראיון CNN.<br>לבסוף — נדב עצמו מגיב.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">עדויות</div>
+              <div class="scene-vo-text">עד 1: ״הזמנתי אותו לקפה. יצאתי עם קורס דיגיטלי ושלושה קשרים עסקיים.״<br><br>עד 2: ״ביקשתי עצה אחת. שעה וחצי אחר כך — עדיין מקשיב.״<br><br>נדב: ״אני לא מוכר. אני פשוט — עוזר לאנשים לקבל החלטות נכונות.״<br>קריין: ״...הוא מוכר.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">01:30<br>—<br>01:55</div>
+          <div class="scene-badge badge-spec">PERF<br>#1</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">הגריל — ביצועים בפועל</div>
+          <div class="crime-tag">ACT II · Slow Motion 120fps · Firelight Drama</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">Slow motion 120fps. עשן לבן. להבות כתומות. נדב ממוקד — מסתכל על הגריל. אור דרמטי, חם. ניגוד מוחלט לאסתטיקה הקרה.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">קריין — VO</div>
+              <div class="scene-vo-text">״בתנאי לחץ — המוצר מגיע לשיאו.<br>הכניסו אותו למטבח. תנו לו אש.<br>התוצאות: מדהימות.<br>השכנים: קנאים.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">01:55<br>—<br>02:20</div>
+          <div class="scene-badge badge-spec">PERF<br>#2</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">האופנוע — מצב בריחה</div>
+          <div class="crime-tag">ACT II · Wide Shot · Open Road · Golden Hour</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">כביש פתוח. Wide shot. אופנוע ברחוק — מתקרב. Golden Hour. תחתית: כיתוב מופיע —<br>״אני עוד חוזר לקרוספיט — נדב, 3 שנים ברצף.״</div>
+            </div>
+            <div>
+              <div class="scene-block-label">קריין — VO</div>
+              <div class="scene-vo-text">״כשהמוצר זקוק להתאוששות — הוא עולה על כלי הרכב האישי.<br>מדענים מאמינים שזה מחליף את הקרוספיט.<br>המוצר עצמו מכחיש.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene emotional">
+        <div class="scene-left">
+          <div class="scene-tc">02:20<br>—<br>02:45</div>
+          <div class="scene-badge badge-emo">💛<br>סיום</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">הסיום המרגש — לא למכירה</div>
+          <div class="crime-tag">ACT III · Warm Gold · Slow Motion · Emotional Break</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">מוזיקה מתרככת לחלוטין. אור זהוב — לא עוד fluorescent. הוא עם הבן והבת. Slow motion. חם, אנושי, אמיתי.<br>Freeze frame. כיתוב: ״יום הולדת שמח נדב ❤️ — גיל 40״</div>
+            </div>
+            <div>
+              <div class="scene-block-label">קריין — VO</div>
+              <div class="scene-vo-text">״מעל לכל הספציפיקציות — יש תכונה אחת שלא מופיעה בשום מפרט.<br>היא לא למכירה.<br>רק לשניים.<br><br><em>אבא.</em>״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-left">
+          <div class="scene-tc">02:45<br>—<br>03:00</div>
+          <div class="scene-badge badge-spec">OUT</div>
+        </div>
+        <div class="scene-right">
+          <div class="scene-title">סיום — Branding</div>
+          <div class="crime-tag">ACT III · Corporate Return · Cold Close</div>
+          <div class="scene-grid">
+            <div>
+              <div class="scene-block-label">ויז׳ואל</div>
+              <div class="scene-visual-text">חוזר לסגנון הקורפורטיבי הקר. לוגו מופיע שוב. ג׳ינגל חוזר. Fade to black. Minimal.</div>
+            </div>
+            <div>
+              <div class="scene-block-label">קריין — VO</div>
+              <div class="scene-vo-text">״המוצר לא זמין לרכישה.<br>אבל אם תזמינו אותו לקפה — הוא יגיע.<br>ואתם יודעים מה יקרה אחר כך.״</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- KEY QUOTES -->
+    <div class="sec">ציטוטי מפתח</div>
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <div class="quote-label">פתיח — קריין</div>
+        <div class="quote-text">״חברת החיים גאה להציג — <em>המוצר שיצא לשוק לפני בדיוק 40 שנה.</em>״</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-label">תופעות לוואי</div>
+        <div class="quote-text">״לא יפסיק לדבר איתך. <em>ובסוף — תקנה משהו.</em>״</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-label">עדות</div>
+        <div class="quote-text">״הזמנתי אותו לקפה. יצאתי עם <em>קורס דיגיטלי ושלושה קשרים עסקיים.</em>״</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-label">הסיום</div>
+        <div class="quote-text">״המוצר הכי טוב שייצר — <em>לא למכירה.</em>״</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-l">במאים: אבי ומירית · יום הולדת לנדב · 2026</div>
+  <div class="footer-r">
+    <div class="dot"></div>
+    סקריפט 02/02
+  </div>
+</div>
+
+</body>
+</html>
