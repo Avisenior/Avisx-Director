@@ -1637,7 +1637,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
         if (n.nodeType === 3) {
           var text = n.nodeValue, frag = document.createDocumentFragment();
           for (var i = 0; i < text.length; i++) {
-            if (text[i] === ' ') { frag.appendChild(document.createTextNode(' ')); continue; }
+            if (/\s/.test(text[i])) { frag.appendChild(document.createTextNode(text[i])); continue; }
             var s = document.createElement('span');
             s.className = 'lp-char';
             s.textContent = text[i];
@@ -1653,17 +1653,14 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
     chars.forEach(function(c, i){ c.style.transitionDelay = (i * 0.04) + 's'; });
     return chars;
   }
-  function inView(el){ var r = el.getBoundingClientRect(); return r.top < window.innerHeight && r.bottom > 0; }
   function fire(chars){ requestAnimationFrame(function(){ chars.forEach(function(c){ c.classList.add('in'); }); }); }
   function activate(h){
     var chars = splitChars(h);
-    if (inView(h)) { fire(chars); }
-    else if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function(es){
-        es.forEach(function(e){ if (e.isIntersecting) { fire(chars); io.unobserve(e.target); } });
-      }, { threshold: 0.4 });
-      io.observe(h);
-    } else { fire(chars); }
+    if (!('IntersectionObserver' in window)) { fire(chars); return; }
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { fire(chars); io.unobserve(e.target); } });
+    }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+    io.observe(h);
   }
   var h = document.getElementById('aboutHeading');
   if (!h) return;
