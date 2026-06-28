@@ -1020,6 +1020,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
   transition: transform 0.55s cubic-bezier(0.2,0.8,0.2,1.35), opacity 0.4s ease;
 }
 .letter-pop .lp-char.in { opacity: 1; transform: none; }
+.letter-pop .lp-word { display: inline-block; white-space: nowrap; }
 .d1 { transition-delay: 0.12s; } .d2 { transition-delay: 0.24s; } .d3 { transition-delay: 0.36s; } .d4 { transition-delay: 0.48s; }
 </style>
 </head>
@@ -1635,13 +1636,15 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
     (function walk(node){
       Array.prototype.slice.call(node.childNodes).forEach(function(n){
         if (n.nodeType === 3) {
-          var text = n.nodeValue, frag = document.createDocumentFragment();
+          var text = n.nodeValue, frag = document.createDocumentFragment(), word = null;
           for (var i = 0; i < text.length; i++) {
-            if (/\s/.test(text[i])) { frag.appendChild(document.createTextNode(text[i])); continue; }
+            var ch = text[i];
+            if (/\s/.test(ch)) { word = null; frag.appendChild(document.createTextNode(ch)); continue; }
+            if (!word) { word = document.createElement('span'); word.className = 'lp-word'; frag.appendChild(word); }
             var s = document.createElement('span');
             s.className = 'lp-char';
-            s.textContent = text[i];
-            frag.appendChild(s);
+            s.textContent = ch;
+            word.appendChild(s);
           }
           node.replaceChild(frag, n);
         } else if (n.nodeType === 1 && n.tagName !== 'BR') {
