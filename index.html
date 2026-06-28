@@ -1657,13 +1657,19 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
     return chars;
   }
   function fire(chars){ requestAnimationFrame(function(){ chars.forEach(function(c){ c.classList.add('in'); }); }); }
+  function reset(chars){ chars.forEach(function(c){ c.classList.remove('in'); }); }
+  var currentIO = null;
   function activate(h){
     var chars = splitChars(h);
+    if (currentIO) { currentIO.disconnect(); currentIO = null; }
     if (!('IntersectionObserver' in window)) { fire(chars); return; }
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if (e.isIntersecting) { fire(chars); io.unobserve(e.target); } });
+    currentIO = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting) fire(chars);   // re-runs every time it scrolls into view
+        else reset(chars);                   // reset on exit so it can replay
+      });
     }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
-    io.observe(h);
+    currentIO.observe(h);
   }
   var h = document.getElementById('aboutHeading');
   if (!h) return;
