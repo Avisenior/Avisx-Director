@@ -624,6 +624,51 @@ section { position: relative; }
 .ps-title { font: 900 22px 'Heebo',sans-serif; color: var(--cream); margin-bottom: 12px; }
 .ps-body { font: 400 14px/1.7 'Heebo',sans-serif; color: rgba(239,244,255,0.65); }
 
+/* --- experiment: glass windows in #process (from idea to final frame) --- */
+#process .process-step {
+  background: rgba(255,255,255,0.055);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.28), inset 0 -1px 1px rgba(255,255,255,0.06), 0 14px 44px rgba(0,0,0,0.4);
+  animation: glassFloat 7s ease-in-out infinite;
+}
+#process .process-step:nth-child(2) { animation-delay: -2.3s; }
+#process .process-step:nth-child(3) { animation-delay: -4.6s; }
+#process .process-step:hover { background: rgba(255,255,255,0.09); }
+@keyframes glassFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+/* soft color orbs behind the glass so it actually refracts */
+#process { position: relative; overflow: hidden; }
+#process::before, #process::after {
+  content: ''; position: absolute; z-index: 0; border-radius: 50%;
+  filter: blur(80px); opacity: 0.5; pointer-events: none;
+}
+#process::before { width: 340px; height: 340px; background: var(--accent); top: 10%; left: -60px; }
+#process::after  { width: 300px; height: 300px; background: #2b6cff; bottom: 5%; right: -40px; }
+#process .page-container { position: relative; z-index: 1; }
+
+/* --- experiment: floating 3D portfolio cards --- */
+.reels { perspective: 1100px; }
+.nft-card { transform-style: preserve-3d; will-change: transform; animation: nftFloat 6s ease-in-out infinite; }
+.nft-card:nth-child(2) { animation-delay: -1.5s; }
+.nft-card:nth-child(3) { animation-delay: -3s; }
+.nft-card:nth-child(4) { animation-delay: -4.5s; }
+@keyframes nftFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+/* experiment effects: lighten on mobile for performance */
+@media (max-width: 768px) {
+  #process .process-step { backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%); }
+  #process::before { width: 220px; height: 220px; filter: blur(60px); opacity: 0.35; }
+  #process::after  { width: 200px; height: 200px; filter: blur(60px); opacity: 0.35; }
+  .nft-card { animation-duration: 7s; }
+  @keyframes nftFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  @keyframes glassFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nft-card, #process .process-step { animation: none; }
+  .letter-pop .lp-char { transition: none; }
+}
+
 /* ============ HIGHLIGHT BAND ============ */
 .highlight-band {
   background: var(--bg2);
@@ -651,6 +696,19 @@ section { position: relative; }
 
 /* ============ SERVICES ============ */
 #services { background: var(--bg); }
+/* --- experiment: video behind a frosted-white services card --- */
+#services-bg-video {
+  position: fixed; inset: 0;
+  width: 100%; height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+#services.white-card {
+  background: rgba(255,255,255,0.88) !important;
+}
 .svc-rows { margin-top: 40px; border-top: 1px solid var(--border); }
 .svc-row {
   display: grid;
@@ -954,10 +1012,22 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
 /* ============ REVEAL ============ */
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+/* --- experiment: letters pop into place on scroll --- */
+.letter-pop .lp-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.7em) rotate(8deg);
+  transition: transform 0.55s cubic-bezier(0.2,0.8,0.2,1.35), opacity 0.4s ease;
+}
+.letter-pop .lp-char.in { opacity: 1; transform: none; }
 .d1 { transition-delay: 0.12s; } .d2 { transition-delay: 0.24s; } .d3 { transition-delay: 0.36s; } .d4 { transition-delay: 0.48s; }
 </style>
 </head>
 <body>
+
+<!-- SERVICES BACKGROUND VIDEO (experiment) -->
+<video id="services-bg-video" autoplay muted loop playsinline
+  src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260514_135830_bb6491d1-9b66-4aec-9722-13b4dfe3fb46.mp4"></video>
 
 <!-- PIXEL ANIMATION LOADER -->
 <div id="loader" style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;opacity:1;transition:opacity 1.2s ease;">
@@ -1068,44 +1138,44 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
 <!-- VIDEO MARQUEE -->
 <div class="video-marquee">
   <div class="video-marquee-track" id="marqueeTrack">
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/xm8DoFJQS7s?autoplay=1&mute=1&loop=1&playlist=xm8DoFJQS7s&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/-ZX0tEhEyao?autoplay=1&mute=1&loop=1&playlist=-ZX0tEhEyao&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/kp_NILL88o8?autoplay=1&mute=1&loop=1&playlist=kp_NILL88o8&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/a0RG7g6DJO4?autoplay=1&mute=1&loop=1&playlist=a0RG7g6DJO4&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://streamable.com/e/ecsfg4?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/TOWjezgM0L0?autoplay=1&mute=1&loop=1&playlist=TOWjezgM0L0&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://streamable.com/e/0l53cc?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/sTKamoGrw7A?autoplay=1&mute=1&loop=1&playlist=sTKamoGrw7A&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/531uPXG-bRo?autoplay=1&mute=1&loop=1&playlist=531uPXG-bRo&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/3kqxMpHJruw?autoplay=1&mute=1&loop=1&playlist=3kqxMpHJruw&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/y3iwEJ049Pc?autoplay=1&mute=1&loop=1&playlist=y3iwEJ049Pc&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/WSaHaPt5cA0?autoplay=1&mute=1&loop=1&playlist=WSaHaPt5cA0&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/4p13bGQ-fGg?autoplay=1&mute=1&loop=1&playlist=4p13bGQ-fGg&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/xm8DoFJQS7s/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/-ZX0tEhEyao/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/kp_NILL88o8/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/a0RG7g6DJO4/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><iframe loading="lazy" data-src="https://streamable.com/e/ecsfg4?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/TOWjezgM0L0/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><iframe loading="lazy" data-src="https://streamable.com/e/0l53cc?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/sTKamoGrw7A/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/531uPXG-bRo/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/3kqxMpHJruw/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/y3iwEJ049Pc/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/WSaHaPt5cA0/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/4p13bGQ-fGg/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
     <!-- Duplicate for seamless loop -->
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/xm8DoFJQS7s?autoplay=1&mute=1&loop=1&playlist=xm8DoFJQS7s&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/-ZX0tEhEyao?autoplay=1&mute=1&loop=1&playlist=-ZX0tEhEyao&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/kp_NILL88o8?autoplay=1&mute=1&loop=1&playlist=kp_NILL88o8&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/a0RG7g6DJO4?autoplay=1&mute=1&loop=1&playlist=a0RG7g6DJO4&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://streamable.com/e/ecsfg4?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/TOWjezgM0L0?autoplay=1&mute=1&loop=1&playlist=TOWjezgM0L0&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://streamable.com/e/0l53cc?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/sTKamoGrw7A?autoplay=1&mute=1&loop=1&playlist=sTKamoGrw7A&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/531uPXG-bRo?autoplay=1&mute=1&loop=1&playlist=531uPXG-bRo&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/3kqxMpHJruw?autoplay=1&mute=1&loop=1&playlist=3kqxMpHJruw&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/y3iwEJ049Pc?autoplay=1&mute=1&loop=1&playlist=y3iwEJ049Pc&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/WSaHaPt5cA0?autoplay=1&mute=1&loop=1&playlist=WSaHaPt5cA0&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
-    <div class="vm-card"><iframe loading="lazy" src="https://www.youtube.com/embed/4p13bGQ-fGg?autoplay=1&mute=1&loop=1&playlist=4p13bGQ-fGg&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/xm8DoFJQS7s/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/-ZX0tEhEyao/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/kp_NILL88o8/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/a0RG7g6DJO4/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><iframe loading="lazy" data-src="https://streamable.com/e/ecsfg4?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/TOWjezgM0L0/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><iframe loading="lazy" data-src="https://streamable.com/e/0l53cc?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/sTKamoGrw7A/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/531uPXG-bRo/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/3kqxMpHJruw/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/y3iwEJ049Pc/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/WSaHaPt5cA0/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
+    <div class="vm-card"><img loading="lazy" src="https://img.youtube.com/vi/4p13bGQ-fGg/hqdefault.jpg" alt="" style="width:100%;height:100%;object-fit:cover;border:0;"></div>
   </div>
 </div>
 
 <!-- ==== SECTION 2: ABOUT ==== -->
 <section id="about" class="section-pad white-card" data-screen-label="02 About">
-  <iframe class="about-bg-video" src="https://streamable.com/e/7gi37x?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" title="about video" loading="lazy" playsinline></iframe>
+  <iframe class="about-bg-video" data-src="https://streamable.com/e/7gi37x?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" title="about video" loading="lazy" playsinline></iframe>
   <div class="about-nebula"></div>
   <div class="page-container about-grid">
     <div class="about-left">
       <div class="label reveal" data-he="אבי סניור" data-en="Avi Senior">אבי סניור</div>
-      <h2 class="section-title reveal d1">
+      <h2 class="section-title reveal d1 letter-pop" id="aboutHeading">
         <span class="script" data-he="יש לכם" data-en="Have a">יש לכם</span> <span data-he="רעיון?" data-en="vision?" style="color:var(--accent);">רעיון?</span><br>
         <span data-he="בואו נהפוך אותו לסרטון." data-en="Let's turn it into a film.">בואו נהפוך אותו לסרטון.</span>
       </h2>
@@ -1234,7 +1304,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
     <div class="reels portrait-row">
       <article class="nft-card liquid-glass reveal">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/xm8DoFJQS7s?autoplay=1&mute=1&loop=1&playlist=xm8DoFJQS7s&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/xm8DoFJQS7s?autoplay=1&mute=1&loop=1&playlist=xm8DoFJQS7s&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="יצירתי" data-en="Creative">יצירתי</span>
@@ -1248,7 +1318,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d1">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/-ZX0tEhEyao?autoplay=1&mute=1&loop=1&playlist=-ZX0tEhEyao&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/-ZX0tEhEyao?autoplay=1&mute=1&loop=1&playlist=-ZX0tEhEyao&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="יצירתי" data-en="Creative">יצירתי</span>
@@ -1260,7 +1330,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d2">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/kp_NILL88o8?autoplay=1&mute=1&loop=1&playlist=kp_NILL88o8&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/kp_NILL88o8?autoplay=1&mute=1&loop=1&playlist=kp_NILL88o8&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="פרסומת" data-en="Advertisement">פרסומת</span>
@@ -1272,7 +1342,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d3">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/a0RG7g6DJO4?autoplay=1&mute=1&loop=1&playlist=a0RG7g6DJO4&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/a0RG7g6DJO4?autoplay=1&mute=1&loop=1&playlist=a0RG7g6DJO4&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="פרסומת" data-en="Advertisement">פרסומת</span>
@@ -1284,7 +1354,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d4">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/3kqxMpHJruw?autoplay=1&mute=1&loop=1&playlist=3kqxMpHJruw&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/3kqxMpHJruw?autoplay=1&mute=1&loop=1&playlist=3kqxMpHJruw&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="פרסומת" data-en="Advertisement">פרסומת</span>
@@ -1300,7 +1370,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
     <div class="reels landscape-row">
       <article class="nft-card liquid-glass reveal">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://streamable.com/e/ecsfg4?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://streamable.com/e/ecsfg4?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm">Walking Dead Edition</span>
@@ -1312,7 +1382,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d1">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/TOWjezgM0L0?autoplay=1&mute=1&loop=1&playlist=TOWjezgM0L0&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/TOWjezgM0L0?autoplay=1&mute=1&loop=1&playlist=TOWjezgM0L0&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="יום הולדת" data-en="Birthday">יום הולדת</span>
@@ -1324,7 +1394,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d2">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://streamable.com/e/0l53cc?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://streamable.com/e/0l53cc?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="פרסומת" data-en="Advertisement">פרסומת</span>
@@ -1336,7 +1406,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d3">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/sTKamoGrw7A?autoplay=1&mute=1&loop=1&playlist=sTKamoGrw7A&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/sTKamoGrw7A?autoplay=1&mute=1&loop=1&playlist=sTKamoGrw7A&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="יצירתי" data-en="Creative">יצירתי</span>
@@ -1348,7 +1418,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d4">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/531uPXG-bRo?autoplay=1&mute=1&loop=1&playlist=531uPXG-bRo&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/531uPXG-bRo?autoplay=1&mute=1&loop=1&playlist=531uPXG-bRo&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="דרמה" data-en="Drama">דרמה</span>
@@ -1360,7 +1430,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/y3iwEJ049Pc?autoplay=1&mute=1&loop=1&playlist=y3iwEJ049Pc&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/y3iwEJ049Pc?autoplay=1&mute=1&loop=1&playlist=y3iwEJ049Pc&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="יצירתי" data-en="Creative">יצירתי</span>
@@ -1372,7 +1442,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d1">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/WSaHaPt5cA0?autoplay=1&mute=1&loop=1&playlist=WSaHaPt5cA0&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/WSaHaPt5cA0?autoplay=1&mute=1&loop=1&playlist=WSaHaPt5cA0&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="יצירתי" data-en="Creative">יצירתי</span>
@@ -1384,7 +1454,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
       </article>
       <article class="nft-card liquid-glass reveal d2">
         <div class="nft-media">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/4p13bGQ-fGg?autoplay=1&mute=1&loop=1&playlist=4p13bGQ-fGg&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
+          <iframe loading="lazy" data-src="https://www.youtube.com/embed/4p13bGQ-fGg?autoplay=1&mute=1&loop=1&playlist=4p13bGQ-fGg&controls=0&playsinline=1" allow="autoplay; fullscreen; playsinline" playsinline></iframe>
           <div class="nft-overlay liquid-glass">
             <div class="meta">
               <span class="label-sm" data-he="טריילר" data-en="Trailer">טריילר</span>
@@ -1401,7 +1471,7 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
 <!-- ==== INSTAGRAM CTA ==== -->
 <section class="ig-cta white-card" data-screen-label="04 CTA">
   <div class="video-frame" style="opacity:0.35;">
-    <iframe loading="lazy" src="https://streamable.com/e/iboa3o?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" title="cta background" playsinline></iframe>
+    <iframe loading="lazy" data-src="https://streamable.com/e/iboa3o?autoplay=1&muted=1&loop=1&controls=false&nocontrols=1" allow="autoplay; fullscreen; playsinline" title="cta background" playsinline></iframe>
   </div>
   <div class="ig-inner">
     <p class="ig-eyebrow reveal">AVISX DIRECTOR</p>
@@ -1557,6 +1627,50 @@ footer p { font: 500 11px ui-monospace, monospace; letter-spacing: 0.1em; color:
   }
   btn.addEventListener('click',()=>{lang=lang==='he'?'en':'he';apply();});
   apply();
+})();
+
+// ===== LETTER POP-IN ON SCROLL (about heading) =====
+(function(){
+  function splitChars(root){
+    (function walk(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if (n.nodeType === 3) {
+          var text = n.nodeValue, frag = document.createDocumentFragment();
+          for (var i = 0; i < text.length; i++) {
+            if (text[i] === ' ') { frag.appendChild(document.createTextNode(' ')); continue; }
+            var s = document.createElement('span');
+            s.className = 'lp-char';
+            s.textContent = text[i];
+            frag.appendChild(s);
+          }
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') {
+          walk(n);
+        }
+      });
+    })(root);
+    var chars = Array.prototype.slice.call(root.querySelectorAll('.lp-char'));
+    chars.forEach(function(c, i){ c.style.transitionDelay = (i * 0.04) + 's'; });
+    return chars;
+  }
+  function inView(el){ var r = el.getBoundingClientRect(); return r.top < window.innerHeight && r.bottom > 0; }
+  function fire(chars){ requestAnimationFrame(function(){ chars.forEach(function(c){ c.classList.add('in'); }); }); }
+  function activate(h){
+    var chars = splitChars(h);
+    if (inView(h)) { fire(chars); }
+    else if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if (e.isIntersecting) { fire(chars); io.unobserve(e.target); } });
+      }, { threshold: 0.4 });
+      io.observe(h);
+    } else { fire(chars); }
+  }
+  var h = document.getElementById('aboutHeading');
+  if (!h) return;
+  activate(h);
+  // language toggle rewrites the heading innerHTML -> re-split after it runs
+  var btn = document.getElementById('langBtn');
+  if (btn) btn.addEventListener('click', function(){ activate(h); });
 })();
 
 // ===== HAMBURGER =====
@@ -1902,5 +2016,70 @@ void main(void){
     <iframe id="modalIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
   </div>
 </div>
+
+<!-- experiment: 3D mouse-tilt on floating portfolio cards -->
+<script>
+(function(){
+  var cards = document.querySelectorAll('.nft-card');
+  if (!cards.length || window.matchMedia('(hover:none)').matches) return;
+  cards.forEach(function(card){
+    card.addEventListener('pointermove', function(e){
+      var r = card.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.animation = 'none';
+      card.style.transform = 'translateY(-8px) rotateX(' + (-py*10).toFixed(2) + 'deg) rotateY(' + (px*13).toFixed(2) + 'deg)';
+    });
+    card.addEventListener('pointerleave', function(){
+      card.style.transform = '';
+      card.style.animation = '';
+    });
+  });
+})();
+</script>
+
+<!-- perf: lazy-load video iframes only while near the viewport -->
+<script>
+(function(){
+  var frames = Array.prototype.slice.call(document.querySelectorAll('iframe[data-src]'));
+  if (!frames.length) return;
+  if (!('IntersectionObserver' in window)) {
+    frames.forEach(function(f){ f.src = f.getAttribute('data-src'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var f = e.target;
+      if (e.isIntersecting) {
+        if (!f.src) f.src = f.getAttribute('data-src');
+      } else {
+        if (f.src) f.removeAttribute('src'); // unload when far to free CPU/GPU
+      }
+    });
+  }, { rootMargin: '400px 0px' });
+  frames.forEach(function(f){ io.observe(f); });
+})();
+</script>
+
+<!-- experiment: scope the fixed background video to the services section only -->
+<script>
+(function(){
+  var sec = document.getElementById('services');
+  var vid = document.getElementById('services-bg-video');
+  if (!sec || !vid || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        vid.style.opacity = '1';
+        var p = vid.play(); if (p && p.catch) p.catch(function(){});
+      } else {
+        vid.style.opacity = '0';
+        vid.pause();
+      }
+    });
+  }, { threshold: 0.15 });
+  io.observe(sec);
+})();
+</script>
 </body>
 </html>
