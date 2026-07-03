@@ -9,6 +9,14 @@
 <meta property="og:description" content="סרטונים שנראים כמו מיליון דולר. הפקות וידאו קולנועיות ב-AI.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="he_IL">
+<meta property="og:url" content="https://avisx-director.com/">
+<meta property="og:image" content="https://avisx-director.com/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Avisx Studio — אבי סניור">
+<meta name="twitter:description" content="סרטונים שנראים כמו מיליון דולר. הפקות וידאו קולנועיות ב-AI.">
+<meta name="twitter:image" content="https://avisx-director.com/og-card.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -491,6 +499,8 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
     const base = sec.dataset.video;
     const suffix = IS_MOBILE ? '_m.mp4' : '.mp4';
     v.src = base + suffix;
+    // במובייל: פוסטר אנכי תואם לקבצי ה-9:16
+    if (IS_MOBILE) v.poster = base.replace('_scrub', '_poster_m.jpg');
     // fallback אם הקליפ הראשי עוד לא קיים (מכסת VEO)
     if (sec.dataset.fallback) {
       v.addEventListener('error', () => { v.src = sec.dataset.fallback + suffix; }, { once: true });
