@@ -526,8 +526,12 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
         if (s.v.duration) s.tgt = p * Math.max(0, s.v.duration - 0.05);
         if (!REDUCED && !document.documentElement.classList.contains('a11y-noanim')) {
           s.cur += (s.tgt - s.cur) * 0.16;
-          if (s.v.readyState >= 1 && Math.abs(s.cur - s.v.currentTime) > 0.005) {
-            try { s.v.currentTime = s.cur; } catch {}
+          // iOS Safari נחנק מהצפת seeks: לא שולחים seek חדש לפני שהקודם נגמר,
+          // ומשתמשים ב-fastSeek (מהיר, מדויק אצלנו כי keyint=2)
+          if (s.v.readyState >= 2 && !s.v.seeking && Math.abs(s.cur - s.v.currentTime) > 0.005) {
+            try {
+              if (s.v.fastSeek) s.v.fastSeek(s.cur); else s.v.currentTime = s.cur;
+            } catch {}
           }
         }
       }
