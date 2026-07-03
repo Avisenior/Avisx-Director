@@ -20,7 +20,8 @@
   --accent:#e85d04; --accent-hi:#ff7a1f;
   --border:rgba(239,244,255,.09);
 }
-body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+/* overflow-x:hidden על body הורג sticky ב-Safari (יוצר scroll container) — clip לא */
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden;overflow-x:clip;-webkit-font-smoothing:antialiased;cursor:none}
 @media (hover:none){body{cursor:auto}*{cursor:auto!important}.cursor,.cursor-ring{display:none!important}}
 .f-display{font-family:'Anton',sans-serif;letter-spacing:.01em}
 .ltr{direction:ltr;unicode-bidi:isolate}
@@ -66,9 +67,11 @@ nav a:hover{opacity:1}
 /* scrub sections — תבנית sticky (fixed+clip-path שבור ב-iOS/מובייל).
    אסור overflow:hidden על הסקשן — זה הורג sticky של הצאצאים! */
 .scrub-sec{position:relative}
-.scrub-sec .vid-wrap{position:absolute;inset:0;z-index:0;pointer-events:none}
-.scrub-sec video{position:sticky;top:0;display:block;width:100%;height:100vh;object-fit:cover}
-.scrub-sec .veil{position:sticky;top:0;display:block;height:100vh;margin-top:-100vh;background:rgba(5,5,5,.1)}
+/* WebKit/iOS לא מכבד sticky בתוך הורה absolute — לכן העטיפה עצמה sticky
+   (בזרימה רגילה, margin-bottom שלילי מאפס את הגובה) והווידאו absolute בתוכה */
+.scrub-sec .vid-wrap{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;pointer-events:none}
+.scrub-sec video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.scrub-sec .veil{position:absolute;inset:0;background:rgba(5,5,5,.1)}
 .inner-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;z-index:2}
 
 /* hero */
