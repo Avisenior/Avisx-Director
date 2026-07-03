@@ -63,8 +63,9 @@ nav a:hover{opacity:1}
   nav .logo{font-size:15px}
 }
 
-/* scrub sections — תבנית sticky (fixed+clip-path שבור ב-iOS/מובייל) */
-.scrub-sec{position:relative;overflow:hidden}
+/* scrub sections — תבנית sticky (fixed+clip-path שבור ב-iOS/מובייל).
+   אסור overflow:hidden על הסקשן — זה הורג sticky של הצאצאים! */
+.scrub-sec{position:relative}
 .scrub-sec .vid-wrap{position:absolute;inset:0;z-index:0;pointer-events:none}
 .scrub-sec video{position:sticky;top:0;display:block;width:100%;height:100vh;object-fit:cover}
 .scrub-sec .veil{position:sticky;top:0;display:block;height:100vh;margin-top:-100vh;background:rgba(5,5,5,.1)}
