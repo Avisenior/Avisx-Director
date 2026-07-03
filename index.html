@@ -63,11 +63,11 @@ nav a:hover{opacity:1}
   nav .logo{font-size:15px}
 }
 
-/* scrub sections */
-.scrub-sec{position:relative;clip-path:inset(0)}
-.scrub-sec .vid-wrap{position:fixed;inset:0;z-index:0}
-.scrub-sec video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.scrub-sec .veil{position:absolute;inset:0;background:rgba(5,5,5,.1)}
+/* scrub sections — תבנית sticky (fixed+clip-path שבור ב-iOS/מובייל) */
+.scrub-sec{position:relative;overflow:hidden}
+.scrub-sec .vid-wrap{position:absolute;inset:0;z-index:0;pointer-events:none}
+.scrub-sec video{position:sticky;top:0;display:block;width:100%;height:100vh;object-fit:cover}
+.scrub-sec .veil{position:sticky;top:0;display:block;height:100vh;margin-top:-100vh;background:rgba(5,5,5,.1)}
 .inner-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;z-index:2}
 
 /* hero */
