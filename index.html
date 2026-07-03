@@ -237,7 +237,7 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
 
 <!-- HERO: עומד → הולך להתיישב בעמדה (סקראב) -->
 <section id="hero" class="scrub-sec" data-video="story-avisx/v1_orbit_scrub">
-  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/s1_orbit.png"></video><div class="veil"></div></div>
+  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/s1_orbit_p.jpg"></video><div class="veil"></div></div>
   <div class="inner-sticky">
     <div class="hero-center">
       <div class="hero-tagline">[ AI CINEMATIC PRODUCTION · TEL AVIV ]</div>
@@ -273,7 +273,7 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
 
 <!-- PILLARS: אינטראקטיבי — הגלילה מזיזה את הסרטון (מחר: קליפ מצלמה-נעולה עם הזזת ראש) -->
 <section id="pillars" class="scrub-sec" data-video="story-avisx/v2_builder_scrub">
-  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/s2_builder.png"></video><div class="veil" style="background:rgba(5,5,5,.3)"></div></div>
+  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/s2_builder_p.jpg"></video><div class="veil" style="background:rgba(5,5,5,.3)"></div></div>
   <div class="inner-sticky">
     <div class="pillar-stage">
       <div class="pillar-label" data-he="מה אני עושה" data-en="WHAT I DO">מה אני עושה</div>
@@ -334,7 +334,7 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
 
 <!-- WORK: כל העבודות מעל קליפ הגלריה -->
 <section id="work" class="scrub-sec" data-video="story-avisx/v3_closer_scrub">
-  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/s3_closer.png"></video><div class="veil" style="background:rgba(5,5,5,.32)"></div></div>
+  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/s3_closer_p.jpg"></video><div class="veil" style="background:rgba(5,5,5,.32)"></div></div>
   <div class="inner-sticky">
     <div class="work-cols" id="workCols">
       <div class="wcol" id="wcolR"><!-- מוזרק ב-JS --></div>
@@ -346,7 +346,7 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
 
 <!-- FINALE: סקראב — הגלילה מזיזה את מחוות ההזמנה -->
 <section id="finale" class="scrub-sec" data-video="story-avisx/v4_invite_scrub" data-endbottom="1">
-  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/s1_orbit.png"></video><div class="veil" style="background:rgba(5,5,5,.45)"></div></div>
+  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/s1_orbit_p.jpg"></video><div class="veil" style="background:rgba(5,5,5,.45)"></div></div>
   <div class="inner-sticky finale-inner">
   <div class="spot" aria-hidden="true"></div>
   <h2><span data-he="יש לכם רעיון?" data-en="Have an idea?">יש לכם רעיון?</span><br><em data-he="בואו נעשה מזה סרט." data-en="Let's make it a film.">בואו נעשה מזה סרט.</em></h2>
@@ -502,6 +502,17 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
     }
     return { sec, v, cur: 0, tgt: 0, play: sec.dataset.mode === 'play' };
   });
+  // iOS Safari לא מוריד דאטה של וידאו בלי מחוות משתמש (מתעלם מ-preload,
+  // ובמצב חיסכון בסוללה חוסם הכול) — play+pause במגע הראשון משחרר את הטעינה
+  const unlockVideos = () => {
+    secs.forEach((s) => {
+      if (s.play || s.v.readyState >= 2) return;
+      const pr = s.v.play();
+      if (pr) pr.then(() => s.v.pause()).catch(() => {});
+    });
+  };
+  addEventListener('touchstart', unlockVideos, { once: true, passive: true });
+  addEventListener('pointerdown', unlockVideos, { once: true, passive: true });
   (function scrubTick() {
     const V = innerHeight;
     secs.forEach((s) => {
