@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kling AI Prompts - AVISX DIRECTOR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #080808;
+      --text: #f0ede6;
+      --accent: #e8724a;
+      --muted: #555555;
+      --border: rgba(255, 255, 255, 0.08);
+      --text-light: #aaaaaa;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      cursor: none;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    button {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* CURSOR */
+    .cursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(232, 114, 74, 0.45);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9997;
+      transform: translate(-50%, -50%);
+    }
+
+    body:has(a:hover, button:hover) .cursor-ring {
+      width: 60px;
+      height: 60px;
+      border-color: var(--accent);
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-left {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 10px 24px;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .nav-right:hover {
+      opacity: 0.85;
+    }
+
+    .nav-right a {
+      color: var(--bg);
+    }
+
+    /* HERO */
+    #hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 80px 60px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .hero-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-headline {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .hero-headline h1 {
+      font-size: clamp(80px, 15vw, 180px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .hero-headline h1 .accent {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-light);
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    .hero-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 60px;
+    }
+
+    .section-header {
+      margin-bottom: 100px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(36px, 8vw, 64px);
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 .accent {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .section-header p {
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* PROMPT ENTRY */
+    .prompt-entry {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 60px;
+      padding-bottom: 80px;
+      margin-bottom: 80px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prompt-entry:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .prompt-number {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .prompt-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .prompt-title {
+      font-size: 36px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+
+    .prompt-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 40px;
+    }
+
+    .prompt-blocks {
+      margin-bottom: 40px;
+    }
+
+    .prompt-block {
+      margin-bottom: 36px;
+    }
+
+    .prompt-block:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .block-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .block-content {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-light);
+    }
+
+    .copy-btn {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px solid var(--text);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: 0;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 40px;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .copy-btn.copied {
+      background: transparent;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #111111;
+      display: block;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      #hero {
+        padding: 40px 20px;
+        height: auto;
+        min-height: 60vh;
+      }
+
+      .hero-headline h1 {
+        font-size: 48px;
+      }
+
+      main {
+        padding: 60px 20px;
+      }
+
+      .prompt-entry {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .prompt-title {
+        font-size: 24px;
+      }
+
+      .section-header h2 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-left">AVISX DIRECTOR × KLING AI</div>
+  <div class="nav-right"><a href="index.html">← BACK TO SITE</a></div>
+</nav>
+
+<section id="hero">
+  <div>
+    <div class="hero-label">AVISX DIRECTOR · KLING AI COLLECTION</div>
+  </div>
+  <div class="hero-headline">
+    <h1>PROMPTS<br>FOR <span class="accent">KLING<br>AI</span></h1>
+  </div>
+  <div>
+    <div class="hero-subtitle">A collection of cinematic prompts. Updated every week — copy, paste, create.</div>
+    <div class="hero-tag">UPDATED EVERY WEEK</div>
+  </div>
+</section>
+
+<main id="prompts-container">
+  <div class="section-header">
+    <h2>Kling AI <span class="accent">Prompts</span></h2>
+    <p>Updated every week</p>
+  </div>
+</main>
+
+<script>
+// Custom cursor logic
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  cur.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
+
+  rx += (mx - rx) * 0.3;
+  ry += (my - ry) * 0.3;
+  ring.style.transform = `translate(${rx - 19}px, ${ry - 19}px)`;
+}, { passive: true });
+
+// ADD NEW PROMPTS HERE
+const prompts = [
+  {
+    index: '01',
+    title: 'Golden Hour Portrait',
+    subtitle: 'Cinematic life snapshot',
+    style: 'Golden hour lighting with warm, nostalgic color grading. Film grain texture and shallow depth of field. Intimate, reflective mood with a sense of transformation. Vintage 16mm aesthetic.',
+    dynamic: 'The camera slowly tracks forward as the protagonist\'s expression shifts from uncertainty to quiet determination. A moment of internal realization captured in one perfect frame. Light catches their face at just the right angle, creating dramatic shadows and highlights.',
+    static: 'Close-up portrait of a subject in natural sunlight, positioned with the rule of thirds in mind. Soft background bokeh ensures focus remains on the face. The composition suggests vulnerability and strength simultaneously.',
+    videoSrc: ''
+  },
+  {
+    index: '02',
+    title: 'Dramatic Landscape',
+    subtitle: 'Urban cinematic frame',
+    style: 'Moody, cinematic atmosphere with dramatic storm clouds and architectural symmetry. Deep blues and warm oranges creating contrast. Wide establishing shot with a sense of scale and isolation. High-contrast lighting.',
+    dynamic: 'Camera reveals the landscape through slow, deliberate movement. A solitary figure emerges in the distance, drawing the eye through leading lines. The scene builds tension through composition and movement. Subtle parallax effect as the camera moves.',
+    static: 'Wide establishing shot of an urban or natural landscape at dusk. Strong geometric composition with symmetrical framing. A small figure positioned to create scale and atmosphere. Moody, atmospheric color palette dominates the frame.',
+    videoSrc: ''
+  }
+];
+
+// Render prompts
+function renderPrompts() {
+  const container = document.getElementById('prompts-container');
+  const promptsSection = container.querySelector('.section-header');
+
+  prompts.forEach((prompt, idx) => {
+    const entry = document.createElement('div');
+    entry.className = 'prompt-entry';
+    entry.innerHTML = `
+      <div class="prompt-number">
+        ${prompt.index}
+      </div>
+      <div class="prompt-content">
+        <h3 class="prompt-title">${prompt.title}</h3>
+        <p class="prompt-subtitle">${prompt.subtitle}</p>
+
+        <div class="prompt-blocks">
+          <div class="prompt-block">
+            <div class="block-label">Style & Mood</div>
+            <div class="block-content">${prompt.style}</div>
+          </div>
+          <div class="prompt-block">
+            <div class="block-label">Dynamic Description</div>
+            <div class="block-content">${prompt.dynamic}</div>
+          </div>
+          <div class="prompt-block">
+            <div class="block-label">Static Description</div>
+            <div class="block-content">${prompt.static}</div>
+          </div>
+        </div>
+
+        <button class="copy-btn" onclick="copyPrompt(this, ${idx})">Copy</button>
+
+        <video controls loop>
+          <source src="${prompt.videoSrc}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    `;
+
+    container.appendChild(entry);
+  });
+}
+
+function copyPrompt(button, index) {
+  const prompt = prompts[index];
+  const fullText = `STYLE & MOOD:\n${prompt.style}\n\nDYNAMIC DESCRIPTION:\n${prompt.dynamic}\n\nSTATIC DESCRIPTION:\n${prompt.static}`;
+
+  navigator.clipboard.writeText(fullText).then(() => {
+    const original = button.textContent;
+    button.classList.add('copied');
+    button.textContent = '✓ COPIED';
+
+    setTimeout(() => {
+      button.classList.remove('copied');
+      button.textContent = original;
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy:', err);
+  });
+}
+
+// Initialize
+renderPrompts();
+</script>
+
+</body>
+</html>
