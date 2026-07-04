@@ -212,6 +212,8 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
 .top-btn.show{opacity:1;pointer-events:auto}
 .top-btn:hover{transform:scale(1.1);border-color:var(--accent)}
 .top-btn svg{width:20px;height:20px}
+/* במובייל כפתור הנגישות (EqualWeb) יושב בפינה — מרימים את כפתור החזרה שלא יתנגשו */
+@media(max-width:767px){.top-btn{bottom:150px}}
 .a11y-btn{position:fixed;bottom:22px;right:22px;z-index:130;width:50px;height:50px;border-radius:50%;background:#1E5AA8;color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.45);transition:transform .25s}
 .a11y-btn:hover{transform:scale(1.1)}
 .a11y-btn svg{width:26px;height:26px;fill:#fff}
@@ -399,7 +401,7 @@ window.interdeal = {
     "domains": { "js": "https://cdn.equalweb.com/", "acc": "https://access.equalweb.com/" },
     "draggable": true,
     "btnStyle": {
-        "vPosition": ["90%", "90%"],
+        "vPosition": ["90%", "96%"],
         "margin": ["0", "0"],
         "scale": ["0.7", "0.7"],
         "color": { "main": "#e85d04", "second": "#ffffff" },
@@ -415,6 +417,24 @@ window.interdeal = {
     coreCall.setAttribute('data-cfasync', true);
     body ? body.appendChild(coreCall) : head.appendChild(coreCall);
 })(document, document.head, document.body);
+// תפריט הנגישות קומפקטי — לא מכסה את כל הדף (הזרקת עיצוב ל-Shadow DOM של הווידג'ט)
+(function(){
+    var tries = 0;
+    var t = setInterval(function(){
+        tries++;
+        var host = document.getElementById('INDShadowRootHost');
+        var sr = host && host.shadowRoot;
+        if (sr && !sr.querySelector('#avisx-ew-css')) {
+            var s = document.createElement('style');
+            s.id = 'avisx-ew-css';
+            s.textContent = '#INDmenu{width:min(340px,92vw)!important;height:min(70vh,580px)!important;max-height:70vh!important;top:auto!important;bottom:84px!important;border-radius:16px!important;box-shadow:0 18px 50px rgba(0,0,0,.5)!important}' +
+              '#INDmenu iframe{width:100%!important;height:100%!important}';
+            sr.appendChild(s);
+            clearInterval(t);
+        }
+        if (tries > 40) clearInterval(t);
+    }, 500);
+})();
 </script>
 
 <a class="wa" href="https://wa.me/972506890125?text=היי אבי, אני מעוניין בהפקת סרטון" target="_blank" rel="noopener" aria-label="WhatsApp">
