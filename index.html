@@ -212,6 +212,9 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
 .top-btn.show{opacity:1;pointer-events:auto}
 .top-btn:hover{transform:scale(1.1);border-color:var(--accent)}
 .top-btn svg{width:20px;height:20px}
+/* הכפתורים הצפים (וואטסאפ, נגישות, חזרה-למעלה) מופיעים רק אחרי שהלואדר יורד */
+html:not(.loaded) .wa,html:not(.loaded) .top-btn,html:not(.loaded) #INDShadowRootHost{opacity:0!important;pointer-events:none!important}
+.wa,#INDShadowRootHost{transition:opacity .5s}
 .a11y-btn{position:fixed;bottom:22px;right:22px;z-index:130;width:50px;height:50px;border-radius:50%;background:#1E5AA8;color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.45);transition:transform .25s}
 .a11y-btn:hover{transform:scale(1.1)}
 .a11y-btn svg{width:26px;height:26px;fill:#fff}
@@ -425,8 +428,10 @@ window.interdeal = {
         if (sr && !sr.querySelector('#avisx-ew-css')) {
             var s = document.createElement('style');
             s.id = 'avisx-ew-css';
-            // רק מגבלת גודל מקסימלית — בלי לדרוס מיקום/מנגנון הסתרה (דריסה חושפת את התפריט בטעינה!)
-            s.textContent = '#INDmenu{max-width:min(360px,92vw)!important;max-height:72vh!important;border-radius:16px!important}';
+            // תפריט: רק מגבלת גודל מקסימלית — בלי לדרוס מיקום/מנגנון הסתרה (דריסה חושפת אותו בטעינה!)
+            // כפתור: מיושר לגובה אייקון הוואטסאפ (bottom:22px), בכל המסכים
+            s.textContent = '#INDmenu{max-width:min(360px,92vw)!important;max-height:72vh!important;border-radius:16px!important}' +
+              '#INDbtnWrap,#INDmenu-btn{top:auto!important;bottom:22px!important}';
             sr.appendChild(s);
             clearInterval(t);
         }
@@ -501,6 +506,7 @@ window.interdeal = {
       { duration: 800, delay: 2200, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' })
       .onfinish = () => {
         loader.remove(); document.documentElement.style.overflow = '';
+        document.documentElement.classList.add('loaded'); // חושף את הכפתורים הצפים
         heroLetters.forEach((s, i) => s.animate(
           [{ opacity: 0, transform: 'translateY(60px) scale(.92)' }, { opacity: 1, transform: 'translateY(0) scale(1)' }],
           { duration: 850, delay: i * 70, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }));
