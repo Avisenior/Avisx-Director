@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# llms.txt for AI assistants
+# Sitemap: add after domain is live
