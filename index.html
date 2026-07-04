@@ -425,11 +425,16 @@ window.interdeal = {
         var els = sr.querySelectorAll('#INDbtnWrap,#INDmenu-btn,[id*="btnWrap"]');
         var done = false;
         els.forEach(function(e){
-            // מיישרים רק אם צריך — אחרת ה-Observer שלנו יגיב לעצמו בלולאה
-            if (e.style.getPropertyValue('bottom') !== '22px' || e.style.getPropertyValue('top') !== 'auto') {
+            // מיישרים רק אם צריך — אחרת ה-Observer שלנו יגיב לעצמו בלולאה.
+            // חשוב: הווידג'ט מקטין ב-scale(0.7) מעוגן לפינה העליונה — זה מרים את הכפתור ויזואלית.
+            // עיגון ה-scale לפינה התחתונה-ימנית משאיר אותו בדיוק ב-bottom:22px כמו הוואטסאפ.
+            if (e.style.getPropertyValue('transform-origin') !== 'right bottom') {
                 e.style.setProperty('top', 'auto', 'important');
                 e.style.setProperty('bottom', '22px', 'important');
+                e.style.setProperty('left', 'auto', 'important');
+                e.style.setProperty('right', '22px', 'important');
                 e.style.setProperty('margin', '0', 'important');
+                e.style.setProperty('transform-origin', 'right bottom', 'important');
             }
             done = true;
         });
