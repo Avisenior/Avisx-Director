@@ -390,20 +390,32 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<!-- כפתור נגישות (ת"י 5568) -->
-<button class="a11y-btn" id="a11yBtn" aria-label="פתיחת תפריט נגישות" aria-expanded="false">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M12 8c-2.8 0-5.2-.6-6.5-1l-.5 1.9c1.3.4 3 .8 5 1v3l-1.8 6.6 1.9.5 1.7-6h.4l1.7 6 1.9-.5L14 12.9v-3c2-.2 3.7-.6 5-1l-.5-1.9C17.2 7.4 14.8 8 12 8z"/></svg>
-</button>
-<div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="הגדרות נגישות">
-  <h3 data-he="התאמות נגישות" data-en="Accessibility">התאמות נגישות</h3>
-  <button class="opt" data-cls="a11y-font1" data-he="טקסט מוגדל" data-en="Larger text">טקסט מוגדל</button>
-  <button class="opt" data-cls="a11y-font2" data-he="טקסט מוגדל מאוד" data-en="Largest text">טקסט מוגדל מאוד</button>
-  <button class="opt" data-cls="a11y-contrast" data-he="ניגודיות גבוהה" data-en="High contrast">ניגודיות גבוהה</button>
-  <button class="opt" data-cls="a11y-noanim" data-he="עצירת אנימציות ותנועה" data-en="Stop motion">עצירת אנימציות ותנועה</button>
-  <button class="opt" data-cls="a11y-links" data-he="הדגשת קישורים" data-en="Underline links">הדגשת קישורים</button>
-  <button class="reset" id="a11yReset" data-he="איפוס התאמות" data-en="Reset">איפוס התאמות</button>
-  <a href="accessibility.html" data-he="הצהרת נגישות מלאה" data-en="Accessibility statement">הצהרת נגישות מלאה</a>
-</div>
+<!-- כפתור נגישות (EqualWeb / ת"י 5568) — נגישות בקליק לפי התקן -->
+<script>
+window.interdeal = {
+    "sitekey": "15b690563628651fe1da91e9f33b25c8",
+    "Position": "right",
+    "Menulang": "HE",
+    "domains": { "js": "https://cdn.equalweb.com/", "acc": "https://access.equalweb.com/" },
+    "draggable": true,
+    "btnStyle": {
+        "vPosition": ["90%", "90%"],
+        "margin": ["0", "0"],
+        "scale": ["0.7", "0.7"],
+        "color": { "main": "#e85d04", "second": "#ffffff" },
+        "icon": { "outline": false, "outlineColor": "#ffffff", "type": 1, "shape": "circle" }
+    }
+};
+(function(doc, head, body){
+    var coreCall         = doc.createElement('script');
+    coreCall.src         = interdeal.domains.js + 'core/5.2.5/accessibility.js';
+    coreCall.defer       = true;
+    coreCall.integrity   = 'sha512-Zamp30ps601kXvZTcIYv1sytUc090mrEJD9rLuoWzEGqmB6t0XdLRgC/g5TznUleEBIMm6T3c6Baf/ExIYh/Hw==';
+    coreCall.crossOrigin = 'anonymous';
+    coreCall.setAttribute('data-cfasync', true);
+    body ? body.appendChild(coreCall) : head.appendChild(coreCall);
+})(document, document.head, document.body);
+</script>
 
 <a class="wa" href="https://wa.me/972506890125?text=היי אבי, אני מעוניין בהפקת סרטון" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.5c1.2.6 2.5.9 3.8.9 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.2 0-2.4-.3-3.5-.8l-.6-.3-4.9.9 1-4.7-.3-.6C6.6 18 6 16.5 6 15c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
@@ -635,33 +647,7 @@ html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
   }
 
   /* ---------- נגישות ---------- */
-  const A11Y = 'avisx-a11y';
-  const a11yBtn = document.getElementById('a11yBtn');
-  const a11yPanel = document.getElementById('a11yPanel');
-  const applyA11y = (keys) => {
-    ['a11y-font1','a11y-font2','a11y-contrast','a11y-noanim','a11y-links'].forEach((k) =>
-      document.documentElement.classList.toggle(k, keys.includes(k)));
-    a11yPanel.querySelectorAll('.opt').forEach((b) => b.classList.toggle('on', keys.includes(b.dataset.cls)));
-    try { localStorage.setItem(A11Y, JSON.stringify(keys)); } catch {}
-    // עצירת וידאו במצב ללא-תנועה
-    document.querySelectorAll('video').forEach((v) => { if (keys.includes('a11y-noanim')) v.pause(); });
-  };
-  let a11yKeys = [];
-  try { a11yKeys = JSON.parse(localStorage.getItem(A11Y) || '[]'); } catch {}
-  if (!a11yKeys.includes('a11y-noanim') && REDUCED) a11yKeys.push('a11y-noanim');
-  applyA11y(a11yKeys);
-  a11yBtn.addEventListener('click', () => {
-    const open = a11yPanel.classList.toggle('open');
-    a11yBtn.setAttribute('aria-expanded', open);
-  });
-  a11yPanel.querySelectorAll('.opt').forEach((b) => b.addEventListener('click', () => {
-    const k = b.dataset.cls;
-    a11yKeys = a11yKeys.includes(k) ? a11yKeys.filter((x) => x !== k) : [...a11yKeys, k];
-    if (k === 'a11y-font1') a11yKeys = a11yKeys.filter((x) => x !== 'a11y-font2' || x === k);
-    if (k === 'a11y-font2') a11yKeys = a11yKeys.filter((x) => x !== 'a11y-font1' || x === k);
-    applyA11y(a11yKeys);
-  }));
-  document.getElementById('a11yReset').addEventListener('click', () => { a11yKeys = []; applyA11y([]); });
+  // הנגישות מסופקת ע"י ווידג'ט EqualWeb (ראה הסקריפט לפני </body>) — נגישות מוסמכת בקליק.
 
   /* ---------- חזרה לראש הדף ---------- */
   const topBtn = document.getElementById('topBtn');
