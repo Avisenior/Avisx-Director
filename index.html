@@ -418,24 +418,41 @@ window.interdeal = {
     coreCall.setAttribute('data-cfasync', true);
     body ? body.appendChild(coreCall) : head.appendChild(coreCall);
 })(document, document.head, document.body);
-// תפריט הנגישות קומפקטי — לא מכסה את כל הדף (הזרקת עיצוב ל-Shadow DOM של הווידג'ט)
+// התאמות לווידג'ט הנגישות (Shadow DOM): תפריט קומפקטי + כפתור בגובה הוואטסאפ בדיוק
 (function(){
+    var fixBtn = function(sr){
+        // תופסים את כפתור הווידג'ט (או העטיפה שלו) וכופים inline+important — מנצח כל סגנון פנימי
+        var els = sr.querySelectorAll('#INDbtnWrap,#INDmenu-btn,[id*="btnWrap"]');
+        var done = false;
+        els.forEach(function(e){
+            // מיישרים רק אם צריך — אחרת ה-Observer שלנו יגיב לעצמו בלולאה
+            if (e.style.getPropertyValue('bottom') !== '22px' || e.style.getPropertyValue('top') !== 'auto') {
+                e.style.setProperty('top', 'auto', 'important');
+                e.style.setProperty('bottom', '22px', 'important');
+                e.style.setProperty('margin', '0', 'important');
+            }
+            done = true;
+        });
+        return done;
+    };
     var tries = 0;
     var t = setInterval(function(){
         tries++;
         var host = document.getElementById('INDShadowRootHost');
         var sr = host && host.shadowRoot;
-        if (sr && !sr.querySelector('#avisx-ew-css')) {
-            var s = document.createElement('style');
-            s.id = 'avisx-ew-css';
-            // תפריט: רק מגבלת גודל מקסימלית — בלי לדרוס מיקום/מנגנון הסתרה (דריסה חושפת אותו בטעינה!)
-            // כפתור: מיושר לגובה אייקון הוואטסאפ (bottom:22px), בכל המסכים
-            s.textContent = '#INDmenu{max-width:min(360px,92vw)!important;max-height:72vh!important;border-radius:16px!important}' +
-              '#INDbtnWrap,#INDmenu-btn{top:auto!important;bottom:22px!important}';
-            sr.appendChild(s);
-            clearInterval(t);
+        if (sr) {
+            if (!sr.querySelector('#avisx-ew-css')) {
+                var s = document.createElement('style');
+                s.id = 'avisx-ew-css';
+                // תפריט: רק מגבלת גודל מקסימלית — דריסת מיקום חושפת אותו בטעינה!
+                s.textContent = '#INDmenu{max-width:min(360px,92vw)!important;max-height:72vh!important;border-radius:16px!important}';
+                sr.appendChild(s);
+                // אם הווידג'ט יוסיף/יזיז את הכפתור מאוחר יותר — מיישרים שוב
+                new MutationObserver(function(){ fixBtn(sr); }).observe(sr, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+            }
+            fixBtn(sr);
         }
-        if (tries > 40) clearInterval(t);
+        if (tries > 60) clearInterval(t);
     }, 500);
 })();
 </script>
