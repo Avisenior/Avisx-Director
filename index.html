@@ -63,16 +63,19 @@ nav a{color:var(--cream);text-decoration:none;font:500 14px 'Heebo';opacity:.75;
 nav a:hover{opacity:1}
 .lang-btn{background:none;border:1px solid rgba(239,244,255,.35);color:var(--cream);font:700 12px 'Heebo';padding:7px 14px;border-radius:999px;letter-spacing:.1em;transition:border-color .2s,color .2s}
 .lang-btn:hover{border-color:var(--accent);color:var(--accent)}
-/* כפתור סאונד — עגול, בשפת הניווט. כבוי כברירת מחדל, פועם בעדינות כשדולק */
-.sound-btn{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:none;border:1px solid rgba(239,244,255,.35);color:var(--cream);transition:border-color .2s,color .2s}
-.sound-btn:hover{border-color:var(--accent);color:var(--accent)}
-.sound-btn svg{width:16px;height:16px}
+/* כפתור סאונד — צף כתום מעל הוואטסאפ (פינה שמאל-תחתונה) */
+.sound-btn{position:fixed;bottom:88px;left:22px;z-index:120;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;border:none;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:transform .25s}
+.sound-btn:hover{transform:scale(1.1)}
+.sound-btn svg{width:22px;height:22px}
 .sound-btn .ico-on{display:none}
-.sound-btn.playing{border-color:var(--accent);color:var(--accent);animation:soundPulse 2.4s ease-in-out infinite}
+.sound-btn.playing{animation:soundPulse 2.4s ease-in-out infinite}
 .sound-btn.playing .ico-on{display:block}
 .sound-btn.playing .ico-off{display:none}
-@keyframes soundPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,93,4,.35)}50%{box-shadow:0 0 0 5px rgba(232,93,4,0)}}
+@keyframes soundPulse{0%,100%{box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 0 0 rgba(232,93,4,.5)}50%{box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 0 7px rgba(232,93,4,0)}}
 html.a11y-noanim .sound-btn.playing{animation:none}
+/* מופיע רק אחרי הלואדר, כמו שאר הכפתורים הצפים */
+html:not(.loaded) .sound-btn{opacity:0;pointer-events:none}
+.sound-btn{transition:transform .25s,opacity .5s}
 /* מובייל: תפריט קומפקטי — עבודות + קשר + שפה */
 @media(max-width:767px){
   nav{padding:14px 4vw}
@@ -255,10 +258,6 @@ html:not(.loaded) .wa,html:not(.loaded) .top-btn,html:not(.loaded) #INDShadowRoo
     <li><a href="#process" data-he="איך זה עובד" data-en="Process">איך זה עובד</a></li>
     <li><a href="#work" data-he="עבודות" data-en="Work">עבודות</a></li>
     <li><a href="#finale" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
-    <li><button class="sound-btn" id="soundBtn" type="button" aria-label="הפעלת מוזיקת רקע" aria-pressed="false">
-      <svg class="ico-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-      <svg class="ico-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-    </button></li>
     <li><button class="lang-btn" id="langBtn" type="button">EN</button></li>
   </ul>
 </nav>
@@ -480,6 +479,10 @@ window.interdeal = {
 <a class="wa" href="https://wa.me/972506890125?text=היי אבי, אני מעוניין בהפקת סרטון" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.5c1.2.6 2.5.9 3.8.9 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.2 0-2.4-.3-3.5-.8l-.6-.3-4.9.9 1-4.7-.3-.6C6.6 18 6 16.5 6 15c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
 </a>
+<button class="sound-btn" id="soundBtn" type="button" aria-label="הפעלת מוזיקת רקע" aria-pressed="false">
+  <svg class="ico-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+  <svg class="ico-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+</button>
 
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
