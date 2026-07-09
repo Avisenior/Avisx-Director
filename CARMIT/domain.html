@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>לקנות דומיין לאתר - צעד אחר צעד | כרמית סקג'יו</title>
-    <meta name="description" content="מדריך צעד-אחר-צעד לרכישת דומיין לאתר, והעברת הפרטים לחיבור טכני." />
+    <title>דומיין לאתר - מדריך מלא | כרמית סקג'יו</title>
+    <meta name="description" content="מדריך מלא: מה שכרמית עושה (קניית דומיין) ומה שאבי עושה (חיבור טכני ל-Vercel)." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -32,7 +32,7 @@
         -webkit-font-smoothing: antialiased;
         min-height: 100vh;
       }
-      .wrap { max-width: 780px; margin: 0 auto; padding: 0 20px 80px; }
+      .wrap { max-width: 800px; margin: 0 auto; padding: 0 20px 80px; }
 
       header { padding: 34px 0 8px; }
       .brand { display: flex; align-items: center; gap: 12px; }
@@ -48,19 +48,18 @@
       h1 .hl { color: var(--brand); }
       .lead { margin-top: 18px; font-size: 1.05rem; color: rgba(243, 241, 238, 0.85); }
 
-      /* section band */
       .band {
-        margin-top: 42px; display: flex; align-items: center; gap: 12px;
-        padding-bottom: 6px; border-bottom: 1px solid var(--border);
+        margin-top: 46px; display: flex; align-items: center; gap: 12px;
+        padding-bottom: 8px; border-bottom: 1px solid var(--border);
       }
       .band .tag {
         font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
-        text-transform: uppercase; padding: 4px 12px; border-radius: 999px;
+        text-transform: uppercase; padding: 4px 12px; border-radius: 999px; white-space: nowrap;
       }
       .band.you .tag { background: rgba(232,129,60,0.18); color: var(--brand-light); }
       .band.me .tag { background: rgba(255,255,255,0.1); color: #fff; }
       .band h2 { font-size: 1.35rem; font-weight: 900; }
-      .band .hint { color: var(--muted); font-size: 0.85rem; margin-right: auto; }
+      .band .hint { color: var(--muted); font-size: 0.82rem; margin-right: auto; white-space: nowrap; }
 
       .steps { margin-top: 18px; display: flex; flex-direction: column; gap: 14px; }
       .step {
@@ -73,34 +72,39 @@
         background: var(--brand); color: #fff; font-weight: 900;
         display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
       }
-      .step h3 { font-size: 1.1rem; font-weight: 800; margin: 2px 48px 8px 0; }
-      .step p, .step li { font-size: 0.94rem; color: rgba(243, 241, 238, 0.85); }
+      .step h3 { font-size: 1.08rem; font-weight: 800; margin: 2px 48px 8px 0; }
+      .step p, .step li { font-size: 0.93rem; color: rgba(243, 241, 238, 0.85); }
       .step ul, .step ol { margin: 6px 20px 0 0; display: flex; flex-direction: column; gap: 5px; }
       .step li { margin-right: 4px; }
-      .step .sub { color: var(--muted); font-size: 0.84rem; margin-top: 8px; }
+      .step .sub { color: var(--muted); font-size: 0.83rem; margin-top: 8px; }
       b { color: #fff; font-weight: 700; }
       a.link { color: var(--brand-light); font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(245,185,140,0.4); }
       .pill {
         display: inline-block; background: rgba(232,129,60,0.16); color: var(--brand-light);
         border-radius: 8px; padding: 1px 8px; font-size: 0.85rem; font-weight: 700; direction: ltr;
       }
+      code {
+        direction: ltr; display: inline-block; background: rgba(255,255,255,0.08);
+        border: 1px solid var(--border); border-radius: 6px; padding: 0 7px;
+        font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.85rem; color: #fff;
+      }
       .warn { border-color: rgba(232, 129, 60, 0.45); background: rgba(232, 129, 60, 0.08); }
       .warn .num { background: #d96f28; }
+      .step.me3 .num { background: #4a4a4e; }
 
       .give {
         border: 1px solid rgba(232,129,60,0.4); background: rgba(232,129,60,0.07);
         border-radius: 20px; padding: 20px 22px; margin-top: 14px;
       }
-      .give .label { font-weight: 800; color: var(--brand-light); font-size: 0.82rem; margin-bottom: 6px; letter-spacing: 0.04em; }
+      .give .label { font-weight: 800; color: var(--brand-light); font-size: 0.82rem; margin-bottom: 6px; }
 
       .end {
-        margin-top: 30px; text-align: center; border: 1px solid var(--border);
+        margin-top: 34px; text-align: center; border: 1px solid var(--border);
         background: var(--card); border-radius: 24px; padding: 30px 24px;
       }
       .end h2 { font-size: 1.3rem; font-weight: 900; }
       .end h2 .hl { color: var(--brand); }
       .end p { color: rgba(243,241,238,0.8); margin-top: 8px; font-size: 0.95rem; }
-
       footer { margin-top: 34px; text-align: center; color: var(--muted); font-size: 0.8rem; }
     </style>
   </head>
@@ -120,19 +124,18 @@
       </header>
 
       <section class="hero">
-        <span class="kicker">מדריך צעד אחר צעד</span>
-        <h1>לקנות <span class="hl">דומיין</span> לאתר שלך</h1>
+        <span class="kicker">מדריך מלא</span>
+        <h1>לחבר <span class="hl">דומיין</span> לאתר</h1>
         <p class="lead">
-          הדומיין הוא <b>הכתובת</b> שאנשים מקלידים כדי להגיע לאתר (למשל
-          <span class="pill">carmit-mashkanta.com</span>). קונים אותו פעם אחת, כמה עשרות
-          שקלים בשנה. <b>החלק שלך פשוט</b> - רק לקנות. את כל החיבור הטכני אני עושה.
+          שני חלקים פשוטים: <b>כרמית</b> קונה את הדומיין (הכתובת), ו<b>אבי</b> מחבר אותו
+          לאתר טכנית. כל אחד רואה כאן בדיוק מה עליו לעשות.
         </p>
       </section>
 
-      <!-- ===== החלק שלך ===== -->
+      <!-- ========== חלק כרמית ========== -->
       <div class="band you">
-        <span class="tag">החלק שלך</span>
-        <h2>קנייה - 3 צעדים</h2>
+        <span class="tag">כרמית</span>
+        <h2>לקנות את הדומיין</h2>
         <span class="hint">~5 דקות</span>
       </div>
 
@@ -149,65 +152,96 @@
         <div class="step">
           <span class="num">2</span>
           <h3>קני באתר Name.com</h3>
-          <p>קני דרך <a class="link" href="https://www.name.com" target="_blank" rel="noopener">www.name.com</a> - זה בדיוק המקום שאני עובד איתו, כך החיבור אצלי יהיה מהיר וחלק.</p>
+          <p>דרך <a class="link" href="https://www.name.com" target="_blank" rel="noopener">www.name.com</a> - זה המקום שאבי עובד איתו, כך החיבור יהיה מהיר וחלק.</p>
           <ol>
-            <li>נכנסים ל-<b>name.com</b> ומקלידים בתיבת החיפוש את השם + הסיומת.</li>
-            <li>אם כתוב <b>"Available"</b> (פנוי) - לוחצים <b>"Add to cart"</b> (הוספה לעגלה).</li>
-            <li>לוחצים <b>Checkout</b>. אם אין חשבון - נרשמים עם אימייל וסיסמה.</li>
-            <li>משלמים בכרטיס אשראי. זהו.</li>
+            <li>נכנסים ל-<b>name.com</b>, מקלידים בחיפוש את השם + הסיומת.</li>
+            <li>אם כתוב <b>"Available"</b> - לוחצים <b>"Add to cart"</b>.</li>
+            <li><b>Checkout</b> ← נרשמים (אימייל+סיסמה) ← משלמים בכרטיס.</li>
           </ol>
+          <p class="sub">שמרי היטב את פרטי ההתחברות ל-Name.com - צריך אותם לחידוש שנתי.</p>
         </div>
 
         <div class="step warn">
           <span class="num">3</span>
-          <h3>אל תקני שום דבר חוץ מהדומיין</h3>
+          <h3>רק הדומיין - כלום נוסף</h3>
           <p>
-            בדף התשלום ינסו למכור לך <b>"Hosting" (אחסון), "Email", "Website Builder"</b>
-            ועוד - <b>דלגי על הכול.</b> את צריכה <b>רק את הדומיין</b>. האתר כבר מוכן אצלי.
+            ינסו למכור לך <b>Hosting / Email / Website Builder</b> - <b>דלגי על הכול.</b>
+            <span style="color:#fff">Whois Privacy</span> אם בחינם - אפשר להשאיר. כל דבר בתשלום - להסיר.
           </p>
-          <p class="sub">אם מוצע <b>"Whois Privacy"</b> בחינם - אפשר להשאיר מסומן. כל דבר בתשלום - להסיר.</p>
         </div>
       </div>
 
-      <!-- ===== החלק שלי ===== -->
+      <div class="give">
+        <div class="label">✦ ואז - שלחי לאבי:</div>
+        <ul>
+          <li>הדומיין המדויק שקנית.</li>
+          <li>גישה לחשבון Name.com (אימייל+סיסמה, או הוסיפי אותו כמשתמש). את לא עושה כלום נוסף.</li>
+        </ul>
+      </div>
+
+      <!-- ========== חלק אבי ========== -->
       <div class="band me">
-        <span class="tag">החלק שלי</span>
-        <h2>מה לתת לי - ואני מחבר</h2>
-        <span class="hint">את לא נוגעת בטכני</span>
+        <span class="tag">אבי</span>
+        <h2>החיבור הטכני</h2>
+        <span class="hint">רשם → Cloudflare → Vercel</span>
       </div>
 
-      <div class="give">
-        <div class="label">א · שלחי לי הודעה עם:</div>
-        <ul>
-          <li>השם המדויק שקנית (הכתובת המלאה).</li>
-          <li>אישור שקנית ב-<b>Name.com</b>.</li>
-        </ul>
-      </div>
+      <div class="steps">
+        <div class="step me3">
+          <span class="num">1</span>
+          <h3>הכנה</h3>
+          <ul>
+            <li>ודא שהאתר של כרמית פרוס כ<b>פרויקט Vercel נפרד בשורש</b> (לא כתת-נתיב), כדי שהדומיין יצביע ישר אליו. אם הוא כרגע תת-נתיב - שכפל אותו לפרויקט משלו או הגדר rewrite.</li>
+            <li>קבל מכרמית גישה לרשם (Name.com) ואת שם הדומיין.</li>
+          </ul>
+        </div>
 
-      <div class="give">
-        <div class="label">ב · תני לי גישה זמנית לחשבון (הדרך הכי פשוטה):</div>
-        <ul>
-          <li>שלחי לי את פרטי ההתחברות ל-Name.com (אימייל + סיסמה), <b>או</b> הוסיפי אותי כמשתמש בחשבון.</li>
-          <li>אם לא נוח לך לשתף סיסמה - כתבי לי, ואשלח לך הגדרה קטנה להדביק לבד, ואלווה אותך צעד-צעד.</li>
-        </ul>
-        <p class="sub">אחרי החיבור תוכלי לשנות את הסיסמה - הגישה רק לרגע ההגדרה.</p>
-      </div>
+        <div class="step me3">
+          <span class="num">2</span>
+          <h3>Cloudflare - הוסף את הדומיין</h3>
+          <ul>
+            <li>ב-Cloudflare: <b>Add a site</b> ← הכנס את הדומיין (תוכנית Free).</li>
+            <li>Cloudflare ייתן <b>2 nameservers</b> (כמו <code>irena/ishaan.ns.cloudflare.com</code>).</li>
+            <li>ב-<b>Name.com</b> ← Nameservers ← החלף לאלה של Cloudflare. (זהה לסטאפ של avisx-director.com.)</li>
+          </ul>
+        </div>
 
-      <div class="give">
-        <div class="label">ג · מכאן אני עושה הכול:</div>
-        <ul>
-          <li>אני מפנה את הדומיין לאתר שלך (בדיוק כמו שהאתר שלי בנוי), ותוך כמה שעות האתר עולה על הכתובת החדשה.</li>
-        </ul>
+        <div class="step me3">
+          <span class="num">3</span>
+          <h3>Vercel - הוסף דומיין</h3>
+          <ul>
+            <li>בפרויקט של כרמית: <b>Settings → Domains → Add</b> ← הכנס את הדומיין (וגם <code>www</code>).</li>
+            <li>Vercel יציג את הרשומות הדרושות.</li>
+          </ul>
+        </div>
+
+        <div class="step me3">
+          <span class="num">4</span>
+          <h3>Cloudflare - רשומות ה-DNS</h3>
+          <ul>
+            <li>Apex (דומיין נקי): <b>A</b> record ← <code>76.76.21.21</code></li>
+            <li>www: <b>CNAME</b> ← <code>cname.vercel-dns.com</code></li>
+            <li>חשוב: <b>Proxy = DNS only</b> (ענן אפור), לא Proxied - אחרת ה-SSL של Vercel מתנגש.</li>
+          </ul>
+          <p class="sub">חלופה: להצביע nameservers ישר ל-Vercel (<code>ns1/ns2.vercel-dns.com</code>) ולתת ל-Vercel לנהל DNS - אבל עדיף להישאר עם Cloudflare כמו בשאר האתרים.</p>
+        </div>
+
+        <div class="step me3">
+          <span class="num">5</span>
+          <h3>אימות ו-SSL</h3>
+          <ul>
+            <li>חכה להתפשטות DNS (דקות עד שעות). Vercel יסמן ✓ Valid וינפיק SSL אוטומטית.</li>
+            <li>בדוק שהאתר עולה על הדומיין + על <code>www</code>, וש-http עובר ל-https.</li>
+          </ul>
+        </div>
       </div>
 
       <div class="end">
-        <h2>זהו - <span class="hl">האתר על הכתובת שלך.</span></h2>
-        <p>
-          החלק שלך: לקנות ולשלוח לי פרטים. כל השאר עליי. שאלה? פשוט כתבי לי לפני שאת קונה.
-        </p>
+        <h2>זהו - <span class="hl">האתר חי על הדומיין.</span></h2>
+        <p>כרמית: לקנות ולשלוח פרטים. אבי: חמשת השלבים למעלה. כמה שעות והכתובת פעילה.</p>
       </div>
 
-      <footer>© כרמית סקג'יו · מדריך פנימי לרכישת דומיין</footer>
+      <footer>© כרמית סקג'יו · מדריך פנימי · דומיין וחיבור לאתר</footer>
     </div>
   </body>
 </html>
