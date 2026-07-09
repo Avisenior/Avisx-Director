@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>איך קונים דומיין לאתר | כרמית סקג'יו</title>
-    <meta name="description" content="מדריך קצר וידידותי: איך לרכוש דומיין (כתובת אתר) ולהעביר את הפרטים לחיבור האתר." />
+    <title>לקנות דומיין לאתר - צעד אחר צעד | כרמית סקג'יו</title>
+    <meta name="description" content="מדריך צעד-אחר-צעד לרכישת דומיין לאתר, והעברת הפרטים לחיבור טכני." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -44,46 +44,60 @@
         color: var(--brand-light); font-weight: 700; font-size: 0.8rem;
         letter-spacing: 0.18em; text-transform: uppercase;
       }
-      h1 { font-size: clamp(1.9rem, 6vw, 3rem); font-weight: 900; line-height: 1.1; margin-top: 12px; }
+      h1 { font-size: clamp(1.85rem, 6vw, 2.9rem); font-weight: 900; line-height: 1.1; margin-top: 12px; }
       h1 .hl { color: var(--brand); }
       .lead { margin-top: 18px; font-size: 1.05rem; color: rgba(243, 241, 238, 0.85); }
 
-      .steps { margin-top: 34px; display: flex; flex-direction: column; gap: 16px; }
+      /* section band */
+      .band {
+        margin-top: 42px; display: flex; align-items: center; gap: 12px;
+        padding-bottom: 6px; border-bottom: 1px solid var(--border);
+      }
+      .band .tag {
+        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+        text-transform: uppercase; padding: 4px 12px; border-radius: 999px;
+      }
+      .band.you .tag { background: rgba(232,129,60,0.18); color: var(--brand-light); }
+      .band.me .tag { background: rgba(255,255,255,0.1); color: #fff; }
+      .band h2 { font-size: 1.35rem; font-weight: 900; }
+      .band .hint { color: var(--muted); font-size: 0.85rem; margin-right: auto; }
+
+      .steps { margin-top: 18px; display: flex; flex-direction: column; gap: 14px; }
       .step {
         border: 1px solid var(--border); background: var(--card);
-        border-radius: 22px; padding: 22px 24px; position: relative;
+        border-radius: 20px; padding: 20px 22px; position: relative;
       }
       .step .num {
-        position: absolute; top: 20px; right: 22px;
-        width: 34px; height: 34px; border-radius: 50%;
+        position: absolute; top: 18px; right: 20px;
+        width: 32px; height: 32px; border-radius: 50%;
         background: var(--brand); color: #fff; font-weight: 900;
-        display: flex; align-items: center; justify-content: center; font-size: 1rem;
+        display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
       }
-      .step h2 { font-size: 1.15rem; font-weight: 800; margin: 2px 52px 8px 0; }
-      .step p, .step li { font-size: 0.95rem; color: rgba(243, 241, 238, 0.85); }
-      .step ul { margin: 8px 20px 0 0; display: flex; flex-direction: column; gap: 5px; }
+      .step h3 { font-size: 1.1rem; font-weight: 800; margin: 2px 48px 8px 0; }
+      .step p, .step li { font-size: 0.94rem; color: rgba(243, 241, 238, 0.85); }
+      .step ul, .step ol { margin: 6px 20px 0 0; display: flex; flex-direction: column; gap: 5px; }
       .step li { margin-right: 4px; }
-      .step .sub { color: var(--muted); font-size: 0.85rem; margin-top: 8px; }
+      .step .sub { color: var(--muted); font-size: 0.84rem; margin-top: 8px; }
       b { color: #fff; font-weight: 700; }
+      a.link { color: var(--brand-light); font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(245,185,140,0.4); }
       .pill {
         display: inline-block; background: rgba(232,129,60,0.16); color: var(--brand-light);
-        border-radius: 8px; padding: 1px 8px; font-size: 0.85rem; font-weight: 700;
+        border-radius: 8px; padding: 1px 8px; font-size: 0.85rem; font-weight: 700; direction: ltr;
       }
-
-      .warn {
-        border-color: rgba(232, 129, 60, 0.45);
-        background: rgba(232, 129, 60, 0.08);
-      }
+      .warn { border-color: rgba(232, 129, 60, 0.45); background: rgba(232, 129, 60, 0.08); }
       .warn .num { background: #d96f28; }
 
-      .send { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 12px; }
-      .send .label { font-weight: 800; color: var(--brand-light); font-size: 0.85rem; margin-bottom: 4px; }
+      .give {
+        border: 1px solid rgba(232,129,60,0.4); background: rgba(232,129,60,0.07);
+        border-radius: 20px; padding: 20px 22px; margin-top: 14px;
+      }
+      .give .label { font-weight: 800; color: var(--brand-light); font-size: 0.82rem; margin-bottom: 6px; letter-spacing: 0.04em; }
 
       .end {
         margin-top: 30px; text-align: center; border: 1px solid var(--border);
         background: var(--card); border-radius: 24px; padding: 30px 24px;
       }
-      .end h2 { font-size: 1.35rem; font-weight: 900; }
+      .end h2 { font-size: 1.3rem; font-weight: 900; }
       .end h2 .hl { color: var(--brand); }
       .end p { color: rgba(243,241,238,0.8); margin-top: 8px; font-size: 0.95rem; }
 
@@ -106,80 +120,90 @@
       </header>
 
       <section class="hero">
-        <span class="kicker">מדריך קצר</span>
-        <h1>איך קונים <span class="hl">דומיין</span> לאתר שלך</h1>
+        <span class="kicker">מדריך צעד אחר צעד</span>
+        <h1>לקנות <span class="hl">דומיין</span> לאתר שלך</h1>
         <p class="lead">
-          הדומיין הוא פשוט <b>הכתובת</b> שאנשים מקלידים כדי להגיע לאתר שלך
-          (למשל <span class="pill">carmit-mashkanta.co.il</span>). קונים אותו פעם אחת,
-          זה עולה כמה עשרות שקלים בשנה - ואז שולחים לי את הפרטים ואני מחבר אותו לאתר.
-          <b>את לא צריכה להבין שום דבר טכני</b> - רק לבצע את 4 השלבים הבאים.
+          הדומיין הוא <b>הכתובת</b> שאנשים מקלידים כדי להגיע לאתר (למשל
+          <span class="pill">carmit-mashkanta.com</span>). קונים אותו פעם אחת, כמה עשרות
+          שקלים בשנה. <b>החלק שלך פשוט</b> - רק לקנות. את כל החיבור הטכני אני עושה.
         </p>
       </section>
+
+      <!-- ===== החלק שלך ===== -->
+      <div class="band you">
+        <span class="tag">החלק שלך</span>
+        <h2>קנייה - 3 צעדים</h2>
+        <span class="hint">~5 דקות</span>
+      </div>
 
       <div class="steps">
         <div class="step">
           <span class="num">1</span>
-          <h2>בחרי את השם</h2>
+          <h3>בחרי שם</h3>
           <ul>
-            <li>שם <b>קצר, קל לזכור וקל לאיית</b> - עדיף בלי מקפים ומספרים מיותרים.</li>
-            <li>הסיומת: <span class="pill">.co.il</span> (ישראלי) או <span class="pill">.com</span> (בינלאומי) - שתיהן מצוינות.</li>
-            <li>אפשר לבדוק אם השם פנוי ישירות באתר הרכישה (שלב 2).</li>
+            <li>שם <b>קצר, קל לזכור וקל לאיית</b> - עדיף בלי מקפים ומספרים.</li>
+            <li>סיומת <span class="pill">.com</span> (מומלץ) או <span class="pill">.co.il</span>.</li>
           </ul>
         </div>
 
         <div class="step">
           <span class="num">2</span>
-          <h2>קני את הדומיין</h2>
-          <ul>
-            <li>ל-<b>.com</b> - מומלץ דרך <b>Cloudflare</b> (הכי זול) או <b>Namecheap</b> (הכי פשוט).</li>
-            <li>ל-<b>.co.il</b> - דרך ספק ישראלי כמו <b>Hostinger</b> או <b>"דומיין דה נט"</b>.</li>
-            <li>נרשמים, מחפשים את השם, מוסיפים לעגלה ומשלמים בכרטיס אשראי. זהו.</li>
-          </ul>
+          <h3>קני באתר Name.com</h3>
+          <p>קני דרך <a class="link" href="https://www.name.com" target="_blank" rel="noopener">www.name.com</a> - זה בדיוק המקום שאני עובד איתו, כך החיבור אצלי יהיה מהיר וחלק.</p>
+          <ol>
+            <li>נכנסים ל-<b>name.com</b> ומקלידים בתיבת החיפוש את השם + הסיומת.</li>
+            <li>אם כתוב <b>"Available"</b> (פנוי) - לוחצים <b>"Add to cart"</b> (הוספה לעגלה).</li>
+            <li>לוחצים <b>Checkout</b>. אם אין חשבון - נרשמים עם אימייל וסיסמה.</li>
+            <li>משלמים בכרטיס אשראי. זהו.</li>
+          </ol>
         </div>
 
         <div class="step warn">
           <span class="num">3</span>
-          <h2>אל תקני שום דבר חוץ מהדומיין</h2>
+          <h3>אל תקני שום דבר חוץ מהדומיין</h3>
           <p>
-            בזמן התשלום ינסו למכור לך <b>"אחסון", "בניית אתר", "אימייל"</b> ועוד תוספות -
-            <b>אל תוסיפי כלום.</b> את צריכה <b>רק את הדומיין</b> עצמו (האתר כבר מוכן אצלי).
+            בדף התשלום ינסו למכור לך <b>"Hosting" (אחסון), "Email", "Website Builder"</b>
+            ועוד - <b>דלגי על הכול.</b> את צריכה <b>רק את הדומיין</b>. האתר כבר מוכן אצלי.
           </p>
-          <p class="sub">אם מציעים "הגנת פרטיות" בחינם - אפשר לסמן, זה בסדר. כל דבר בתשלום - לדלג.</p>
-        </div>
-
-        <div class="step">
-          <span class="num">4</span>
-          <h2>מה עושים אחרי הקנייה?</h2>
-          <p>זהו - סיימת את החלק שלך כמעט. מכאן אני עושה את כל החלק הטכני. נשארו 3 דברים קטנים:</p>
-          <div class="send">
-            <div class="label">א · שלחי לי את הפרטים</div>
-            <ul>
-              <li>השם המדויק שקנית (הכתובת המלאה).</li>
-              <li>מאיזו חברה קנית אותו.</li>
-            </ul>
-          </div>
-          <div class="send">
-            <div class="label">ב · תני לי להתחבר (בחרי דרך אחת)</div>
-            <ul>
-              <li><b>הכי פשוט:</b> תפתחי לי גישה זמנית לחשבון הדומיין (שם משתמש+סיסמה, או תוסיפי אותי כמשתמש) - ואני מחבר הכול בעצמי.</li>
-              <li><b>או:</b> אשלח לך הגדרה קטנה להדביק בהגדרות הדומיין (החלפת "שרתי שמות" או 2 שורות DNS) - ואלווה אותך צעד-צעד.</li>
-            </ul>
-          </div>
-          <div class="send">
-            <div class="label">ג · זהו, מחכים</div>
-            <ul>
-              <li>תוך כמה שעות הכתובת "מתפשטת" ברשת והאתר עולה עליה. את לא צריכה לעשות כלום נוסף.</li>
-            </ul>
-          </div>
-          <p class="sub">חשוב: אל תבטלי את הדומיין ואל תתני לו לפוג - הוא מתחדש כל שנה. שמרי את פרטי ההתחברות לחשבון.</p>
+          <p class="sub">אם מוצע <b>"Whois Privacy"</b> בחינם - אפשר להשאיר מסומן. כל דבר בתשלום - להסיר.</p>
         </div>
       </div>
 
+      <!-- ===== החלק שלי ===== -->
+      <div class="band me">
+        <span class="tag">החלק שלי</span>
+        <h2>מה לתת לי - ואני מחבר</h2>
+        <span class="hint">את לא נוגעת בטכני</span>
+      </div>
+
+      <div class="give">
+        <div class="label">א · שלחי לי הודעה עם:</div>
+        <ul>
+          <li>השם המדויק שקנית (הכתובת המלאה).</li>
+          <li>אישור שקנית ב-<b>Name.com</b>.</li>
+        </ul>
+      </div>
+
+      <div class="give">
+        <div class="label">ב · תני לי גישה זמנית לחשבון (הדרך הכי פשוטה):</div>
+        <ul>
+          <li>שלחי לי את פרטי ההתחברות ל-Name.com (אימייל + סיסמה), <b>או</b> הוסיפי אותי כמשתמש בחשבון.</li>
+          <li>אם לא נוח לך לשתף סיסמה - כתבי לי, ואשלח לך הגדרה קטנה להדביק לבד, ואלווה אותך צעד-צעד.</li>
+        </ul>
+        <p class="sub">אחרי החיבור תוכלי לשנות את הסיסמה - הגישה רק לרגע ההגדרה.</p>
+      </div>
+
+      <div class="give">
+        <div class="label">ג · מכאן אני עושה הכול:</div>
+        <ul>
+          <li>אני מפנה את הדומיין לאתר שלך (בדיוק כמו שהאתר שלי בנוי), ותוך כמה שעות האתר עולה על הכתובת החדשה.</li>
+        </ul>
+      </div>
+
       <div class="end">
-        <h2>זהו - <span class="hl">האתר עולה על הכתובת שלך.</span></h2>
+        <h2>זהו - <span class="hl">האתר על הכתובת שלך.</span></h2>
         <p>
-          מרגע ששלחת לי את הפרטים, האתר יתחבר לכתובת החדשה תוך זמן קצר.
-          לפעמים לוקח כמה שעות עד שהכתובת "מתפשטת" ברשת - זה נורמלי לגמרי.
+          החלק שלך: לקנות ולשלוח לי פרטים. כל השאר עליי. שאלה? פשוט כתבי לי לפני שאת קונה.
         </p>
       </div>
 
