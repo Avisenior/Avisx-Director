@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>בחירת מוזיקת רקע | כרמית סקג'יו</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --brand: #e8813c;
+        --brand-light: #f5b98c;
+        --bg: #2b2b2d;
+        --card: rgba(255, 255, 255, 0.055);
+        --border: rgba(255, 255, 255, 0.12);
+        --text: #f3f1ee;
+        --muted: rgba(243, 241, 238, 0.62);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Heebo', sans-serif;
+        background:
+          radial-gradient(1100px 560px at 82% -10%, rgba(232, 129, 60, 0.14), transparent 60%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 640px; margin: 0 auto; padding: 44px 20px 70px; }
+      .kicker { color: var(--brand-light); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; }
+      h1 { font-size: clamp(1.8rem, 6vw, 2.6rem); font-weight: 900; margin-top: 10px; line-height: 1.15; }
+      h1 .hl { color: var(--brand); }
+      .lead { color: var(--muted); margin-top: 12px; font-size: 1rem; }
+
+      .opts { margin-top: 30px; display: flex; flex-direction: column; gap: 16px; }
+      .opt {
+        display: flex; align-items: center; gap: 16px;
+        border: 1px solid var(--border); background: var(--card);
+        border-radius: 22px; padding: 20px 22px;
+        transition: border-color 0.25s;
+      }
+      .opt.playing { border-color: rgba(232, 129, 60, 0.65); }
+      .play {
+        width: 56px; height: 56px; flex: 0 0 auto;
+        border-radius: 50%; border: none; cursor: pointer;
+        background: var(--brand); color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        transition: transform 0.2s, background 0.2s;
+        box-shadow: 0 10px 24px -10px rgba(232, 129, 60, 0.6);
+      }
+      .play:hover { transform: scale(1.07); }
+      .play svg { width: 22px; height: 22px; fill: currentColor; }
+      .meta h2 { font-size: 1.15rem; font-weight: 800; }
+      .meta p { font-size: 0.88rem; color: var(--muted); margin-top: 2px; }
+      .num {
+        margin-right: auto; font-size: 1.6rem; font-weight: 900;
+        color: rgba(255, 255, 255, 0.14);
+      }
+      .note { margin-top: 26px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+      .note b { color: var(--brand-light); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <span class="kicker">אבי · בחירת מוזיקת רקע</span>
+      <h1>איזה וייב <span class="hl">לאתר של כרמית?</span></h1>
+      <p class="lead">שלוש אפשרויות, כל אחת בלופ כמו שיהיה באתר. לחץ Play והשווה.</p>
+
+      <div class="opts">
+        <div class="opt" data-src="audio/option1.mp3">
+          <button class="play" aria-label="נגן אפשרות 1"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <div class="meta">
+            <h2>דיפ האוס יוקרתי</h2>
+            <p>גרוב חם עם ביט עדין - רופטופ בשקיעה, סטייל וביטחון</p>
+          </div>
+          <span class="num">1</span>
+        </div>
+
+        <div class="opt" data-src="audio/option2.mp3">
+          <button class="play" aria-label="נגן אפשרות 2"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <div class="meta">
+            <h2>פולס קולנועי</h2>
+            <p>סינתים דוחפים ואנרגיה שקטה - כמו פרסומת רכב יוקרה</p>
+          </div>
+          <span class="num">2</span>
+        </div>
+
+        <div class="opt" data-src="audio/option3.mp3">
+          <button class="play" aria-label="נגן אפשרות 3"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <div class="meta">
+            <h2>לאונג' פאנקי</h2>
+            <p>פסנתר חשמלי וביט מגניב - בר מלון בוטיק בלילה</p>
+          </div>
+          <span class="num">3</span>
+        </div>
+      </div>
+
+      <p class="note">בחרת? כתוב לי <b>"אפשרות 1 / 2 / 3"</b> ואני מחליף באתר.</p>
+    </div>
+
+    <script>
+      const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+      const PAUSE = '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+      let audio = null, current = null;
+      document.querySelectorAll('.opt').forEach((opt) => {
+        const btn = opt.querySelector('.play');
+        btn.addEventListener('click', () => {
+          if (current === opt) {
+            audio.pause(); audio = null;
+            opt.classList.remove('playing'); btn.innerHTML = PLAY;
+            current = null; return;
+          }
+          if (audio) { audio.pause(); }
+          document.querySelectorAll('.opt').forEach((o) => { o.classList.remove('playing'); o.querySelector('.play').innerHTML = PLAY; });
+          audio = new Audio(opt.dataset.src);
+          audio.loop = true;
+          audio.play();
+          opt.classList.add('playing'); btn.innerHTML = PAUSE;
+          current = opt;
+        });
+      });
+    </script>
+  </body>
+</html>
