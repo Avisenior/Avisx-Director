@@ -337,7 +337,7 @@
             </div>
           </div>
           <button class="back" type="button" aria-label="סגירת המדריך"
-            onclick="window.close(); setTimeout(function(){ location.href='./#links'; }, 250);">
+            onclick="if (history.length > 1) { history.back(); } else { window.close(); setTimeout(function(){ location.href='./#links'; }, 300); }">
             ✕ סגירה
           </button>
         </div>
