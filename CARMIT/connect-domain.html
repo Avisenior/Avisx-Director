@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>לחבר את הדומיין לאתר | carmitskajo.com</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --brand: #e8813c; --brand-light: #f5b98c; --bg: #2b2b2d;
+        --card: rgba(255,255,255,0.055); --border: rgba(255,255,255,0.12);
+        --text: #f3f1ee; --muted: rgba(243,241,238,0.62); --good: #4ade80;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Heebo', sans-serif;
+        background: radial-gradient(1100px 560px at 82% -10%, rgba(232,129,60,0.14), transparent 60%), var(--bg);
+        color: var(--text); line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 700px; margin: 0 auto; padding: 40px 20px 70px; }
+      .kicker { color: var(--brand-light); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; }
+      h1 { font-size: clamp(1.7rem, 5.5vw, 2.5rem); font-weight: 900; margin-top: 10px; line-height: 1.15; }
+      h1 .hl { color: var(--brand); }
+      .lead { color: rgba(243,241,238,0.85); margin-top: 14px; font-size: 1.02rem; }
+      .lead b { color: #fff; }
+
+      .step { margin-top: 18px; border: 1px solid var(--border); background: var(--card); border-radius: 20px; padding: 20px 22px; position: relative; }
+      .step .num { position: absolute; top: 18px; right: 20px; width: 32px; height: 32px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+      .step h2 { font-size: 1.12rem; font-weight: 800; margin: 3px 46px 8px 0; }
+      .step p, .step li { font-size: 0.95rem; color: rgba(243,241,238,0.85); }
+      .step ul, .step ol { margin: 8px 20px 0 0; display: flex; flex-direction: column; gap: 6px; }
+      b { color: #fff; }
+
+      /* טבלת רשומות */
+      .rec { margin-top: 12px; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+      .rec .row { display: grid; grid-template-columns: 90px 1fr; border-bottom: 1px solid var(--border); }
+      .rec .row:last-child { border-bottom: none; }
+      .rec .k { background: rgba(255,255,255,0.05); padding: 9px 12px; font-size: 0.8rem; color: var(--muted); font-weight: 700; }
+      .rec .v { padding: 9px 12px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.92rem; color: #fff; direction: ltr; text-align: left; word-break: break-all; }
+      .rec .v .grey { color: var(--brand-light); font-family: 'Heebo'; }
+      .recs-title { margin-top: 14px; font-weight: 800; color: var(--brand-light); font-size: 0.85rem; }
+
+      .warn { border-color: rgba(232,129,60,0.5); background: rgba(232,129,60,0.09); }
+      .warn .num { background: #d96f28; }
+      .warn h2 { color: #fff; }
+
+      .note { margin-top: 26px; text-align: center; color: var(--muted); font-size: 0.92rem; }
+      .note b { color: var(--brand-light); }
+      footer { margin-top: 30px; text-align: center; color: var(--muted); font-size: 0.78rem; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <span class="kicker">חיבור הדומיין · carmitskajo.com</span>
+      <h1>לחבר את הכתובת <span class="hl">לאתר</span></h1>
+      <p class="lead">
+        הדומיין כבר קנוי ויושב ב-Cloudflare — נשאר רק להוסיף <b>2 שורות</b> שמפנות אותו
+        לאתר. 3 דקות עבודה. הכל קורה בתוך Cloudflare.
+      </p>
+
+      <div class="step">
+        <span class="num">1</span>
+        <h2>נכנסים להגדרות ה-DNS</h2>
+        <ul>
+          <li>ב-Cloudflare, בוחרים את הדומיין <b>carmitskajo.com</b>.</li>
+          <li>בתפריט הצד: <b>DNS ← Records</b> (רשומות).</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="num">2</span>
+        <h2>מוסיפים רשומה ראשונה (A)</h2>
+        <p>לוחצים <b>Add record</b> וממלאים בדיוק ככה:</p>
+        <div class="rec">
+          <div class="row"><div class="k">Type</div><div class="v">A</div></div>
+          <div class="row"><div class="k">Name</div><div class="v">@</div></div>
+          <div class="row"><div class="k">IPv4 address</div><div class="v">76.76.21.21</div></div>
+          <div class="row"><div class="k">Proxy status</div><div class="v"><span class="grey">DNS only (ענן אפור ⬜, לא כתום)</span></div></div>
+        </div>
+        <p style="margin-top:8px">לוחצים <b>Save</b>.</p>
+      </div>
+
+      <div class="step">
+        <span class="num">3</span>
+        <h2>מוסיפים רשומה שנייה (CNAME)</h2>
+        <p>שוב <b>Add record</b>:</p>
+        <div class="rec">
+          <div class="row"><div class="k">Type</div><div class="v">CNAME</div></div>
+          <div class="row"><div class="k">Name</div><div class="v">www</div></div>
+          <div class="row"><div class="k">Target</div><div class="v">cname.vercel-dns.com</div></div>
+          <div class="row"><div class="k">Proxy status</div><div class="v"><span class="grey">DNS only (ענן אפור ⬜)</span></div></div>
+        </div>
+        <p style="margin-top:8px">לוחצים <b>Save</b>.</p>
+      </div>
+
+      <div class="step warn">
+        <span class="num">!</span>
+        <h2>הכי חשוב: הענן חייב להיות אפור</h2>
+        <p>
+          ליד כל רשומה יש אייקון ענן. אם הוא <b>כתום</b> (Proxied) — <b>לחצו עליו כדי שיהפוך לאפור</b>
+          (DNS only). ענן כתום שובר את החיבור ל-Vercel וגורם לשגיאת אבטחה. אפור = תקין.
+        </p>
+      </div>
+
+      <div class="step">
+        <span class="num">4</span>
+        <h2>זהו — מחכים</h2>
+        <ul>
+          <li>תוך כמה דקות (לפעמים עד שעה) Vercel יזהה, יסמן ✓, ויפעיל אוטומטית תעודת אבטחה (HTTPS).</li>
+          <li>בודקים: נכנסים ל-<b>carmitskajo.com</b> — האתר של כרמית אמור לעלות.</li>
+        </ul>
+        <p style="margin-top:8px; color:var(--muted); font-size:0.85rem">
+          (אם ב-Vercel הדומיין עדיין לא נוסף: פרויקט carmit-site ← Settings ← Domains ← Add ← carmitskajo.com.)
+        </p>
+      </div>
+
+      <p class="note">נתקעתם? <b>שלחו לי צילום מסך של ה-DNS ב-Cloudflare</b> ואני אומר בדיוק מה לתקן.</p>
+      <footer>© carmitskajo.com · מדריך חיבור דומיין</footer>
+    </div>
+  </body>
+</html>
