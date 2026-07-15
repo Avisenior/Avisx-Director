@@ -510,6 +510,19 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
 @media print {
   #loader, .texture-overlay, .scroll-cue { display: none !important; }
   .hero-video-wrap, #shaderCanvas, .shader-dim { display: none !important; }
+  .cursor, .cursor-ring { display: none !important; }
+  .hero-section, .hero-inner { min-height: auto !important; }
+  .hero-inner { padding-top: 140px !important; padding-bottom: 60px !important; }
+  .hero-topbar { position: relative !important; }
+  .page { padding: 40px 48px 60px !important; }
+  .pricing, .terms, .formats { margin-top: 48px !important; }
+  .shader-closing { min-height: auto !important; page-break-inside: avoid; }
+  .shader-closing .closing-inner { padding: 60px 48px 40px !important; }
+  .closing-title { font-size: 64px !important; text-shadow: none !important; }
+  .closing-title .accent { text-shadow: none !important; }
+  .closing-divider { margin: 36px auto !important; }
+  .wa-cta { animation: none !important; box-shadow: none !important; }
+  .del-rows, .price-table, .term-card, .format-card, .total-estimate { page-break-inside: avoid; }
 }
 </style>
 </head>
