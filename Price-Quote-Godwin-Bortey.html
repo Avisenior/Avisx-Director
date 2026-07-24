@@ -507,7 +507,10 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
 .pkg .ptag{font:700 10px ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
 .pkg.feat .ptag{color:var(--accent-hi);}
 .pkg h3{font-family:'Anton';font-weight:400;font-size:25px;text-transform:uppercase;margin:8px 0 2px;color:var(--cream);}
-.pkg .price{font-family:'Anton';font-size:32px;margin:12px 0 2px;color:var(--cream);direction:ltr;}
+.pkg .price{font-family:'Anton';font-size:32px;margin:12px 0 0;color:var(--cream);direction:ltr;}
+.pkg .price small{font:600 13px 'Inter',sans-serif;color:var(--muted);letter-spacing:.02em;}
+.pkg .price-alt{font:700 15px 'Inter',sans-serif;color:var(--accent);direction:ltr;margin:4px 0 2px;}
+.pkg .price-alt small{color:var(--muted);font-weight:500;}
 .rec{display:inline-block;margin:0 8px;font:700 9px 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#000;background:var(--accent);padding:4px 9px;border-radius:100px;vertical-align:middle;}
 .pkg ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:10px;}
 .pkg li{font:400 13.5px/1.5 'Heebo',sans-serif;color:var(--cream);padding-inline-start:24px;position:relative;}
@@ -690,7 +693,8 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
       <div class="pkg">
         <span class="ptag" data-en="PACKAGE A" data-he="חבילה A">PACKAGE A</span>
         <h3 data-en="Essential" data-he="בסיסית">Essential</h3>
-        <div class="price">$2,500</div>
+        <div class="price">$2,500 <small>/ 2 min</small></div>
+        <div class="price-alt">$3,750 <small>/ 3 min</small></div>
         <ul>
           <li data-en="Full storyboard (the nine world boards)" data-he="סטוריבורד מלא (תשעת לוחות העולם)">Full storyboard (the nine world boards)</li>
           <li data-en="2–3 minute cinematic AI world-building film" data-he="סרטון AI קולנועי לבניית עולם, 2–3 דקות">2–3 minute cinematic AI world-building film</li>
@@ -706,7 +710,8 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
       <div class="pkg feat">
         <span class="ptag" data-en="PACKAGE B" data-he="חבילה B">PACKAGE B</span>
         <h3 data-en="Signature" data-he="חתימה">Signature <span class="rec" data-en="Recommended" data-he="מומלצת">Recommended</span></h3>
-        <div class="price">$3,500</div>
+        <div class="price">$3,500 <small>/ 2 min</small></div>
+        <div class="price-alt">$5,250 <small>/ 3 min</small></div>
         <ul>
           <li data-en="Everything in Essential, plus:" data-he="כל מה שבבסיסית, ובנוסף:">Everything in Essential, plus:</li>
           <li data-en="Custom sound design (ambience &amp;amp; effects)" data-he="סאונד דיזיין מותאם (אווירה ואפקטים)">Custom sound design (ambience &amp; effects)</li>
