@@ -529,6 +529,14 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
 .ai-note .ic{color:var(--accent);font-size:14px;flex-shrink:0;margin-top:2px;}
 .ai-note p{font:400 13px/1.65 'Heebo',sans-serif;color:var(--muted);}
 .ai-note strong{color:var(--cream);}
+.qnav{position:sticky;top:0;z-index:9000;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-md);}
+.qnav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:9px clamp(14px,4vw,48px);overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;}
+.qnav-inner::-webkit-scrollbar{display:none;}
+.qnav a{font:700 12px 'Inter',sans-serif;letter-spacing:.03em;color:var(--muted);text-decoration:none;padding:8px 13px;border-radius:100px;white-space:nowrap;transition:.2s;}
+.qnav a:hover{color:var(--cream);background:rgba(255,255,255,.06);}
+.qnav-cta{margin-inline-start:auto;background:var(--accent)!important;color:#000!important;}
+.qnav-cta:hover{background:var(--accent-hi)!important;}
+section[id]{scroll-margin-top:64px;}
 
 </style>
 </head>
@@ -580,11 +588,22 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
   </div>
 </section>
 
+<nav class="qnav">
+  <div class="qnav-inner">
+    <a href="#vision">Vision</a>
+    <a href="#boards">World Boards</a>
+    <a href="#packages">Packages</a>
+    <a href="#terms">Terms</a>
+    <a href="#questions">Questions</a>
+    <a class="qnav-cta" href="https://wa.me/972506890125?text=Hi%20Avi%2C%20I%27d%20like%20to%20move%20forward%20with%20the%20Bridge%20State%20University%20film.">Approve ✓</a>
+  </div>
+</nav>
+
 <main class="page">
   <div class="page-accent-line"></div>
 
   <!-- VISION -->
-  <section class="deliverables">
+  <section class="deliverables" id="vision">
     <div class="sec-label" data-en="THE VISION" data-he="החזון">THE VISION</div>
     <h2 class="sec-title" data-en="We’re not selling a school.<br>We’re selling a world." data-he="אנחנו לא מוכרים בית ספר.<br>אנחנו מוכרים עולם.">We’re not selling a school.<br>We’re selling a world.</h2>
     <p class="intro-p big" data-en="The investor should not see a campus — they should see an entire universe capable of supporting multiple seasons, characters, brands, locations and stories. BSU is the dream. Bridge City is the pressure surrounding it. 435 lives where those two realities collide." data-he="המשקיע לא צריך לראות קמפוס — הוא צריך לראות עולם שלם שמסוגל להחזיק עונות, דמויות, מותגים, לוקיישנים וסיפורים. BSU הוא החלום. Bridge City הוא הלחץ שסביבו. 435 חי בנקודה שבה שתי המציאויות מתנגשות.">The investor should not see a campus — they should see an entire universe capable of supporting multiple seasons, characters, brands, locations and stories. BSU is the dream. Bridge City is the pressure surrounding it. 435 lives where those two realities collide.</p>
@@ -592,7 +611,7 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
   </section>
 
   <!-- BOARDS -->
-  <section class="pricing">
+  <section class="pricing" id="boards">
     <div class="sec-label" data-en="THE WORLD BOARDS" data-he="לוחות העולם">THE WORLD BOARDS</div>
     <h2 class="sec-title" data-en="The world, board by board." data-he="העולם, לוח אחר לוח.">The world, board by board.</h2>
     <div class="boards">
@@ -690,7 +709,7 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
   </section>
 
   <!-- PACKAGES -->
-  <section class="pricing">
+  <section class="pricing" id="packages">
     <div class="sec-label" data-en="PACKAGES" data-he="חבילות">PACKAGES</div>
     <h2 class="sec-title" data-en="Choose your scope" data-he="בחר את ההיקף">Choose your scope</h2>
     <div class="pkgs">
@@ -731,7 +750,7 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
   </section>
 
   <!-- TERMS -->
-  <section class="terms">
+  <section class="terms" id="terms">
     <div class="sec-label" data-en="TERMS" data-he="תנאים">TERMS</div>
     <h2 class="sec-title" data-en="How we work" data-he="איך אנחנו עובדים">How we work</h2>
     <div class="terms-grid">
@@ -780,7 +799,7 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
   </section>
 
   <!-- QUESTIONS -->
-  <section class="terms">
+  <section class="terms" id="questions">
     <div class="sec-label" data-en="BEFORE WE START" data-he="לפני שמתחילים">BEFORE WE START</div>
     <h2 class="sec-title" data-en="A few questions for you" data-he="כמה שאלות אליך">A few questions for you</h2>
     <p class="intro-p" data-en="The Visual Bible gives us a rich world. To turn it into a focused 2–3 minute film, I need three things locked before production:" data-he="ה-Visual Bible נותן לנו עולם עשיר. כדי להפוך אותו לסרטון ממוקד של 2–3 דקות, אני צריך שלושה דברים סגורים לפני ההפקה:">The Visual Bible gives us a rich world. To turn it into a focused 2–3 minute film, I need three things locked before production:</p>
