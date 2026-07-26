@@ -114,6 +114,7 @@ body:has(a:hover,button:hover) .cursor-ring{width:56px;height:56px;}
 .terms-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media (max-width:580px){ .terms-grid{grid-template-columns:1fr;} }
 .term-card{background:var(--bg3);border:1px solid var(--border-md);border-radius:16px;padding:22px 22px 20px;transition:background .2s;}
+.term-card.wide{grid-column:1 / -1;}
 .term-card-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
 .term-icon{width:32px;height:32px;background:var(--accent-dim);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);}
 .term-icon svg{width:15px;height:15px;}
@@ -360,27 +361,34 @@ body:has(a:hover,button:hover) .cursor-ring{width:56px;height:56px;}
       </div>
       <div class="price-row featured">
         <div class="price-desc">
-          <span class="price-name">חבילת 4 דקות</span>
-          <span class="price-note-sm">סרט מורחב עד 4 דקות · דוקו + אנימציה · קריינות ופסקול · Full HD · קובץ סופי</span>
+          <span class="price-name">חבילת Full HD · 1080p</span>
+          <span class="price-note-sm">סרט מלא ~3 דקות באיכות 1080p · דוקו + אנימציה · קריינות ופסקול · קובץ סופי</span>
         </div>
         <span class="price-tag">₪ 4,800</span>
       </div>
       <div class="price-row">
         <div class="price-desc">
-          <span class="price-name">חבילת 3 דקות</span>
-          <span class="price-note-sm">הסרט המלא עד 3 דקות · אותו קונספט ואותה איכות · דוקו + אנימציה</span>
+          <span class="price-name">חבילת HD · 720p</span>
+          <span class="price-note-sm">סרט מלא ~3 דקות באיכות 720p · אותו קונספט ואותו תוכן · אופציה חסכונית</span>
         </div>
         <span class="price-tag">₪ 3,800</span>
       </div>
+      <div class="price-row">
+        <div class="price-desc">
+          <span class="price-name">תוספת אורך — כל 15 שניות</span>
+          <span class="price-note-sm">מעבר לאורך שנקבע · באישור הלקוח מראש בלבד</span>
+        </div>
+        <span class="price-tag">+ ₪ 800</span>
+      </div>
       <div class="price-footer-note">
-        המחיר כולל סבב תיקונים אחד בתוך הקונספט המאושר. ההבדל בין החבילות הוא אורך הסרט הסופי.
+        המחיר כולל סבב תיקונים אחד בתוך הקונספט המאושר. שתי החבילות ~3 דקות ואותו תוכן — ההבדל הוא רזולוציית הפלט בלבד.
       </div>
     </div>
     <div class="total-estimate">
       <div>
         <div class="total-label-text">טווח מחיר</div>
         <div class="total-range">₪ 3,800 — ₪ 4,800</div>
-        <div class="total-sub">3 דקות = ₪3,800 &nbsp;|&nbsp; 4 דקות = ₪4,800</div>
+        <div class="total-sub">720p = ₪3,800 &nbsp;|&nbsp; 1080p Full HD = ₪4,800</div>
       </div>
     </div>
   </section>
@@ -431,6 +439,20 @@ body:has(a:hover,button:hover) .cursor-ring{width:56px;height:56px;}
         <ul class="term-items">
           <li><strong>תוצר סופי בלבד</strong> — ללא קבצי מקור</li>
           <li><strong>30 יום ארכיון</strong> מסיום העבודה</li>
+        </ul>
+      </div>
+
+      <div class="term-card wide">
+        <div class="term-card-head">
+          <div class="term-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+          <span class="term-head-title">הבהרות והסתייגויות · הפקת AI</span>
+        </div>
+        <ul class="term-items">
+          <li><strong>הפקה מבוססת בינה מלאכותית (AI)</strong> — כלל התכנים נוצרים בכלי AI מתקדמים; התוצאה היא פרשנות אמנותית ולא שחזור צילומי מדויק</li>
+          <li><strong>דמות הלל והדמויות ההיסטוריות</strong> הן ייצוג בהשראת דמויות אמיתיות — ייתכנו הבדלים בתווי פנים, לבוש ופרטים</li>
+          <li><strong>מגבלות מובנות של הטכנולוגיה</strong> — ייתכנו אי-דיוקים קלים בטקסט, בידיים/אצבעות או בפרטי רקע; נעשה מאמץ למזער אותם</li>
+          <li><strong>אין התחייבות לזהות ויזואלית 1:1</strong> — הסגנון, הצבעוניות והתנועה נקבעים לפי הקונספט המאושר</li>
+          <li><strong>אחריות תוכן ומקורות</strong> — על הלקוח לוודא שחומרי הגלם שהוא מספק (תמונות/סרטונים) הם בבעלותו ומאושרים לשימוש</li>
         </ul>
       </div>
 
