@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avisx Studio — אבי סניור | הפקות וידאו קולנועיות ב-AI</title>
+<meta name="description" content="Avisx Studio — פרסומות, סרטוני תדמית וסרטוני אירועים ברמה קולנועית, מופקים בבינה מלאכותית. סרטונים שנראים כמו מיליון דולר.">
+<meta property="og:title" content="Avisx Studio — אבי סניור">
+<meta property="og:description" content="סרטונים שנראים כמו מיליון דולר. הפקות וידאו קולנועיות ב-AI.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<meta property="og:url" content="https://avisx-director.com/">
+<meta property="og:image" content="https://avisx-director.com/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Avisx Studio — אבי סניור">
+<meta name="twitter:description" content="סרטונים שנראים כמו מיליון דולר. הפקות וידאו קולנועיות ב-AI.">
+<meta name="twitter:image" content="https://avisx-director.com/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050505; --bg2:#0b0b0b;
+  --cream:#EFF4FF; --muted:rgba(239,244,255,.5);
+  --accent:#e85d04; --accent-hi:#ff7a1f;
+  --border:rgba(239,244,255,.09);
+}
+/* overflow-x:hidden על body הורג sticky ב-Safari (יוצר scroll container) — clip לא */
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden;overflow-x:clip;-webkit-font-smoothing:antialiased;cursor:none}
+@media (hover:none){body{cursor:auto}*{cursor:auto!important}.cursor,.cursor-ring{display:none!important}}
+.f-display{font-family:'Anton',sans-serif;letter-spacing:.01em}
+.ltr{direction:ltr;unicode-bidi:isolate}
+::selection{background:var(--accent);color:#000}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--accent)}
+
+.grain::after{content:'';position:fixed;inset:-100%;z-index:95;pointer-events:none;opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 8s steps(10) infinite}
+@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-8%)}30%{transform:translate(3%,-12%)}50%{transform:translate(-9%,4%)}70%{transform:translate(7%,8%)}90%{transform:translate(-3%,10%)}}
+
+.cursor{position:fixed;left:-4px;top:-4px;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9998;will-change:transform}
+.cursor-ring{position:fixed;left:-20px;top:-20px;width:40px;height:40px;border:1px solid rgba(232,93,4,.8);border-radius:50%;pointer-events:none;z-index:9997;will-change:transform;transition:width .3s,height .3s,left .3s,top .3s}
+body:has(a:hover,button:hover) .cursor-ring{width:64px;height:64px;left:-32px;top:-32px;border-color:rgba(232,93,4,.4)}
+
+#bar{position:fixed;top:0;right:0;height:2px;width:0;background:var(--accent);z-index:9999;box-shadow:0 0 12px rgba(232,93,4,.7)}
+
+#loader{position:fixed;inset:0;background:var(--bg);z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+#loader .word{display:flex;overflow:hidden;direction:ltr}
+#loader .lt{font-family:'Anton';font-size:clamp(44px,9vw,110px);color:var(--cream);transform:translateY(110%);display:inline-block;white-space:pre}
+#loader .lt.x{color:var(--accent)}
+#loader .sub{font:500 12px 'Heebo';letter-spacing:.5em;color:var(--muted);opacity:0}
+#loader .lbar{width:min(320px,60vw);height:1px;background:var(--border);overflow:hidden}
+#loader .lbar i{display:block;height:100%;width:0;background:var(--accent)}
+
+nav{position:fixed;top:0;right:0;left:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 4vw;mix-blend-mode:difference}
+nav .logo{font-family:'Anton';font-size:19px;color:var(--cream);text-decoration:none;letter-spacing:.06em;direction:ltr}
+nav .logo b{color:var(--accent)}
+nav .navlinks{display:flex;gap:24px;list-style:none;align-items:center}
+nav a{color:var(--cream);text-decoration:none;font:500 14px 'Heebo';opacity:.75;transition:opacity .2s}
+nav a:hover{opacity:1}
+.lang-btn{background:none;border:1px solid rgba(239,244,255,.35);color:var(--cream);font:700 12px 'Heebo';padding:7px 14px;border-radius:999px;letter-spacing:.1em;transition:border-color .2s,color .2s}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+/* כפתור סאונד — צף כתום מעל הוואטסאפ (פינה שמאל-תחתונה) */
+.sound-btn{position:fixed;bottom:88px;left:22px;z-index:120;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;border:none;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:transform .25s}
+.sound-btn:hover{transform:scale(1.1)}
+.sound-btn svg{width:22px;height:22px}
+.sound-btn .ico-on{display:none}
+.sound-btn.playing{animation:soundPulse 2.4s ease-in-out infinite}
+.sound-btn.playing .ico-on{display:block}
+.sound-btn.playing .ico-off{display:none}
+@keyframes soundPulse{0%,100%{box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 0 0 rgba(232,93,4,.5)}50%{box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 0 7px rgba(232,93,4,0)}}
+html.a11y-noanim .sound-btn.playing{animation:none}
+/* מופיע רק אחרי הלואדר, כמו שאר הכפתורים הצפים */
+html:not(.loaded) .sound-btn{opacity:0;pointer-events:none}
+.sound-btn{transition:transform .25s,opacity .5s}
+/* מובייל: תפריט קומפקטי — עבודות + קשר + שפה */
+@media(max-width:767px){
+  nav{padding:14px 4vw}
+  nav .navlinks{gap:12px}
+  nav .navlinks li:nth-child(1),nav .navlinks li:nth-child(2){display:none}
+  nav .navlinks a{font-size:13px}
+  nav .logo{font-size:15px}
+}
+
+/* scrub sections — תבנית sticky (fixed+clip-path שבור ב-iOS/מובייל).
+   אסור overflow:hidden על הסקשן — זה הורג sticky של הצאצאים! */
+.scrub-sec{position:relative}
+/* WebKit/iOS לא מכבד sticky בתוך הורה absolute — לכן העטיפה עצמה sticky
+   (בזרימה רגילה, margin-bottom שלילי מאפס את הגובה) והווידאו absolute בתוכה */
+.scrub-sec .vid-wrap{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;pointer-events:none}
+.scrub-sec video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.scrub-sec .veil{position:absolute;inset:0;background:rgba(5,5,5,.1)}
+.inner-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;z-index:2}
+
+/* hero */
+#hero{height:320vh}
+.hero-center{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 4vw}
+.hero-tagline{font:500 12px 'Heebo';letter-spacing:.5em;color:var(--muted);margin-bottom:2.6vh}
+.hero-title{display:flex;justify-content:center;user-select:none;direction:ltr}
+/* מצב פתיחה מוסתר ב-CSS — מונע הבהוב לפני שה-JS רץ */
+.hero-title span{font-family:'Anton';font-size:clamp(46px,10.5vw,168px);line-height:.95;color:var(--cream);display:inline-block;will-change:transform,opacity;white-space:pre;opacity:0;transform:translateY(60px)}
+.hero-title span.x{color:var(--accent)}
+.hero-heading{font:900 clamp(22px,3.4vw,44px)/1.25 'Heebo';margin-top:3vh}
+.hero-heading em{font-style:normal;color:var(--accent)}
+.hero-sub{font:400 clamp(14px,1.6vw,19px) 'Heebo';color:var(--muted);margin-top:1.6vh;max-width:640px}
+.hero-btns{display:flex;gap:14px;margin-top:4vh;flex-wrap:wrap;justify-content:center}
+.btn-p{background:var(--accent);color:#000;font:700 16px 'Heebo';padding:15px 38px;border-radius:999px;text-decoration:none;transition:transform .25s,background .25s}
+.btn-p:hover{transform:scale(1.05);background:var(--accent-hi)}
+.btn-s{border:1px solid rgba(239,244,255,.3);color:var(--cream);font:700 16px 'Heebo';padding:15px 38px;border-radius:999px;text-decoration:none;transition:border-color .25s,transform .25s}
+.btn-s:hover{border-color:var(--accent);transform:translateY(-2px)}
+.scroll-cue{position:absolute;bottom:4vh;right:50%;transform:translateX(50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font:500 11px 'Heebo';letter-spacing:.4em}
+.scroll-cue i{width:1px;height:44px;background:linear-gradient(var(--accent),transparent);display:block;animation:cue 1.6s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* stats */
+#stats{position:relative;z-index:5;background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:64px 4vw}
+.stats-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stat .n{font-family:'Anton';font-size:clamp(36px,5.5vw,68px);color:var(--accent)}
+.stat .l{font:500 14px 'Heebo';color:var(--muted);margin-top:6px}
+@media(max-width:767px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:30px}}
+
+/* pillars (services) over studio clip */
+#pillars{height:380vh}
+.pillar-stage{max-width:1200px;margin:0 auto;width:100%;padding:0 4vw}
+.pillar-label{font:700 13px 'Heebo';letter-spacing:.4em;color:var(--accent);margin-bottom:2vh}
+.pillar-stats{display:flex;gap:34px;margin-bottom:4vh;flex-wrap:wrap}
+.pillar-stats .n{font-family:'Anton';font-size:clamp(26px,3.2vw,44px);color:var(--accent)}
+.pillar-stats .l{font:500 12px 'Heebo';color:rgba(239,244,255,.6);margin-top:2px}
+.pillar-wrap{position:relative;height:48vh}
+/* בעברית: צמוד ימין; באנגלית: מתהפך אוטומטית לשמאל */
+.pillar{position:absolute;inset-inline-start:0;top:0;opacity:0;transform:translateY(40px);transition:opacity .5s,transform .5s;max-width:640px;text-align:start}
+.pillar.on{opacity:1;transform:none}
+.pillar .num{font-family:'Anton';font-size:clamp(52px,8vw,110px);color:transparent;-webkit-text-stroke:1.5px var(--accent);line-height:1;direction:ltr}
+html[dir="rtl"] .pillar .num{text-align:right}
+html[dir="ltr"] .pillar .num{text-align:left}
+.pillar h3{font:900 clamp(30px,5vw,58px)/1.15 'Heebo';margin:12px 0}
+.pillar p{font:400 clamp(15px,1.6vw,19px)/1.8 'Heebo';color:rgba(239,244,255,.75);max-width:520px}
+
+/* process */
+#process{position:relative;z-index:5;background:var(--bg);padding:110px 4vw;border-top:1px solid var(--border)}
+.proc-head{max-width:1200px;margin:0 auto 60px}
+.proc-head .lbl{font:700 13px 'Heebo';letter-spacing:.4em;color:var(--accent)}
+.proc-head h2{font:900 clamp(34px,6vw,72px)/1.1 'Heebo';margin-top:14px}
+.proc-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.pstep{border:1px solid var(--border);border-radius:20px;padding:30px 26px;background:var(--bg2);transition:transform .35s,border-color .35s}
+.pstep:hover{transform:translateY(-8px);border-color:rgba(232,93,4,.5)}
+.pstep .pn{font-family:'Anton';font-size:44px;color:transparent;-webkit-text-stroke:1px var(--accent);direction:ltr;text-align:start}
+.pstep h3{font:700 22px 'Heebo';margin:14px 0 10px}
+.pstep p{font:400 15px/1.75 'Heebo';color:var(--muted)}
+@media(max-width:900px){.proc-grid{grid-template-columns:1fr}}
+
+/* work over closer clip */
+#work{height:340vh}
+.work-head{padding:0 4vw;max-width:1360px;margin:0 auto 3vh;width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.work-head h2{font:900 clamp(34px,6vw,76px)/1.05 'Heebo'}
+.work-head h2 em{font-style:normal;color:var(--accent)}
+#work .inner-sticky{overflow:hidden;justify-content:flex-start;padding-top:12vh}
+/* הכותרת מאחורי הכרטיסים — ממורכזת ברצועה הפנויה, נראית בכניסה לסקשן */
+/* הכותרת גבוה — מעל הראש של הדמות, נראית במלואה */
+.work-head{position:absolute;top:4vh;right:0;left:0;z-index:0;pointer-events:none;justify-content:center;text-align:center}
+.work-head h2{width:100%;text-align:center}
+.work-cols{position:relative;z-index:2}
+/* הטורים מתחילים נמוך — הכותרת נגלית קודם, ואז הכרטיסים זורמים מעליה */
+.wcol{padding-top:30vh}
+/* שני טורי כרטיסים בצדדים — המרכז פנוי כדי לראות את ההליכה */
+.work-cols{display:grid;grid-template-columns:minmax(0,300px) 1fr minmax(0,300px);gap:0 2vw;max-width:1400px;margin:0 auto;width:100%;padding:0 4vw}
+.wcol{display:flex;flex-direction:column;gap:14px;will-change:transform;padding-bottom:12vh}
+@media(max-width:900px){.work-cols{grid-template-columns:1fr 1fr;gap:0 12px}.wcol-mid{display:none}}
+/* מובייל: כרטיס אחד במרכז — פייד + החלקה עדינה כלפי מעלה (תחושת התקדמות) */
+@media(max-width:767px){
+  #work{height:680vh}
+  #work .inner-sticky{overflow:visible;justify-content:center;padding-top:0}
+  .work-cols{display:none}
+  .wstack{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .wstack .wcard{position:absolute;left:50%;top:50%;width:74vw;max-width:330px;opacity:0;transform:translate(-50%,-50%);transition:none;will-change:opacity,transform;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+  .wstack .wcard .play{opacity:1}
+  /* מונה עדין למטה — כמה עבודות עברת */
+  .wcount{position:absolute;left:0;right:0;bottom:5vh;text-align:center;z-index:3;font:600 12px 'Heebo';letter-spacing:.28em;color:var(--muted);opacity:.75;pointer-events:none}
+  .wcount b{color:var(--accent);font-weight:700}
+}
+.wcard{position:relative;border-radius:14px;overflow:hidden;background:var(--bg2);border:1px solid var(--border);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s;text-decoration:none;color:var(--cream)}
+.wcard:hover{transform:translateY(-8px) rotate(-.5deg);box-shadow:0 24px 60px rgba(232,93,4,.2);z-index:2}
+.wcard .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:saturate(.9);transition:transform .5s,filter .3s;background:#111}
+.wcard:hover .thumb{transform:scale(1.07);filter:saturate(1.2)}
+.wcard .meta{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.wcard .t{font:700 14px 'Heebo'}
+.wcard .c{font:500 10px 'Heebo';color:var(--accent);letter-spacing:.12em;white-space:nowrap}
+.wcard .play{position:absolute;top:calc(30% - 20px);right:calc(50% - 20px);width:40px;height:40px;border-radius:50%;background:rgba(232,93,4,.92);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;color:#fff;font-size:14px}
+.wcard:hover .play{opacity:1}
+@media(max-width:1100px){.work-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.work-grid{grid-template-columns:1fr}}
+
+/* finale = סקשן סקראב: וידאו רקע קבוע, תוכן sticky, הגלילה מזיזה את הדמות */
+#finale{height:200vh}
+.finale-inner{align-items:center;justify-content:center;text-align:center;padding:90px 4vw 40px}
+#finale .spot{position:absolute;inset:0;z-index:0;background:radial-gradient(420px circle at var(--sx,50%) var(--sy,40%),rgba(232,93,4,.15),transparent 62%);pointer-events:none}
+.finale-inner>*{position:relative;z-index:1}
+.finale-inner .spot{z-index:0}
+.btn-p,.btn-s{will-change:transform}
+#finale h2{font:900 clamp(40px,8vw,110px)/1.08 'Heebo'}
+#finale h2 em{font-style:normal;color:var(--accent)}
+#finale p{font:400 clamp(15px,1.8vw,20px) 'Heebo';color:var(--muted);margin-top:18px;max-width:560px}
+.cta-row{display:flex;gap:16px;margin-top:42px;flex-wrap:wrap;justify-content:center}
+.socials{display:flex;gap:26px;margin-top:66px;flex-wrap:wrap;justify-content:center}
+.socials a{color:var(--muted);text-decoration:none;font:500 14px 'Heebo';transition:color .2s}
+.socials a:hover{color:var(--accent)}
+.copyright{margin-top:32px;font:400 12px 'Heebo';color:rgba(239,244,255,.3)}
+.copyright a{color:inherit}
+
+/* modal */
+#modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;padding:4vw}
+#modal.open{display:flex}
+#modal .frame{width:min(1100px,94vw);aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;position:relative}
+#modal iframe{width:100%;height:100%;border:0}
+#modal .close{position:absolute;top:-46px;inset-inline-start:0;background:none;border:1px solid var(--border);color:var(--cream);width:38px;height:38px;border-radius:50%;font-size:18px}
+
+.wa{position:fixed;bottom:22px;left:22px;z-index:120;width:54px;height:54px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:transform .25s}
+.wa:hover{transform:scale(1.1)}
+.wa svg{width:28px;height:28px;fill:#fff}
+
+@media (prefers-reduced-motion:reduce){.grain::after{animation:none}.scroll-cue i{animation:none}}
+
+/* ===== נגישות (ת"י 5568 / WCAG AA) ===== */
+html.a11y-font1{font-size:112.5%}
+html.a11y-font2{font-size:125%}
+html.a11y-contrast video{filter:brightness(.3) contrast(.95)!important}
+html.a11y-contrast .veil{background:rgba(0,0,0,.75)!important}
+html.a11y-noanim *,html.a11y-noanim *::before,html.a11y-noanim *::after{animation:none!important;transition:none!important}
+html.a11y-noanim .cursor,html.a11y-noanim .cursor-ring{display:none!important}
+html.a11y-noanim body,html.a11y-noanim a,html.a11y-noanim button{cursor:auto!important}
+html.a11y-links a{text-decoration:underline!important;text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.top-btn{position:fixed;bottom:135px;right:22px;z-index:125;width:44px;height:44px;border-radius:50%;background:rgba(20,20,20,.9);border:1px solid var(--border);color:var(--accent);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s,transform .25s}
+.top-btn.show{opacity:1;pointer-events:auto}
+.top-btn:hover{transform:scale(1.1);border-color:var(--accent)}
+.top-btn svg{width:20px;height:20px}
+/* הכפתורים הצפים (וואטסאפ, נגישות, חזרה-למעלה) מופיעים רק אחרי שהלואדר יורד */
+html:not(.loaded) .wa,html:not(.loaded) .top-btn,html:not(.loaded) #INDShadowRootHost{opacity:0!important;pointer-events:none!important}
+.wa,#INDShadowRootHost{transition:opacity .5s}
+.a11y-btn{position:fixed;bottom:22px;right:22px;z-index:130;width:50px;height:50px;border-radius:50%;background:#1E5AA8;color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.45);transition:transform .25s}
+.a11y-btn:hover{transform:scale(1.1)}
+.a11y-btn svg{width:26px;height:26px;fill:#fff}
+.a11y-panel{position:fixed;bottom:82px;right:22px;z-index:130;width:250px;background:rgba(10,10,10,.97);border:1px solid var(--border);border-radius:16px;padding:16px;display:none}
+.a11y-panel.open{display:block}
+.a11y-panel h3{font:800 15px 'Heebo';margin-bottom:10px}
+.a11y-panel button.opt{display:flex;justify-content:space-between;width:100%;background:rgba(255,255,255,.08);border:none;color:var(--cream);font:500 13px 'Heebo';padding:9px 12px;border-radius:10px;margin-bottom:6px;text-align:start}
+.a11y-panel button.opt.on{background:var(--accent);color:#000;font-weight:700}
+.a11y-panel .reset{width:100%;background:none;border:1px solid var(--border);color:var(--cream);font:500 13px 'Heebo';padding:8px;border-radius:10px;margin-top:4px}
+.a11y-panel a{display:block;text-align:center;font:500 11px 'Heebo';color:var(--accent);margin-top:8px}
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="word"><span class="lt">A</span><span class="lt">V</span><span class="lt">I</span><span class="lt">S</span><span class="lt x">X</span><span class="lt"> </span><span class="lt">S</span><span class="lt">T</span><span class="lt">U</span><span class="lt">D</span><span class="lt">I</span><span class="lt">O</span></div>
+  <div class="sub">AI CINEMATIC PRODUCTION</div>
+  <div class="lbar"><i></i></div>
+</div>
+
+<div id="bar"></div>
+<div class="cursor"></div><div class="cursor-ring"></div>
+
+<nav>
+  <a class="logo" href="#hero">AVIS<b>X</b> STUDIO</a>
+  <ul class="navlinks">
+    <li><a href="#pillars" data-he="מה אני עושה" data-en="Services">מה אני עושה</a></li>
+    <li><a href="#process" data-he="איך זה עובד" data-en="Process">איך זה עובד</a></li>
+    <li><a href="#work" data-he="עבודות" data-en="Work">עבודות</a></li>
+    <li><a href="#finale" data-he="יצירת קשר" data-en="Contact">יצירת קשר</a></li>
+    <li><button class="lang-btn" id="langBtn" type="button">EN</button></li>
+  </ul>
+</nav>
+<audio id="bgAudio" src="audio/avisx-theme.mp3" loop preload="none"></audio>
+
+<!-- HERO: עומד → הולך להתיישב בעמדה (סקראב) -->
+<section id="hero" class="scrub-sec" data-video="story-avisx/v1_orbit_scrub">
+  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/v1_orbit_poster.jpg"></video><div class="veil"></div></div>
+  <div class="inner-sticky">
+    <div class="hero-center">
+      <div class="hero-tagline">[ AI CINEMATIC PRODUCTION · TEL AVIV ]</div>
+      <div class="hero-title" id="heroTitle" aria-label="AVISX STUDIO">
+        <span>A</span><span>V</span><span>I</span><span>S</span><span class="x">X</span><span> </span><span>S</span><span>T</span><span>U</span><span>D</span><span>I</span><span>O</span>
+      </div>
+      <h1 class="hero-heading">
+        <span data-he="סרטונים שנראים" data-en="Videos that look">סרטונים שנראים</span>
+        <em data-he="כמו מיליון דולר." data-en="like a million dollars.">כמו מיליון דולר.</em>
+      </h1>
+      <p class="hero-sub" data-he="אבי סניור · במאי AI · הפקת פרסומות וסרטוני תדמית בבינה מלאכותית — לעסקים, לפרטיים, ולכל אירוע מיוחד."
+         data-en="Avi Senior · AI Director · AI-powered ads and brand films — for businesses, individuals, and every special occasion.">
+        אבי סניור · במאי AI · הפקת פרסומות וסרטוני תדמית בבינה מלאכותית — לעסקים, לפרטיים, ולכל אירוע מיוחד.
+      </p>
+      <div class="hero-btns">
+        <a href="#finale" class="btn-p" data-he="בואו נדבר" data-en="Let's Talk">בואו נדבר</a>
+        <a href="#work" class="btn-s" data-he="↓ צפייה בעבודות" data-en="↓ See My Work">↓ צפייה בעבודות</a>
+      </div>
+    </div>
+    <div class="scroll-cue"><span data-he="גלול" data-en="SCROLL">גלול</span><i></i></div>
+  </div>
+</section>
+
+<!-- STATS — פס נפרד, כמו שהיה -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat"><div class="n" data-count="100" data-suffix="%">0%</div><div class="l" data-he="מופק ב-AI" data-en="AI-made">מופק ב-AI</div></div>
+    <div class="stat"><div class="n" data-count="24" data-suffix="h">0h</div><div class="l" data-he="מענה מהיר" data-en="Fast response">מענה מהיר</div></div>
+    <div class="stat"><div class="n">∞</div><div class="l" data-he="יצירתיות ללא תקציב ענק" data-en="Creativity, no mega-budget">יצירתיות ללא תקציב ענק</div></div>
+    <div class="stat"><div class="n" data-he="כל" data-en="Any">כל</div><div class="l" data-he="סוג אירוע" data-en="Event type">סוג אירוע</div></div>
+  </div>
+</section>
+
+<!-- PILLARS: אינטראקטיבי — הגלילה מזיזה את הסרטון (מחר: קליפ מצלמה-נעולה עם הזזת ראש) -->
+<section id="pillars" class="scrub-sec" data-video="story-avisx/v2_builder_scrub">
+  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/v2_builder_poster.jpg"></video><div class="veil" style="background:rgba(5,5,5,.3)"></div></div>
+  <div class="inner-sticky">
+    <div class="pillar-stage">
+      <div class="pillar-label" data-he="מה אני עושה" data-en="WHAT I DO">מה אני עושה</div>
+      <div class="pillar-wrap">
+        <article class="pillar" data-step="0">
+          <div class="num">01</div>
+          <h3 data-he="פרסומות וסרטונים לעסקים" data-en="Business Ads & Corporate Video">פרסומות וסרטונים לעסקים</h3>
+          <p data-he="פרסומת קולנועית שנראית כמו הפקה של מאות אלפי שקלים — במחיר ובזמן של AI. מהקונספט ועד הקאט הסופי."
+             data-en="A cinematic ad that looks like a six-figure production — at AI speed and cost. From concept to final cut.">פרסומת קולנועית שנראית כמו הפקה של מאות אלפי שקלים — במחיר ובזמן של AI. מהקונספט ועד הקאט הסופי.</p>
+        </article>
+        <article class="pillar" data-step="1">
+          <div class="num">02</div>
+          <h3 data-he="סרטוני תדמית" data-en="Brand Films">סרטוני תדמית</h3>
+          <p data-he="הסיפור של העסק שלך בשפה של קולנוע: לוקיישנים בלתי אפשריים, אווירה מדויקת, ומותג שנחרט בזיכרון."
+             data-en="Your business story in the language of cinema: impossible locations, precise atmosphere, an unforgettable brand.">הסיפור של העסק שלך בשפה של קולנוע: לוקיישנים בלתי אפשריים, אווירה מדויקת, ומותג שנחרט בזיכרון.</p>
+        </article>
+        <article class="pillar" data-step="2">
+          <div class="num">03</div>
+          <h3 data-he="אירועים מיוחדים" data-en="Special Occasions">אירועים מיוחדים</h3>
+          <p data-he="בר מצווה, חתונה, יום הולדת 80 — הסרטון שהופך את האירוע לפרימיירה. האורחים לא מפסיקים לדבר על זה."
+             data-en="Bar mitzvah, wedding, 80th birthday — the film that turns your event into a premiere. Guests won't stop talking.">בר מצווה, חתונה, יום הולדת 80 — הסרטון שהופך את האירוע לפרימיירה. האורחים לא מפסיקים לדבר על זה.</p>
+        </article>
+        <article class="pillar" data-step="3">
+          <div class="num">04</div>
+          <h3 data-he="תהליך AI-First" data-en="AI-First Process">תהליך AI-First</h3>
+          <p data-he="הכלי לא מחליף את הכישרון — הוא מגביר אותו. במאי אחד, ארגז כלים של אולפן שלם, ותוצאה שלא מבחינים שהיא AI."
+             data-en="The tool doesn't replace talent — it amplifies it. One director, a full studio's toolbox, results you can't tell are AI.">הכלי לא מחליף את הכישרון — הוא מגביר אותו. במאי אחד, ארגז כלים של אולפן שלם, ותוצאה שלא מבחינים שהיא AI.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="proc-head">
+    <div class="lbl" data-he="איך זה עובד" data-en="HOW IT WORKS">איך זה עובד</div>
+    <h2 data-he="מהרעיון לפריים האחרון" data-en="From Idea to Final Frame">מהרעיון לפריים האחרון</h2>
+  </div>
+  <div class="proc-grid">
+    <div class="pstep">
+      <div class="pn">01</div>
+      <h3 data-he="בריף ורעיון" data-en="Brief & Vision">בריף ורעיון</h3>
+      <p data-he="שיחה קצרה, מבינים את המטרה, הקהל והטון — ובונים קונספט קריאטיבי שמרגיש בדיוק אתם." data-en="A short call to nail the goal, audience and tone — then a creative concept that feels exactly like you.">שיחה קצרה, מבינים את המטרה, הקהל והטון — ובונים קונספט קריאטיבי שמרגיש בדיוק אתם.</p>
+    </div>
+    <div class="pstep">
+      <div class="pn">02</div>
+      <h3 data-he="הפקה ב-AI" data-en="AI Production">הפקה ב-AI</h3>
+      <p data-he="בימוי, צילום וירטואלי, עריכה וסאונד — כל האולפן בידיים של במאי אחד, בקצב שאין לו מתחרים." data-en="Directing, virtual cinematography, editing and sound — a full studio in one director's hands, at unmatched speed.">בימוי, צילום וירטואלי, עריכה וסאונד — כל האולפן בידיים של במאי אחד, בקצב שאין לו מתחרים.</p>
+    </div>
+    <div class="pstep">
+      <div class="pn">03</div>
+      <h3 data-he="מסירה ותוצאה" data-en="Delivery & Result">מסירה ותוצאה</h3>
+      <p data-he="סרטון מוכן לפרסום בכל הפלטפורמות. פורמטים מותאמים, רזולוציה מקסימלית, מוכן לעבוד." data-en="A video ready to publish on every platform. Adapted formats, maximum resolution, ready to perform.">סרטון מוכן לפרסום בכל הפלטפורמות. פורמטים מותאמים, רזולוציה מקסימלית, מוכן לעבוד.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK: כל העבודות מעל קליפ הגלריה -->
+<section id="work" class="scrub-sec" data-video="story-avisx/v3_closer_scrub">
+  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/v3_closer_poster.jpg"></video><div class="veil" style="background:rgba(5,5,5,.32)"></div></div>
+  <div class="inner-sticky">
+    <div class="work-cols" id="workCols">
+      <div class="wcol" id="wcolR"><!-- מוזרק ב-JS --></div>
+      <div class="wcol-mid" aria-hidden="true"></div>
+      <div class="wcol" id="wcolL"><!-- מוזרק ב-JS --></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINALE: סקראב — הגלילה מזיזה את מחוות ההזמנה -->
+<section id="finale" class="scrub-sec" data-video="story-avisx/v4_invite_scrub" data-endbottom="1">
+  <div class="vid-wrap"><video muted playsinline preload="auto" poster="story-avisx/v4_invite_poster.jpg"></video><div class="veil" style="background:rgba(5,5,5,.45)"></div></div>
+  <div class="inner-sticky finale-inner">
+  <div class="spot" aria-hidden="true"></div>
+  <h2><span data-he="יש לכם רעיון?" data-en="Have an idea?">יש לכם רעיון?</span><br><em data-he="בואו נעשה מזה סרט." data-en="Let's make it a film.">בואו נעשה מזה סרט.</em></h2>
+  <p data-he="שיחה ראשונה חינם. תוך 24 שעות יש לך כיוון קריאטיבי, ותוך ימים — סרטון שנראה כמו מיליון דולר."
+     data-en="First call is free. Within 24 hours you'll have a creative direction — within days, a million-dollar-looking film.">
+    שיחה ראשונה חינם. תוך 24 שעות יש לך כיוון קריאטיבי, ותוך ימים — סרטון שנראה כמו מיליון דולר.</p>
+  <div class="cta-row">
+    <a class="btn-p" href="https://wa.me/972506890125?text=היי אבי, אני מעוניין בהפקת סרטון" target="_blank" rel="noopener" data-he="דברו איתי בוואטסאפ" data-en="WhatsApp Me">דברו איתי בוואטסאפ</a>
+    <a class="btn-s" href="mailto:avi@avisx-director.com" data-he="שלחו מייל" data-en="Email Me">שלחו מייל</a>
+  </div>
+  <div class="socials">
+    <a href="https://www.instagram.com/senior.avi/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/avi.senior.18" target="_blank" rel="noopener">Facebook</a>
+    <a href="tel:0506890125">050-6890125</a>
+    <a href="mailto:avi@avisx-director.com">avi@avisx-director.com</a>
+  </div>
+  <div class="copyright">© <span id="yr"></span> Avisx Studio — <span data-he="אבי סניור" data-en="Avi Senior">אבי סניור</span> · <a href="privacy.html" data-he="מדיניות פרטיות" data-en="Privacy">מדיניות פרטיות</a> · <a href="accessibility.html" data-he="הצהרת נגישות" data-en="Accessibility">הצהרת נגישות</a> · <span data-he="האתר הזה הופק כולו ב-AI, כמו הסרטונים שלי." data-en="This site was made entirely with AI — just like my films.">האתר הזה הופק כולו ב-AI, כמו הסרטונים שלי.</span></div>
+  </div>
+</section>
+
+<div id="modal" role="dialog" aria-label="נגן וידאו">
+  <div class="frame">
+    <button class="close" aria-label="סגירה">×</button>
+    <iframe allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="video"></iframe>
+  </div>
+</div>
+
+<!-- חזרה לראש הדף -->
+<button class="top-btn" id="topBtn" aria-label="חזרה לראש הדף">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<!-- כפתור נגישות (EqualWeb / ת"י 5568) — נגישות בקליק לפי התקן -->
+<script>
+window.interdeal = {
+    "sitekey": "15b690563628651fe1da91e9f33b25c8",
+    "Position": "right",
+    "Menulang": "HE",
+    "domains": { "js": "https://cdn.equalweb.com/", "acc": "https://access.equalweb.com/" },
+    "draggable": true,
+    "btnStyle": {
+        "vPosition": ["95%", "96%"],
+        "margin": ["0", "0"],
+        "scale": ["0.7", "0.7"],
+        "color": { "main": "#e85d04", "second": "#ffffff" },
+        "icon": { "outline": false, "outlineColor": "#ffffff", "type": 1, "shape": "circle" }
+    }
+};
+(function(doc, head, body){
+    var coreCall         = doc.createElement('script');
+    coreCall.src         = interdeal.domains.js + 'core/5.2.5/accessibility.js';
+    coreCall.defer       = true;
+    coreCall.integrity   = 'sha512-Zamp30ps601kXvZTcIYv1sytUc090mrEJD9rLuoWzEGqmB6t0XdLRgC/g5TznUleEBIMm6T3c6Baf/ExIYh/Hw==';
+    coreCall.crossOrigin = 'anonymous';
+    coreCall.setAttribute('data-cfasync', true);
+    body ? body.appendChild(coreCall) : head.appendChild(coreCall);
+})(document, document.head, document.body);
+// התאמות לווידג'ט הנגישות (Shadow DOM): תפריט קומפקטי + כפתור בגובה הוואטסאפ בדיוק
+(function(){
+    var fixBtn = function(sr){
+        // תופסים את כפתור הווידג'ט (או העטיפה שלו) וכופים inline+important — מנצח כל סגנון פנימי
+        var els = sr.querySelectorAll('#INDbtnWrap,#INDmenu-btn,[id*="btnWrap"]');
+        var done = false;
+        els.forEach(function(e){
+            // מיישרים רק אם צריך — אחרת ה-Observer שלנו יגיב לעצמו בלולאה.
+            // חשוב: הווידג'ט מקטין ב-scale(0.7) מעוגן לפינה העליונה — זה מרים את הכפתור ויזואלית.
+            // עיגון ה-scale לפינה התחתונה-ימנית משאיר אותו בדיוק ב-bottom:22px כמו הוואטסאפ.
+            if (e.style.getPropertyValue('transform-origin') !== 'right bottom') {
+                e.style.setProperty('top', 'auto', 'important');
+                e.style.setProperty('bottom', '22px', 'important');
+                e.style.setProperty('left', 'auto', 'important');
+                e.style.setProperty('right', '22px', 'important');
+                e.style.setProperty('margin', '0', 'important');
+                e.style.setProperty('transform-origin', 'right bottom', 'important');
+            }
+            done = true;
+        });
+        return done;
+    };
+    var tries = 0;
+    var t = setInterval(function(){
+        tries++;
+        var host = document.getElementById('INDShadowRootHost');
+        var sr = host && host.shadowRoot;
+        if (sr) {
+            if (!sr.querySelector('#avisx-ew-css')) {
+                var s = document.createElement('style');
+                s.id = 'avisx-ew-css';
+                // תפריט: רק מגבלת גודל מקסימלית — דריסת מיקום חושפת אותו בטעינה!
+                s.textContent = '#INDmenu{max-width:min(360px,92vw)!important;max-height:72vh!important;border-radius:16px!important}';
+                sr.appendChild(s);
+                // אם הווידג'ט יוסיף/יזיז את הכפתור מאוחר יותר — מיישרים שוב
+                new MutationObserver(function(){ fixBtn(sr); }).observe(sr, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+            }
+            fixBtn(sr);
+        }
+        if (tries > 60) clearInterval(t);
+    }, 500);
+})();
+</script>
+
+<a class="wa" href="https://wa.me/972506890125?text=היי אבי, אני מעוניין בהפקת סרטון" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.5c1.2.6 2.5.9 3.8.9 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.2 0-2.4-.3-3.5-.8l-.6-.3-4.9.9 1-4.7-.3-.6C6.6 18 6 16.5 6 15c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+</a>
+<button class="sound-btn" id="soundBtn" type="button" aria-label="הפעלת מוזיקת רקע" aria-pressed="false">
+  <svg class="ico-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+  <svg class="ico-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+</button>
+
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const IS_MOBILE = matchMedia('(max-width:767px)').matches;
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- כל העבודות (מהאתר הקודם, מלא) ---------- */
+  const WORKS = [
+    { t: { he: 'פרדי קרוגר', en: 'FREDDY KRUGER' }, c: { he: 'יצירתי', en: 'CREATIVE' }, url: 'https://www.youtube.com/embed/xm8DoFJQS7s?autoplay=1', yt: 'xm8DoFJQS7s' },
+    { t: { he: 'פורים UPS', en: 'PURIM UPS' }, c: { he: 'יצירתי', en: 'CREATIVE' }, url: 'https://www.youtube.com/embed/-ZX0tEhEyao?autoplay=1', yt: '-ZX0tEhEyao' },
+    { t: { he: 'פרסומת אופניים', en: 'BICYCLE AD' }, c: { he: 'פרסומת', en: 'AD' }, url: 'https://www.youtube.com/embed/kp_NILL88o8?autoplay=1', yt: 'kp_NILL88o8' },
+    { t: { he: 'REVIVE', en: 'REVIVE AD' }, c: { he: 'פרסומת', en: 'AD' }, url: 'https://www.youtube.com/embed/a0RG7g6DJO4?autoplay=1', yt: 'a0RG7g6DJO4' },
+    { t: { he: 'הסעות לנתב"ג', en: 'AIRPORT TRANSFER' }, c: { he: 'פרסומת', en: 'AD' }, url: 'https://www.youtube.com/embed/3kqxMpHJruw?autoplay=1', yt: '3kqxMpHJruw' },
+    { t: { he: 'SAVE THE DATE', en: 'SAVE THE DATE' }, c: { he: 'אירוע', en: 'EVENT' }, url: 'https://streamable.com/e/ecsfg4?autoplay=1', img: 'https://cdn-cf-east.streamable.com/image/ecsfg4.jpg' },
+    { t: { he: 'יום הולדת 80 לחנה', en: 'HAPPY 80TH, HANNA' }, c: { he: 'יום הולדת', en: 'BIRTHDAY' }, url: 'https://www.youtube.com/embed/TOWjezgM0L0?autoplay=1&controls=1', yt: 'TOWjezgM0L0' },
+    { t: { he: 'פרסומת פיצה', en: 'PIZZA AD' }, c: { he: 'פרסומת', en: 'AD' }, url: 'https://streamable.com/e/0l53cc?autoplay=1', img: 'https://cdn-cf-east.streamable.com/image/0l53cc.jpg' },
+    { t: { he: 'סרט אגרוף', en: 'BOXING MOVIE' }, c: { he: 'יצירתי', en: 'CREATIVE' }, url: 'https://www.youtube.com/embed/sTKamoGrw7A?autoplay=1', yt: 'sTKamoGrw7A' },
+    { t: { he: 'רחובות הפשע', en: 'CRIME STREETS' }, c: { he: 'דרמה', en: 'DRAMA' }, url: 'https://www.youtube.com/embed/531uPXG-bRo?autoplay=1', yt: '531uPXG-bRo' },
+    { t: { he: 'פנטזיה', en: 'FANTASY' }, c: { he: 'יצירתי', en: 'CREATIVE' }, url: 'https://www.youtube.com/embed/y3iwEJ049Pc?autoplay=1', yt: 'y3iwEJ049Pc' },
+    { t: { he: 'הרפתקאות', en: 'ADVENTURE' }, c: { he: 'יצירתי', en: 'CREATIVE' }, url: 'https://www.youtube.com/embed/WSaHaPt5cA0?autoplay=1', yt: 'WSaHaPt5cA0' },
+    { t: { he: 'טריילר מלחמה', en: 'WAR TRAILER' }, c: { he: 'טריילר', en: 'TRAILER' }, url: 'https://www.youtube.com/embed/4p13bGQ-fGg?autoplay=1', yt: '4p13bGQ-fGg' },
+  ];
+  const colR = document.getElementById('wcolR');
+  const colL = document.getElementById('wcolL');
+  // מובייל: כל הכרטיסים לתוך ערימה אחת במרכז (כרטיס אחד מופיע בכל פעם)
+  let wstack = null;
+  if (IS_MOBILE) {
+    wstack = document.createElement('div');
+    wstack.className = 'wstack';
+    document.querySelector('#work .inner-sticky').appendChild(wstack);
+    const wc = document.createElement('div');
+    wc.className = 'wcount';
+    wc.innerHTML = `<b>1</b> / ${WORKS.length}`;
+    document.querySelector('#work .inner-sticky').appendChild(wc);
+  }
+  WORKS.forEach((w, i) => {
+    const a = document.createElement('a');
+    a.className = 'wcard'; a.href = '#'; a.dataset.url = w.url;
+    // תמבנייל באיכות מקסימלית, עם נפילה ל-hq אם אין maxres
+    const thumb = w.yt ? `https://img.youtube.com/vi/${w.yt}/maxresdefault.jpg` : w.img;
+    const fb = w.yt ? `https://img.youtube.com/vi/${w.yt}/hqdefault.jpg` : w.img;
+    a.innerHTML = `<img class="thumb" loading="lazy" src="${thumb}" alt=""
+        onerror="if(this.src!=='${fb}')this.src='${fb}'"
+        onload="if(this.naturalWidth<200&&this.src!=='${fb}')this.src='${fb}'">
+      <span class="play">▶</span>
+      <div class="meta"><span class="t" data-he="${w.t.he}" data-en="${w.t.en}">${w.t.he}</span><span class="c" data-he="${w.c.he}" data-en="${w.c.en}">${w.c.he}</span></div>`;
+    if (wstack) wstack.appendChild(a);
+    else (i % 2 === 0 ? colR : colL).appendChild(a);
+  });
+
+  /* ---------- Lenis ---------- */
+  let lenis = null;
+  if (!REDUCED && window.Lenis) {
+    lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
+
+  /* ---------- loader ---------- */
+  const loader = document.getElementById('loader');
+  loader.querySelectorAll('.lt').forEach((l, i) => {
+    l.animate([{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }],
+      { duration: 650, delay: 120 + i * 60, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' });
+  });
+  loader.querySelector('.sub').animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 900, fill: 'forwards' });
+  loader.querySelector('.lbar i').animate([{ width: '0%' }, { width: '100%' }], { duration: 1900, delay: 200, easing: 'ease-in-out', fill: 'forwards' });
+  document.documentElement.style.overflow = 'hidden';
+  const heroLetters = document.querySelectorAll('#heroTitle span');
+  heroLetters.forEach((s) => { s.style.opacity = 0; s.style.transform = 'translateY(60px)'; });
+  const hideLoader = () => {
+    loader.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-100%)' }],
+      { duration: 800, delay: 2200, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' })
+      .onfinish = () => {
+        loader.remove(); document.documentElement.style.overflow = '';
+        document.documentElement.classList.add('loaded'); // חושף את הכפתורים הצפים
+        heroLetters.forEach((s, i) => s.animate(
+          [{ opacity: 0, transform: 'translateY(60px) scale(.92)' }, { opacity: 1, transform: 'translateY(0) scale(1)' }],
+          { duration: 850, delay: i * 70, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }));
+      };
+  };
+  (document.readyState === 'complete') ? hideLoader() : addEventListener('load', hideLoader, { once: true });
+
+  /* ---------- progress ---------- */
+  const bar = document.getElementById('bar');
+  addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+  }, { passive: true });
+
+  /* ---------- cursor ---------- */
+  if (!IS_MOBILE) {
+    const dot = document.querySelector('.cursor'), ring = document.querySelector('.cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)`; }, { passive: true });
+    (function tick() { rx += (mx - rx) * .16; ry += (my - ry) * .16; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(tick); })();
+  }
+
+  /* ---------- scrub engine (seam-hold) ---------- */
+  const secs = [...document.querySelectorAll('.scrub-sec')].filter((s) => !s.dataset.static).map((sec) => {
+    const v = sec.querySelector('video');
+    const base = sec.dataset.video;
+    const suffix = IS_MOBILE ? '_m.mp4' : '.mp4';
+    v.src = base + suffix;
+    // במובייל: פוסטר אנכי תואם לקבצי ה-9:16
+    if (IS_MOBILE) v.poster = base.replace('_scrub', '_poster_m.jpg');
+    // fallback אם הקליפ הראשי עוד לא קיים (מכסת VEO)
+    if (sec.dataset.fallback) {
+      v.addEventListener('error', () => { v.src = sec.dataset.fallback + suffix; }, { once: true });
+    }
+    // מצב ניגון חי (לא סקראב) — לסקשן השירותים
+    if (sec.dataset.mode === 'play') {
+      const io2 = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting && !REDUCED) v.play().catch(() => {});
+        else v.pause();
+      }, { rootMargin: '120px' });
+      io2.observe(sec);
+    }
+    return { sec, v, cur: 0, tgt: 0, play: sec.dataset.mode === 'play' };
+  });
+  // iOS Safari לא מוריד דאטה של וידאו בלי מחוות משתמש (מתעלם מ-preload,
+  // ובמצב חיסכון בסוללה חוסם הכול) — play+pause במגע הראשון משחרר את הטעינה
+  const unlockVideos = () => {
+    secs.forEach((s) => {
+      if (s.play || s.v.readyState >= 2) return;
+      const pr = s.v.play();
+      if (pr) pr.then(() => s.v.pause()).catch(() => {});
+    });
+  };
+  addEventListener('touchstart', unlockVideos, { once: true, passive: true });
+  addEventListener('pointerdown', unlockVideos, { once: true, passive: true });
+  (function scrubTick() {
+    const V = innerHeight;
+    secs.forEach((s) => {
+      const r = s.sec.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > V + 200) return;
+      // בסקשן האחרון הסקראב מסתיים בדיוק בתחתית הדף (p=1 בסוף הגלילה)
+      const total = s.sec.dataset.endbottom ? (r.height - V * 0.85) : (r.height - V * 0.7);
+      const gone = (V * 0.15) - r.top;
+      const p = Math.min(1, Math.max(0, total > 0 ? gone / total : 0));
+      if (!s.play) {
+        if (s.v.duration) s.tgt = p * Math.max(0, s.v.duration - 0.05);
+        if (!REDUCED && !document.documentElement.classList.contains('a11y-noanim')) {
+          s.cur += (s.tgt - s.cur) * 0.16;
+          // iOS Safari נחנק מהצפת seeks: לא שולחים seek חדש לפני שהקודם נגמר,
+          // ומשתמשים ב-fastSeek (מהיר, מדויק אצלנו כי keyint=2)
+          if (s.v.readyState >= 2 && !s.v.seeking && Math.abs(s.cur - s.v.currentTime) > 0.005) {
+            try {
+              if (s.v.fastSeek) s.v.fastSeek(s.cur); else s.v.currentTime = s.cur;
+            } catch {}
+          }
+        }
+      }
+      if (s.sec.id === 'hero') {
+        heroLetters.forEach((l, i) => {
+          const dir = (i - 5.5) * p * 2.2;
+          l.style.translate = `${dir}vw ${p * -5}vh`;
+          l.style.opacity = String(Math.max(0, 1 - p * 1.5));
+        });
+      }
+      // שירותים: ההסבר מתחלף לפי עומק הגלילה (גם כשהווידאו מתנגן חי)
+      if (s.sec.id === 'pillars') {
+        const step = Math.min(3, Math.floor(p * 4));
+        s.sec.querySelectorAll('.pillar').forEach((el) => el.classList.toggle('on', +el.dataset.step === step));
+      }
+      // עבודות: שני הטורים זורמים למעלה עם הגלילה — במהירויות שונות (פרלקסה)
+      if (s.sec.id === 'work' && wstack) {
+        // מובייל: כרטיס אחד במרכז — פייד + החלקה עדינה כלפי מעלה
+        const cards = wstack.children, N = cards.length, seg = 1 / N;
+        // ריווח קטן בהתחלה/בסוף כדי שהכרטיס הראשון והאחרון "יינוחו" רגע במרכז
+        const pp = Math.min(1, Math.max(0, (p - 0.04) / 0.92));
+        let active = 0, best = 1;
+        for (let i = 0; i < N; i++) {
+          const center = (i + 0.5) * seg;
+          const d = (pp - center) / seg;          // מרחק מהמרכז ביחידות של סגמנט
+          const vis = Math.max(0, 1 - Math.abs(d) * 1.7);
+          cards[i].style.opacity = vis;
+          cards[i].style.transform = `translate(-50%,calc(-50% + ${d * -46}px))`;
+          cards[i].style.pointerEvents = vis > 0.55 ? 'auto' : 'none';
+          if (Math.abs(d) < best) { best = Math.abs(d); active = i; }
+        }
+        const wc = s.sec.querySelector('.wcount b');
+        if (wc) wc.textContent = String(active + 1);
+      } else if (s.sec.id === 'work') {
+        const cR = document.getElementById('wcolR'), cL = document.getElementById('wcolL');
+        if (cR && cL) {
+          const tR = Math.max(0, cR.scrollHeight - innerHeight * 0.35);
+          const tL = Math.max(0, cL.scrollHeight - innerHeight * 0.35);
+          cR.style.transform = `translateY(${-tR * p}px)`;
+          cL.style.transform = `translateY(${-tL * Math.min(1, p * 1.12)}px)`;
+        }
+      }
+    });
+    requestAnimationFrame(scrubTick);
+  })();
+
+  /* ---------- stats ---------- */
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return; io.unobserve(e.target);
+    const end = +e.target.dataset.count, suf = e.target.dataset.suffix || '';
+    const t0 = performance.now();
+    (function cnt(t) {
+      const k = Math.min(1, (t - t0) / 1500), ease = 1 - Math.pow(1 - k, 3);
+      e.target.textContent = Math.round(end * ease) + suf;
+      if (k < 1) requestAnimationFrame(cnt);
+    })(t0);
+  }), { threshold: 0.6 });
+  document.querySelectorAll('.stat .n[data-count]').forEach((n) => io.observe(n));
+
+  /* ---------- modal ---------- */
+  const modal = document.getElementById('modal');
+  const mframe = modal.querySelector('iframe');
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.wcard');
+    if (!card) return;
+    e.preventDefault();
+    mframe.src = card.dataset.url;
+    modal.classList.add('open');
+  });
+  const closeModal = () => { modal.classList.remove('open'); mframe.src = ''; };
+  modal.querySelector('.close').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  /* ---------- language toggle (HE/EN) ---------- */
+  const langBtn = document.getElementById('langBtn');
+  let lang = 'he';
+  langBtn.addEventListener('click', () => {
+    lang = lang === 'he' ? 'en' : 'he';
+    document.querySelectorAll('[data-he]').forEach((el) => {
+      el.textContent = el.dataset[lang] ?? el.textContent;
+    });
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+    langBtn.textContent = lang === 'he' ? 'EN' : 'עב';
+  });
+
+  /* ---------- finale: זרקור עוקב + כפתורים מגנטיים ---------- */
+  const finale = document.getElementById('finale');
+  finale.addEventListener('pointermove', (e) => {
+    const r = finale.getBoundingClientRect();
+    finale.querySelector('.spot').style.setProperty('--sx', ((e.clientX - r.left) / r.width * 100) + '%');
+    finale.querySelector('.spot').style.setProperty('--sy', ((e.clientY - r.top) / r.height * 100) + '%');
+  }, { passive: true });
+  if (!IS_MOBILE) {
+    finale.querySelectorAll('.btn-p, .btn-s').forEach((btn) => {
+      btn.addEventListener('pointermove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
+        btn.style.transform = `translate(${dx * 0.25}px, ${dy * 0.35}px)`;
+      });
+      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+    });
+  }
+
+  /* ---------- נגישות ---------- */
+  // הנגישות מסופקת ע"י ווידג'ט EqualWeb (ראה הסקריפט לפני </body>) — נגישות מוסמכת בקליק.
+
+  /* ---------- חזרה לראש הדף ---------- */
+  const topBtn = document.getElementById('topBtn');
+  addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > innerHeight), { passive: true });
+  topBtn.addEventListener('click', () => {
+    if (lenis) lenis.scrollTo(0, { duration: 1.4 });
+    else scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ---------- מוזיקת רקע (סינת'ווייב) ---------- */
+  // כבוי כברירת מחדל — דפדפנים חוסמים autoplay עם קול. הדלקה ידנית עם fade עדין,
+  // שמירת בחירה, עצירה בטאב מוסתר, וכיבוד מצב "עצירת אנימציות" בנגישות.
+  (function () {
+    const audio = document.getElementById('bgAudio');
+    const btn = document.getElementById('soundBtn');
+    if (!audio || !btn) return;
+    const VOL = 0.35;
+    let on = false, fadeRaf = 0;
+
+    const fadeTo = (target, done) => {
+      cancelAnimationFrame(fadeRaf);
+      const step = () => {
+        const d = target - audio.volume;
+        if (Math.abs(d) < 0.02) { audio.volume = target; done && done(); return; }
+        audio.volume = Math.max(0, Math.min(1, audio.volume + d * 0.08));
+        fadeRaf = requestAnimationFrame(step);
+      };
+      step();
+    };
+
+    const play = () => {
+      on = true;
+      audio.volume = 0;
+      audio.play().then(() => fadeTo(VOL)).catch(() => { on = false; sync(); });
+      sync();
+      try { localStorage.setItem('avisx-sound', '1'); } catch {}
+    };
+    const stop = (remember = true) => {
+      on = false;
+      fadeTo(0, () => audio.pause());
+      sync();
+      if (remember) { try { localStorage.setItem('avisx-sound', '0'); } catch {} }
+    };
+    const sync = () => {
+      btn.classList.toggle('playing', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.setAttribute('aria-label', on ? 'כיבוי מוזיקת רקע' : 'הפעלת מוזיקת רקע');
+    };
+
+    btn.addEventListener('click', () => (on ? stop() : play()));
+
+    // עצירה כשעוברים טאב, חידוש בחזרה (רק אם היה דלוק)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && on) { audio.pause(); }
+      else if (!document.hidden && on) { audio.play().catch(() => {}); }
+    });
+
+    // מצב נגישות "עצירת אנימציות" — עוצר גם את המוזיקה
+    addEventListener('a11y:change', (e) => { if (e.detail?.noanim && on) stop(false); });
+
+    // מי שהדליק בעבר — מנסים לחדש (רק אחרי מגע/קליק ראשון, בגלל חסימת autoplay)
+    try {
+      if (localStorage.getItem('avisx-sound') === '1') {
+        const resume = () => { if (!on) play(); removeEventListener('pointerdown', resume); removeEventListener('keydown', resume); };
+        addEventListener('pointerdown', resume, { once: true });
+        addEventListener('keydown', resume, { once: true });
+      }
+    } catch {}
+  })();
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
