@@ -169,6 +169,18 @@ html[dir="ltr"] .pillar .num{text-align:left}
 .work-cols{display:grid;grid-template-columns:minmax(0,300px) 1fr minmax(0,300px);gap:0 2vw;max-width:1400px;margin:0 auto;width:100%;padding:0 4vw}
 .wcol{display:flex;flex-direction:column;gap:14px;will-change:transform;padding-bottom:12vh}
 @media(max-width:900px){.work-cols{grid-template-columns:1fr 1fr;gap:0 12px}.wcol-mid{display:none}}
+/* מובייל: כרטיס אחד במרכז — פייד + החלקה עדינה כלפי מעלה (תחושת התקדמות) */
+@media(max-width:767px){
+  #work{height:680vh}
+  #work .inner-sticky{overflow:visible;justify-content:center;padding-top:0}
+  .work-cols{display:none}
+  .wstack{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .wstack .wcard{position:absolute;left:50%;top:50%;width:74vw;max-width:330px;opacity:0;transform:translate(-50%,-50%);transition:none;will-change:opacity,transform;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+  .wstack .wcard .play{opacity:1}
+  /* מונה עדין למטה — כמה עבודות עברת */
+  .wcount{position:absolute;left:0;right:0;bottom:5vh;text-align:center;z-index:3;font:600 12px 'Heebo';letter-spacing:.28em;color:var(--muted);opacity:.75;pointer-events:none}
+  .wcount b{color:var(--accent);font-weight:700}
+}
 .wcard{position:relative;border-radius:14px;overflow:hidden;background:var(--bg2);border:1px solid var(--border);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s;text-decoration:none;color:var(--cream)}
 .wcard:hover{transform:translateY(-8px) rotate(-.5deg);box-shadow:0 24px 60px rgba(232,93,4,.2);z-index:2}
 .wcard .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:saturate(.9);transition:transform .5s,filter .3s;background:#111}
@@ -508,6 +520,17 @@ window.interdeal = {
   ];
   const colR = document.getElementById('wcolR');
   const colL = document.getElementById('wcolL');
+  // מובייל: כל הכרטיסים לתוך ערימה אחת במרכז (כרטיס אחד מופיע בכל פעם)
+  let wstack = null;
+  if (IS_MOBILE) {
+    wstack = document.createElement('div');
+    wstack.className = 'wstack';
+    document.querySelector('#work .inner-sticky').appendChild(wstack);
+    const wc = document.createElement('div');
+    wc.className = 'wcount';
+    wc.innerHTML = `<b>1</b> / ${WORKS.length}`;
+    document.querySelector('#work .inner-sticky').appendChild(wc);
+  }
   WORKS.forEach((w, i) => {
     const a = document.createElement('a');
     a.className = 'wcard'; a.href = '#'; a.dataset.url = w.url;
@@ -519,7 +542,8 @@ window.interdeal = {
         onload="if(this.naturalWidth<200&&this.src!=='${fb}')this.src='${fb}'">
       <span class="play">▶</span>
       <div class="meta"><span class="t" data-he="${w.t.he}" data-en="${w.t.en}">${w.t.he}</span><span class="c" data-he="${w.c.he}" data-en="${w.c.en}">${w.c.he}</span></div>`;
-    (i % 2 === 0 ? colR : colL).appendChild(a);
+    if (wstack) wstack.appendChild(a);
+    else (i % 2 === 0 ? colR : colL).appendChild(a);
   });
 
   /* ---------- Lenis ---------- */
@@ -637,7 +661,24 @@ window.interdeal = {
         s.sec.querySelectorAll('.pillar').forEach((el) => el.classList.toggle('on', +el.dataset.step === step));
       }
       // עבודות: שני הטורים זורמים למעלה עם הגלילה — במהירויות שונות (פרלקסה)
-      if (s.sec.id === 'work') {
+      if (s.sec.id === 'work' && wstack) {
+        // מובייל: כרטיס אחד במרכז — פייד + החלקה עדינה כלפי מעלה
+        const cards = wstack.children, N = cards.length, seg = 1 / N;
+        // ריווח קטן בהתחלה/בסוף כדי שהכרטיס הראשון והאחרון "יינוחו" רגע במרכז
+        const pp = Math.min(1, Math.max(0, (p - 0.04) / 0.92));
+        let active = 0, best = 1;
+        for (let i = 0; i < N; i++) {
+          const center = (i + 0.5) * seg;
+          const d = (pp - center) / seg;          // מרחק מהמרכז ביחידות של סגמנט
+          const vis = Math.max(0, 1 - Math.abs(d) * 1.7);
+          cards[i].style.opacity = vis;
+          cards[i].style.transform = `translate(-50%,calc(-50% + ${d * -46}px))`;
+          cards[i].style.pointerEvents = vis > 0.55 ? 'auto' : 'none';
+          if (Math.abs(d) < best) { best = Math.abs(d); active = i; }
+        }
+        const wc = s.sec.querySelector('.wcount b');
+        if (wc) wc.textContent = String(active + 1);
+      } else if (s.sec.id === 'work') {
         const cR = document.getElementById('wcolR'), cL = document.getElementById('wcolL');
         if (cR && cL) {
           const tR = Math.max(0, cR.scrollHeight - innerHeight * 0.35);
