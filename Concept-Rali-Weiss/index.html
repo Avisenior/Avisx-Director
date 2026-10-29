@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>THE HEROES קונספט</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Heebo:wght@300;400;600;900&family=Inter:wght@400;600&display=swap">
+<style>
+/* Layout: an AvisX one-sheet. Black screening room, the opener plays first, then the idea, the reveal effect, the story in five acts, and the promise. Orange marks the heroes and every highlight. */
+:root {
+  --bg: #000000;
+  --panel: #0d0d0d;
+  --fg: #ffffff;
+  --muted: #9a9a9a;
+  --line: #1f1f1f;
+  --accent: #e85d04;
+  --display-en: "Anton", Impact, sans-serif;
+  --display-he: "Heebo", "Segoe UI", Arial, sans-serif;
+  --body: "Heebo", "Inter", "Segoe UI", Arial, sans-serif;
+  --mono: "Inter", "Segoe UI", Arial, sans-serif;
+  color-scheme: dark;
+}
+html { background: var(--bg); }
+body {
+  background: var(--bg); color: var(--fg); margin: 0;
+  font-family: var(--body); font-weight: 400; font-size: 18px; line-height: 1.7;
+  direction: rtl;
+}
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-block: 48px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 88px;
+}
+.kicker { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .2em; color: var(--accent); text-transform: uppercase; direction: ltr; text-align: right; }
+h1 {
+  font-family: var(--display-en); font-weight: 400; margin: 0;
+  font-size: clamp(64px, 13vw, 156px); line-height: .92; letter-spacing: .01em;
+  direction: ltr; text-align: right;
+}
+h1 span { color: var(--accent); }
+h2 { font-family: var(--display-he); font-weight: 900; font-size: clamp(30px, 5vw, 52px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h2 em { font-style: normal; color: var(--accent); }
+h3 { font-family: var(--display-he); font-weight: 900; font-size: clamp(24px, 3.6vw, 34px); line-height: 1.15; margin: 0; }
+p { margin: 0; max-width: 64ch; text-wrap: pretty; }
+.lead { font-size: clamp(19px, 2.2vw, 22px); }
+.muted { color: var(--muted); }
+
+header { display: grid; gap: 16px; }
+.subtitle { font-weight: 600; font-size: clamp(20px, 3vw, 26px); margin: 0; }
+
+.video { display: grid; gap: 14px; }
+.video video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; display: block; background: #050505; border: 1px solid var(--line); }
+.video .cap { color: var(--muted); font-size: 16px; }
+
+.block { display: grid; gap: 22px; }
+.block .kicker { margin-bottom: -6px; }
+.strike { text-decoration: line-through; text-decoration-color: var(--accent); text-decoration-thickness: 3px; color: var(--muted); }
+
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.roles div { background: var(--bg); padding: 20px 20px 22px; display: grid; gap: 4px; }
+.roles b { font-family: var(--display-he); font-weight: 900; font-size: 21px; }
+.roles span { color: var(--muted); font-size: 15px; }
+.roles i { font-style: normal; font-family: var(--display-en); font-size: 15px; letter-spacing: .08em; color: var(--accent); direction: ltr; text-align: right; }
+
+.note {
+  border-inline-start: 3px solid var(--accent); background: var(--panel);
+  padding: 18px 20px; font-size: 16px; display: grid; gap: 4px;
+}
+.note b { color: var(--accent); font-weight: 600; }
+
+.act { display: grid; gap: 28px; }
+.act-head { display: grid; gap: 2px; border-inline-start: 3px solid var(--tone); padding-inline-start: 16px; }
+.act.cold { --tone: #ffffff; }
+.act.gold { --tone: var(--accent); }
+.act-no { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .18em; color: var(--tone); text-transform: uppercase; }
+.act-head p { color: var(--muted); }
+
+figure { margin: 0; display: grid; gap: 14px; }
+figure img { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: var(--panel); }
+figcaption { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 24px; align-items: baseline; }
+.shot { font-family: var(--display-en); font-size: 15px; color: var(--tone); letter-spacing: .1em; direction: ltr; white-space: nowrap; }
+.desc { margin: 0; min-width: 0; }
+.cast { grid-column: 1 / -1; font-size: 15px; color: var(--muted); }
+.cast b { color: var(--fg); font-weight: 600; }
+
+.promise { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 48px; }
+
+footer { display: grid; gap: 10px; color: var(--muted); font-size: 15px; }
+.sign { font-family: var(--display-en); font-size: 30px; letter-spacing: .06em; color: var(--fg); direction: ltr; text-align: right; line-height: 1; }
+.sign span { color: var(--accent); }
+.tag { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .2em; direction: ltr; text-align: right; }
+
+@media (max-width: 560px) {
+  body { font-size: 17px; }
+  .wrap { gap: 64px; padding-block: 32px 56px; }
+  figcaption { grid-template-columns: minmax(0, 1fr); }
+  .shot { order: -1; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">Concept · Opening film · 2:00 · 16:9</div>
+    <h1>THE <span>HEROES</span></h1>
+    <p class="subtitle">סרט הפתיחה לכנס הזכיינים, 1.1.2027</p>
+  </header>
+
+  <section class="video">
+    <video controls playsinline preload="metadata" poster="media/opener_poster.jpg">
+      <source src="media/opener.mp4" type="video/mp4">
+    </video>
+    <p class="cap">ככה ייפתח הסרט שלכם. מומלץ לצפות עם סאונד.</p>
+  </section>
+
+  <section class="block">
+    <div class="kicker">The idea</div>
+    <h2>משימה <span class="strike">בלתי</span> <em>אפשרית</em></h2>
+    <p class="lead">שלוש שנים של מלחמה. טילים מאיראן, אזעקות בתל אביב ובראשון לציון. ובכל בוקר, הזכיינים פתחו את הביתנים. הם היו תחת אש ונתנו את כל כולם.</p>
+    <p class="lead">מה שנראה כמו משימה בלתי אפשרית, הם הפכו לאפשרית. לכן הסרט שלנו מוחק את המילה "בלתי".</p>
+    <p class="lead">בסרט הזה הזכיינים הופכים לגיבורים של המערכה:</p>
+    <div class="roles">
+      <div><i>MOSSAD</i><b>סוכני מוסד</b><span>בלב טהרן, מעבירים את הידיעה</span></div>
+      <div><i>PILOTS</i><b>טייסי קרב</b><span>ממריאים לקראת המטח</span></div>
+      <div><i>IRON DOME</i><b>לוחמי כיפת ברזל</b><span>מיירטים כל טיל</span></div>
+      <div><i>SUPER HEROES</i><b>גיבורי על</b><span>עם כוחות של גיבורים</span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="kicker">The reveal</div>
+    <h3>כל גיבור מקבל את הרגע שלו</h3>
+    <p>כל גיבור מוצג על המסך עם השם שלו, כמו סוכן אמיתי בתיק מבצעי. זה הרגע שבו האולם יזהה את החברים שלו.</p>
+    <div class="video">
+      <video controls playsinline preload="metadata" poster="media/agent_poster.jpg">
+        <source src="media/agent_card.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="kicker">The story</div>
+    <h2>הסיפור בחמש מערכות</h2>
+    <div class="note">
+      <b>הדמיה בלבד</b>
+      <span>התמונות כאן נועדו להבין את הרעיון הכללי. בסרט עצמו כל פריים ייבנה ויונפש מחדש, ופרטים כמו מדים, מטוסים ומיקומים יחודדו.</span>
+    </div>
+  </section>
+
+  <section class="act cold">
+    <div class="act-head">
+      <span class="act-no">Act 1 · Tehran</span>
+      <h3>טהרן</h3>
+      <p>פתיחה של סרט ריגול. שקט מאיים לפני הסערה.</p>
+    </div>
+    <figure>
+      <img src="img/f01_tehran.jpg" alt="טהרן בשחר, צריח מסגד ומגדל מילאד באובך" loading="lazy">
+      <figcaption><p class="desc">טהרן בשחר. העיר שקטה, ההרים מאחור באובך.</p><span class="shot">01 · EXT · DAWN</span></figcaption>
+    </figure>
+    <figure>
+      <img src="img/f02_command.jpg" alt="מפקד בחמ&quot;ל משמרות המהפכה מול מפה" loading="lazy">
+      <figcaption><p class="desc">בחמ"ל של משמרות המהפכה מתקבלת ההחלטה: לתקוף את ישראל.</p><span class="shot">02 · INT · NIGHT</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="act cold">
+    <div class="act-head">
+      <span class="act-no">Act 2 · The Agent</span>
+      <h3>הסוכן</h3>
+      <p>בתוך החמ"ל יושב אחד משלנו.</p>
+    </div>
+    <figure>
+      <img src="img/f03_agent.jpg" alt="סוכן מוסד מוסתר בחמ&quot;ל מעביר מבט הצידה" loading="lazy">
+      <figcaption><p class="desc">כולם מסתכלים על המסך. רק הוא מעביר מבט הצידה, וההודעה יוצאת.</p><span class="shot">03 · INT · NIGHT</span>
+      <span class="cast">סוכן המוסד: <b>יבגני בליאכר</b></span></figcaption>
+    </figure>
+    <figure>
+      <img src="img/f04_message.jpg" alt="נהג ברכב בשחר, בטלפון כתוב הם באים, להתכונן" loading="lazy">
+      <figcaption><p class="desc">5:30 בבוקר בגוש דן. ההודעה מגיעה: "הם באים. להתכונן."</p><span class="shot">04 · INT CAR · DAWN</span>
+      <span class="cast">מקבל ההודעה: <b>שאול בנימין</b></span></figcaption>
+    </figure>
+  </section>
+
+  <section class="act gold">
+    <div class="act-head">
+      <span class="act-no">Act 3 · Suit Up</span>
+      <h3>ההתייצבות</h3>
+      <p>כל אחד יוצא לעמדה שלו.</p>
+    </div>
+    <figure>
+      <img src="img/f04b_road.jpg" alt="רוכב אופנוע בכביש בזריחה" loading="lazy">
+      <figcaption><p class="desc">לא בורחים. נוסעים לקראת.</p><span class="shot">05 · EXT ROAD · SUNRISE</span>
+      <span class="cast">על האופנוע: <b>עופר סיני</b></span></figcaption>
+    </figure>
+    <figure>
+      <img src="img/f05_cockpit.jpg" alt="טייס ותיק חובש קסדה בתא מטוס קרב" loading="lazy">
+      <figcaption><p class="desc">הטייס הוותיק בטייסת חובש קסדה. הוא עשה את זה אלף פעם.</p><span class="shot">06 · EXT AIRBASE · SUNRISE</span>
+      <span class="cast">הטייס: <b>ראובן לואישוילי</b></span></figcaption>
+    </figure>
+    <figure>
+      <img src="img/f06_irondome.jpg" alt="מפעילת כיפת ברזל מול מסך מכ&quot;ם" loading="lazy">
+      <figcaption><p class="desc">סוללת כיפת ברזל. המפעילה הכי מנוסה בחדר, ולידה הדור הבא.</p><span class="shot">07 · INT · PRE-DAWN</span>
+      <span class="cast">המפעילות: <b>ליאורה בן שיטרית</b> ו<b>אלין אבן כהן</b></span></figcaption>
+    </figure>
+    <figure>
+      <img src="img/f07_drones.jpg" alt="איש על גג בתל אביב עוצר רחפן ביד מורמת" loading="lazy">
+      <figcaption><p class="desc">על גג בתל אביב, יד אחת עוצרת רחפן באוויר.</p><span class="shot">08 · EXT ROOF · SUNRISE</span>
+      <span class="cast">עוצר הרחפן: <b>עופר שבת</b></span></figcaption>
+    </figure>
+    <figure>
+      <img src="img/f08_inside.jpg" alt="שני לוחמים על רכס בלילה, פיצוץ בעמק מאחוריהם" loading="lazy">
+      <figcaption><p class="desc">עמוק בתוך איראן. המשגר מושבת לפני שהספיק לשגר.</p><span class="shot">09 · EXT RIDGE · NIGHT</span>
+      <span class="cast">הלוחמים: <b>אמיר דרור</b> ו<b>שמואל שקד</b></span></figcaption>
+    </figure>
+  </section>
+
+  <section class="act gold">
+    <div class="act-head">
+      <span class="act-no">Act 4 · The Barrage</span>
+      <h3>המטח</h3>
+      <p>השיא של הסרט.</p>
+    </div>
+    <figure>
+      <img src="img/f09_sky.jpg" alt="יירוטים בשמי גוש דן בשחר" loading="lazy">
+      <figcaption><p class="desc">המטח בשמי גוש דן. כל טיל מיורט, והעיר נשארת שלמה.</p><span class="shot">10 · EXT CITY · DAWN</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="act gold">
+    <div class="act-head">
+      <span class="act-no">Act 5 · Back to Reality</span>
+      <h3>חזרה למציאות</h3>
+      <p>הגיבורים האמיתיים.</p>
+    </div>
+    <figure>
+      <img src="img/f10_dawn.jpg" alt="ביתן כתום עם תריס פתוח למחצה בבוקר" loading="lazy">
+      <figcaption><p class="desc">בוקר. התריס עולה. חוזרים לזכיינים בשגרה, וקול מודה לצוות ולזכיינים על העבודה הקשה ועל התרומה לחוסן הלאומי.</p><span class="shot">11 · EXT STREET · MORNING</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="block promise">
+    <div class="kicker">The film</div>
+    <h2>סרט <em>קולנועי</em>, לא סרטון</h2>
+    <p class="lead">הסרט ייבנה בשפה של קולנוע אמיתי: עבודת מצלמה, עדשות, תאורה, צבע וסאונד ברמה של סרט אקשן הוליוודי. הזכיינים לא יראו את עצמם בסרטון. הם ירגישו שהם היו חלק מסרט.</p>
+  </section>
+
+  <footer>
+    <div class="sign">AVISX <span>DIRECTOR</span></div>
+    <div class="tag">AI CINEMATIC PRODUCTION</div>
+    <p>סרטונים שנראים כמו מיליון דולר</p>
+  </footer>
+</div>
+</body>
+</html>
