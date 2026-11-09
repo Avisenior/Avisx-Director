@@ -527,7 +527,13 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
 .reel-desc { font: 400 12px 'Heebo', sans-serif; color: var(--muted); display: block; margin-top: 3px; }
 .reel-arrow { margin-right: auto; color: var(--muted); font-size: 18px; }
 
-@media print { .reel-card { break-inside: avoid; } }
+.reel-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.reel-links a {
+  font: 400 14px 'Inter', 'Heebo', sans-serif; color: var(--accent);
+  text-decoration: none; direction: ltr; display: inline-block;
+  word-break: break-all;
+}
+.reel-links a:hover { color: var(--accent-hi); text-decoration: underline; }
 }
 </style>
 </head>
@@ -593,25 +599,6 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
     <p>אנו מודים לכם על האמון ועל ההזדמנות ללוות אתכם ביצירת סרטון לזכרו של שלום בן שלמה ז״ל. מטרתנו ליצור יצירה שקטה ומכבדת, שתשמור את דמותו, את רגעיו ואת הסיפורים שלו, ותהיה מזכרת שהמשפחה תוכל לחזור אליה לאורך השנים.</p>
   </div>
 
-  <section class="partners">
-    <div class="sec-label">צוות ההפקה</div>
-    <h2 class="sec-title">שני סטודיו, הפקה אחת</h2>
-    <div class="partners-grid">
-      <div class="partner-card">
-        <span class="partner-studio">AVISX</span>
-        <span class="partner-person">אבי סניור</span>
-        <span class="partner-role">בימוי, הפקת AI ועריכה קולנועית</span>
-      </div>
-      <div class="partner-x">×</div>
-      <div class="partner-card">
-        <span class="partner-studio">CINEMIND</span>
-        <span class="partner-person">מאור פחימה</span>
-        <span class="partner-role">שותף להפקה</span>
-      </div>
-    </div>
-    <p class="partners-note">הסרטון מופק בשיתוף פעולה מלא בין AvisX Studio ל-Cinemind — מחיר אחד, ליווי אחד, מקצה לקצה.</p>
-  </section>
-
   <section class="deliverables">
       <div class="sec-label">מה כולל הפרויקט</div>
       <h2 class="sec-title">סרטון הנצחה ריאליסטי · 3 דקות</h2>
@@ -675,25 +662,12 @@ body:has(a:hover, button:hover) .cursor-ring { width: 56px; height: 56px; }
   </section>
 
   <section class="showreel">
-      <div class="sec-label">Showreel</div>
       <h2 class="sec-title">עבודות נבחרות</h2>
-      <div class="reel-grid">
-
-        <a class="reel-card" href="https://avisx-director.com/work-bar-mitzvah-ilay.html" target="_blank" rel="noopener">
-          <div class="reel-play">
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-          </div>
-          <div>
-            <span class="reel-tag">Showreel · 01</span>
-            <span class="reel-title">בר מצווה — עילאי</span>
-            <span class="reel-desc">צפו בעבודה מלאה</span>
-          </div>
-          <span class="reel-arrow">←</span>
-        </a>
-
-        <!-- REEL-SLOT-2 -->
-
-      </div>
+      <ul class="reel-links">
+        <li><a href="https://avisx-director.com/work-bar-mitzvah-ilay.html" target="_blank" rel="noopener">https://avisx-director.com/work-bar-mitzvah-ilay.html</a></li>
+        <li><a href="https://drive.google.com/file/d/1K41HyLP214DWfxRa7MW00TZ_PUTAPobY/view?usp=drivesdk" target="_blank" rel="noopener">https://drive.google.com/file/d/1K41HyLP214DWfxRa7MW00TZ_PUTAPobY/view</a></li>
+        <li><a href="https://drive.google.com/file/d/1ZZQxGO2tgxnE71WSf5OhIwdga-p1_wPs/view?usp=drivesdk" target="_blank" rel="noopener">https://drive.google.com/file/d/1ZZQxGO2tgxnE71WSf5OhIwdga-p1_wPs/view</a></li>
+      </ul>
   </section>
 
   <section class="pricing">
